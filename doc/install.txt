@@ -1,0 +1,21 @@
+Installing TFM Voting
+
+Overview
+	To install TFM voting, you will need to initialize both a database and upload the 
+	web folder to your PHP enabled web server.  
+
+Initializing the Database
+
+Installing the Web Interface
+	To install the web interface, simply edit the values of the config.php file in the
+	web folder in this repository and then put the entire web folder on your server. 
+	After this, you should password protect (using the web server's functionality) the
+	admin folder to restrict administrator privileges. The vote folder may also be 
+	protected in a similar manner to provide restricted voting and viewing of
+	restricted projects. 
+
+Notes
+	When you wish to change the voting criteria for a project set, you must edit the 
+	config.php file before creating the project set.  The project set will then 
+	inherit the changed criteria while all after will still maintain their previous
+	criteria. 
