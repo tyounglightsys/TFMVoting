@@ -20,10 +20,19 @@ require_once("../functions.php");
             <h1> Edit Entry </h1>
         </div>
         <form action="index.php">
-            <p>
-                Name: <input id="nameField" type="text" name="name" />
-            </p>
+            <table>
+                <tr>
+                    <td> Name: </td>
+                    <td> <input id="nameField" type="text" name="name" /> </td>
+                </tr>
+                <tr>
+                    <td> URL: </td>
+                    <td> <input id="nameField" type="text" name="url" /> </td>
+                </tr>
+            </table>
+    
             <hr />
+            
             <p> 
                 Description:
             </p>
