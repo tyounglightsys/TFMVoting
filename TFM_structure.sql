@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.1.44)
 # Database: TFM
-# Generation Time: 2012-03-12 13:42:20 -0600
+# Generation Time: 2012-03-12 13:52:54 -0600
 # ************************************************************
 
 
@@ -61,6 +61,7 @@ CREATE TABLE `set` (
   `resultsVisible` tinyint(1) NOT NULL,
   `votingOpen` tinyint(1) NOT NULL,
   `archived` tinyint(1) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
