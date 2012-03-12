@@ -1,0 +1,17 @@
+body{
+    font-family: sans-serif;
+}
+
+h1, h2, h3{
+    background-color: rgb(100, 120, 255);
+    color: white;
+    padding: 5px;
+    width: 100%;
+    position: relative;
+}
+
+div#projectSetActions{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
