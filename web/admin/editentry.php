@@ -19,7 +19,7 @@ require_once("../functions.php");
         <div id="header">
             <h1> Edit Entry </h1>
         </div>
-        <form>
+        <form action="index.php">
             <p>
                 Name: <input id="nameField" type="text" name="name" />
             </p>
@@ -30,7 +30,7 @@ require_once("../functions.php");
             <p>
                 <textarea name="description" id="descriptionField"></textarea>
             </p>
-            <input type="submit" value="Cancel" />
+            <a href="index.php">Cancel</a>
             <input type="submit" value="Done" />
         </form>
     </body>

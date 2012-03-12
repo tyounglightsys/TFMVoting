@@ -14,8 +14,10 @@ require_once("../functions.php");
     <head>
         <title> TFM Voting Administration </title>
         <link href="../style.css" type="text/css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="../lighterbox.css" />
     </head>
     <body>
+        
         <div id="header">
             <div id="projectSetActions"> 
                 <form action="">
@@ -35,28 +37,28 @@ require_once("../functions.php");
             <table>
                 <tr>
                     <td>Voting Open:</td>
-                    <td><input type="checkbox" value="votingOpen" /></td>
+                    <td><input type="checkbox" name="votingOpen" /></td>
                 </tr>
                 
                 <tr>
                     <td>Showing Results:</td>
-                    <td><input type="checkbox" value="showingResults" /></td>
+                    <td><input type="checkbox" name="showingResults" /></td>
                 </tr>
                 
                 <tr>
                     <td>Archived: </td>
-                    <td><input type="checkbox" value="archived" /></td>
+                    <td><input type="checkbox" name="archived" /></td>
                 </tr>
             </table>
         </form>
-        
+
         <h2>Entries</h2>
         <?php
             // Generate table
         ?>
-        <form action="">
+        <form action="editentry.php">
             <input type="submit" value="Add New Entry" />
         </form>
-        
+        <script type="text/javascript" src="../lighterbox.js" ></script>
     </body>
 </html>
