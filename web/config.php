@@ -20,7 +20,9 @@ $CRITERIA_DEFAUT = array(
     array('Cooperation', "How well does it utilize and/or encourage cooperation in the Body?"),
     array('Re-usability', "To what extent can other ministries replicate/make use of this idea?")
 );
-
 /// \}
+
+$CRITERIA_NAME        = 0;
+$CRITERIA_DESCRIPTION = 1;
 
 ?>
