@@ -16,8 +16,7 @@ require_once("../functions.php");
         <link href="../style.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
-        <h1>
-            Administration
+        <div id="header">
             <div id="projectSetActions"> 
                 <form action="">
                     <select name="projectSet">
@@ -28,22 +27,36 @@ require_once("../functions.php");
                     <input type="submit" value="New Project Set" />
                 </form>
             </div>
-        </h1>
+            <h1>Administration</h1>
+        </div>
         
         <h2> Project Set Status </h2>
-        <p>
-            Voting Open: <br />
-            Showing Results: <br />
-            Archived: <br />
-        </p>
+        <form action="">
+            <table>
+                <tr>
+                    <td>Voting Open:</td>
+                    <td><input type="checkbox" value="votingOpen" /></td>
+                </tr>
+                
+                <tr>
+                    <td>Showing Results:</td>
+                    <td><input type="checkbox" value="showingResults" /></td>
+                </tr>
+                
+                <tr>
+                    <td>Archived: </td>
+                    <td><input type="checkbox" value="archived" /></td>
+                </tr>
+            </table>
+        </form>
         
         <h2>Entries</h2>
         <?php
             // Generate table
         ?>
-        <p>
-            Add New Entry <br />
-        </p>
+        <form action="">
+            <input type="submit" value="Add New Entry" />
+        </form>
         
     </body>
 </html>
