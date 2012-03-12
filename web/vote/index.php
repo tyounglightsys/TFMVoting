@@ -19,6 +19,9 @@ require_once('../config.php');
             <form action="">
                 <div id="projectName"><?php echo $NAME ?></div>
                 <div id="sliderBox">
+                    <div>
+                    <span>Input</span> // mouseover for description <br />
+                    <input type="range" name="Impact" value="0" min="-10" max="10" />
                     <?php
                         /*
                         foreach($DEFAULT_CRITERIA as $criteria) {
@@ -29,6 +32,7 @@ require_once('../config.php');
                         }
                         */
                     ?>
+                    </div>
                 </div>
             </form>
         </div>
