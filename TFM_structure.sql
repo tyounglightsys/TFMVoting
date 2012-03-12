@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.1.44)
 # Database: TFM
-# Generation Time: 2012-03-09 19:29:02 -0600
+# Generation Time: 2012-03-12 13:42:20 -0600
 # ************************************************************
 
 
@@ -20,14 +20,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
+# Dump of table criteria
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `criteria`;
+
+CREATE TABLE `criteria` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `setname` varchar(255) NOT NULL DEFAULT '',
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `description` varchar(1023) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+
 # Dump of table entry
 # ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `entry`;
 
 CREATE TABLE `entry` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(255) NOT NULL DEFAULT '',
   `name` varchar(255) NOT NULL DEFAULT '',
-  `set` varchar(255) NOT NULL DEFAULT '',
+  `setname` varchar(255) NOT NULL DEFAULT '',
   `order` smallint(6) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -37,10 +54,13 @@ CREATE TABLE `entry` (
 # Dump of table set
 # ------------------------------------------------------------
 
+DROP TABLE IF EXISTS `set`;
+
 CREATE TABLE `set` (
   `name` varchar(255) NOT NULL DEFAULT '',
   `resultsVisible` tinyint(1) NOT NULL,
   `votingOpen` tinyint(1) NOT NULL,
+  `archived` tinyint(1) NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -49,14 +69,26 @@ CREATE TABLE `set` (
 # Dump of table vote
 # ------------------------------------------------------------
 
+DROP TABLE IF EXISTS `vote`;
+
 CREATE TABLE `vote` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `impact` smallint(6) NOT NULL,
-  `quality` smallint(6) NOT NULL,
-  `cooperation` smallint(6) NOT NULL,
-  `reusability` smallint(6) NOT NULL,
-  `entry` int(11) NOT NULL,
+  `entryid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table vote_subresults
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `vote_subresults`;
+
+CREATE TABLE `vote_subresults` (
+  `voteid` int(11) unsigned NOT NULL,
+  `criteriaid` int(11) NOT NULL,
+  `value` int(11) NOT NULL,
+  PRIMARY KEY (`voteid`,`criteriaid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
