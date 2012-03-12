@@ -14,13 +14,12 @@ require_once("../functions.php");
     <head>
         <title> TFM Voting Administration </title>
         <link href="../style.css" type="text/css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="../lighterbox.css" />
     </head>
     <body>
         
         <div id="header">
             <div id="projectSetActions"> 
-                <form action="">
+                <form action="index.php">
                     <select name="projectSet">
                         <option value="placeholder" selected="true"> Project Set List </option>
                     </select>
@@ -59,6 +58,5 @@ require_once("../functions.php");
         <form action="editentry.php">
             <input type="submit" value="Add New Entry" />
         </form>
-        <script type="text/javascript" src="../lighterbox.js" ></script>
     </body>
 </html>
