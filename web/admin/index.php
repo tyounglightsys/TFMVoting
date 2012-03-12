@@ -16,11 +16,19 @@ require_once("../functions.php");
         <link href="../style.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
-        <h1> Administration </h1>
-        <p>
-            Select the current project set: <br />
-            New Project Set
-        </p>
+        <h1>
+            Administration
+            <div id="projectSetActions"> 
+                <form action="">
+                    <select name="projectSet">
+                        <option value="placeholder" selected="true"> Project Set List </option>
+                    </select>
+                    <input type="submit" value="Change Project Set" />
+                    <br />
+                    <input type="submit" value="New Project Set" />
+                </form>
+            </div>
+        </h1>
         
         <h2> Project Set Status </h2>
         <p>
