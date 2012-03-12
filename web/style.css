@@ -1,6 +1,6 @@
-div,span,h1,h2,h3,h4,h5,body,head,html,p {
+div,span,h1,h2,h3,h4,h5,body,head,html,p,a{
     margin: 0;
-    padding: 0;
+    padding: 5px;
 }
 
 body{
@@ -10,7 +10,7 @@ body{
 div#header{
     background-color: rgb(100, 120, 255);
     color: white;
-    padding: 5px;
+    margin-bottom: 5px;
 }
 
 div#projectSetActions{
@@ -24,3 +24,6 @@ textArea#descriptionField{
     height: 5em;
 }
 
+a{
+    color: rgb(70, 70, 70);
+}

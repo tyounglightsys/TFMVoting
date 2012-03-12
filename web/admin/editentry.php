@@ -19,18 +19,27 @@ require_once("../functions.php");
         <div id="header">
             <h1> Edit Entry </h1>
         </div>
-        <form>
-            <p>
-                Name: <input id="nameField" type="text" name="name" />
-            </p>
+        <form action="index.php">
+            <table>
+                <tr>
+                    <td> Name: </td>
+                    <td> <input id="nameField" type="text" name="name" /> </td>
+                </tr>
+                <tr>
+                    <td> URL: </td>
+                    <td> <input id="nameField" type="text" name="url" /> </td>
+                </tr>
+            </table>
+    
             <hr />
+            
             <p> 
                 Description:
             </p>
             <p>
                 <textarea name="description" id="descriptionField"></textarea>
             </p>
-            <input type="submit" value="Cancel" />
+            <a href="index.php">Cancel</a>
             <input type="submit" value="Done" />
         </form>
     </body>
