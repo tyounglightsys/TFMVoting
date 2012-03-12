@@ -1,3 +1,8 @@
+div,span,h1,h2,h3,h4,h5,body,head,html,p {
+    margin: 0;
+    padding: 0;
+}
+
 body{
     font-family: sans-serif;
 }
@@ -5,6 +10,7 @@ body{
 div#header{
     background-color: rgb(100, 120, 255);
     color: white;
+    padding: 5px;
 }
 
 div#projectSetActions{

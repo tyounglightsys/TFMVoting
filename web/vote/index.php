@@ -14,12 +14,11 @@ require_once('../config.php');
         <link rel="stylesheet" type="text/css" href="../style.css">
     </head>
     <body>
-        <h1>Voting</h1>
+        <div id="header"><h1>Voting</h1></div>
         <div id="votingForm">
             <form action="">
                 <div id="projectName"><?php echo $NAME ?></div>
                 <div id="sliderBox">
-                    <span on
                     <?php
                         /*
                         foreach($DEFAULT_CRITERIA as $criteria) {
