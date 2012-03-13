@@ -2,61 +2,131 @@
 
 /** \file index.php
  * \brief This file is the administrative view.
+ *
+ * This file takes the following GET parameters: projectSet - This is the
+ * current group of entries to work on, which will default to the most recent
+ * if none is given.
  */
 
+// Requires --------------------------------------------------------------------
 require_once("../config.php");
 require_once("../components.php");
 require_once("../functions.php");
+
+// Variables -------------------------------------------------------------------
+$projectSet = null;
+$title = "";
+$states = array("resultsVisible" => false, "votingOpen" => false, "archived" => false);
+
+// Generation ------------------------------------------------------------------
+DB_Start();
+
+// Get current project set
+if(isset($_GET["projectSet"]) && DB_GetProjectSetExists($_GET["projectSet"])){
+    $projectSet = $_GET["projectSet"];
+}
+else{
+    $projectSet = DB_GetCurrentProjectSetName();
+    if(!$projectSet){
+        $projectSet = null;
+    }
+}
+
+$title = htmlentities($projectSet) . " > Administration";
+$states = DB_GetProjectSetStates($projectSet);
 
 ?>
 
 <html>
     <head>
-        <title> TFM Voting Administration </title>
+        <title> <?php print($title) ?> </title>
         <link href="../style.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
         
         <div id="header">
+            <h1> <?php print($title) ?></h1>
             <div id="projectSetActions"> 
                 <form action="index.php">
                     <select name="projectSet">
-                        <option value="placeholder" selected="true"> Project Set List </option>
+                        
+                        <?php
+                            // Generate list of projects
+                            $names = DB_GetAllProjectSetNames();
+                            foreach($names as $name){
+                                printf('<option value="%s" %s>%s</option>',
+                                       htmlspecialchars($name, ENT_QUOTES),
+                                       ($name == $projectSet) ? "selected='true'" : "",
+                                       htmlentities($name));
+                            }
+                        ?>
+    
                     </select>
                     <input type="submit" value="Change Project Set" />
                     <br />
                     <input type="submit" value="New Project Set" />
                 </form>
             </div>
-            <h1>Administration</h1>
         </div>
         
-        <h2> Project Set Status </h2>
+        <h2> Status </h2>
         <form action="">
             <table>
                 <tr>
-                    <td>Voting Open:</td>
-                    <td><input type="checkbox" name="votingOpen" /></td>
+                    <td>Open:</td>
+                    <td><input type="checkbox" name="votingOpen"
+                        
+                        <?php
+                            // Show the status for the votingOpen category
+                            if($states["votingOpen"]){
+                                print("checked='yes'");
+                            }
+                        ?>"/>
+                        
+                    </td>
                 </tr>
-                
                 <tr>
                     <td>Showing Results:</td>
-                    <td><input type="checkbox" name="showingResults" /></td>
+                    <td><input type="checkbox" name="showingResults" 
+                    
+                        <?php
+                            // Show the status for the resultsVisible category
+                            if($states["resultsVisible"]){
+                                print("checked='yes'");
+                            }
+                        ?>"/>
+                        
+                    </td>
                 </tr>
-                
                 <tr>
                     <td>Archived: </td>
-                    <td><input type="checkbox" name="archived" /></td>
+                    <td><input type="checkbox" name="archived"
+                    
+                        <?php
+                            // Show the status for the archived category
+                            if($states["archived"]){
+                                print("checked='yes'");
+                            }
+                        ?>"/>
+                    
+                    </td>
                 </tr>
             </table>
         </form>
 
         <h2>Entries</h2>
         <?php
-            // Generate table
+            $et = new Admin_Entry_Table($projectSet);
+            $et->generate();
         ?>
         <form action="editentry.php">
             <input type="submit" value="Add New Entry" />
         </form>
     </body>
 </html>
+
+<?php
+
+DB_End();
+
+?>

@@ -25,4 +25,9 @@ $CRITERIA_DEFAULT = array(
 $CRITERIA_NAME        = 0;
 $CRITERIA_DESCRIPTION = 1;
 
+define(DB_USERNAME, "tfm");
+define(DB_PASSWORD, "tfm");
+define(DB_HOST, "127.0.0.1");
+define(DB_DATABASE, "tfm");
+
 ?>
