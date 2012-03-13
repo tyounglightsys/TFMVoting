@@ -4,45 +4,37 @@
  *         - not started, open, and published.
  */
 
-require_once('../config.php');
-require_once('../components.php');
-require_once('../functions.php');
+// Includes and Requires -------------------------------------------------------
 
-// Initiate connection to MySQL server
-DB_Start();
-
+// Variables -------------------------------------------------------------------
 $projectSet = null;
+$title = '';
+$head_extra = null;
 
-if (isset($_GET["projectSet"]) && DB_GetProjectSetExists($_GET["projectSet"])) {
-    $projectSet = $_GET["projectSet"];
-} else {
-    $projectSet = DB_GetCurrentProjectSetName();
-    if (!$projectSet) {
-        $projectSet = null;
-    }
-}
+$title = $projectSet . ' Project Voting';
 
-$title = htmlentities($projectSet, ENT_QUOTES | ENT_HTML401) . ' Project Voting';
-?>
-<html>
-    <head>
-        <title><?php ECHO $title ?></title>
-        <link rel="stylesheet" type="text/css" href="../style.css">
-        <script src="../html5slider.js"></script>
+// Set additional head information
+$head_extra = '<script src="../html5slider.js"></script>
         <script type="text/javascript">
             function displaySliderValue(elementId, value) {
                 var elem = document.getElementById(elementId);
                 elem.innerHTML = value;
             }
-        </script>
-        <!--[if lt IE 9]>
-        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-    </head>
-    <body>
-        <div id="header"><h1><?php ECHO $title ?></h1></div>
-        <?php
-            $votingTable = new Voting_Entry_Table($projectSet);
-            $votingTable->generate();?>
-    </body>
-</html>
+        </script>';
+
+// Header Require --------------------------------------------------------------
+require_once('../header.php');
+
+// Header Overrides ------------------------------------------------------------
+if (!$projectSet) {
+    $projectSet = DB_GetCurrentProjectSetName();
+    if(!$projectSet) {
+        $projectSet = null;
+    }
+}
+
+$votingTable = new Voting_Entry_Table($projectSet);
+$votingTable->generate();
+
+require_once('../footer.php')
+?>

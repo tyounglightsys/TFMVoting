@@ -19,8 +19,10 @@ div#header {
 }
 
 div#projectSetActions {
-    float: right;
-    clear: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    
     text-align: right;
 }
 
