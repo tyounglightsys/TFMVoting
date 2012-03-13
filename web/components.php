@@ -118,6 +118,18 @@ class Admin_Entry_Table extends Entry_Table{
         print("<tr>
                 <td>" . $name . "</td>
                 <td>" . $url . "</td>
+                <td>
+                    <form>
+                        <input type='submit' value='^' / >
+                        <input type='hidden' name='projectSet' value='" . htmlspecialchars($this->name) . "'>
+                    </form>
+                </td>
+                <td>
+                    <form>
+                        <input type='submit' value='v' / >
+                        <input type='hidden' name='projectSet' value='" . htmlspecialchars($this->name) . "'>
+                    </form>
+                </td>
               </tr>");
     }
     
