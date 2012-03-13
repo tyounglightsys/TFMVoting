@@ -8,68 +8,58 @@
  * if none is given.
  */
 
-// Requires --------------------------------------------------------------------
-require_once("../config.php");
-require_once("../components.php");
-require_once("../functions.php");
+// Includes and Requires -------------------------------------------------------
+require_once('../config.php');
+require_once('../functions.php');
+
+DB_Start();
 
 // Variables -------------------------------------------------------------------
 $projectSet = null;
 $title = "";
 $states = array("resultsVisible" => false, "votingOpen" => false, "archived" => false);
-
-// Generation ------------------------------------------------------------------
-DB_Start();
-
-// Get current project set
-if(isset($_GET["projectSet"]) && DB_GetProjectSetExists($_GET["projectSet"])){
-    $projectSet = $_GET["projectSet"];
-}
-else{
-    $projectSet = DB_GetCurrentProjectSetName();
-    if(!$projectSet){
-        $projectSet = null;
-    }
-}
+$header_div_extra = null;
 
 $title = htmlentities($projectSet) . " > Administration";
 $states = DB_GetProjectSetStates($projectSet);
 
-?>
-
-<html>
-    <head>
-        <title> <?php print($title) ?> </title>
-        <link href="../style.css" type="text/css" rel="stylesheet" />
-    </head>
-    <body>
-        
-        <div id="header">
-            <h1> <?php print($title) ?></h1>
-            <div id="projectSetActions"> 
+// Set additional header div information
+$header_div_extra = '<div id="projectSetActions"> 
                 <form action="index.php">
                     <select name="projectSet">
-                        
-                        <?php
-                            // Generate list of projects
-                            $names = DB_GetAllProjectSetNames();
-                            foreach($names as $name){
-                                printf('<option value="%s" %s>%s</option>',
-                                       htmlspecialchars($name, ENT_QUOTES),
-                                       ($name == $projectSet) ? "selected='true'" : "",
-                                       htmlentities($name));
-                            }
-                        ?>
-    
+                        ';
+
+// Generate list of projects
+$names = DB_GetAllProjectSetNames();
+foreach($names as $name){
+    $header_div_extra .= '<option value="'
+        . htmlspecialchars($name, ENT_QUOTES)
+        . '" ' . ($name == $projectSet) ? "selected=\'true\'" : ""
+        . '>' . htmlentities($name) . '</option>';
+}
+
+$header_div_extra .= '
                     </select>
                     <input type="submit" value="Change Project Set" />
                 </form>
                 <form action="newset.php">
                     <input type="submit" value="New Project Set" />
                 </form>
-            </div>
-        </div>
-        
+            </div>';
+
+
+// Header Require --------------------------------------------------------------
+require_once('../header.php');
+
+// Header Overrides ------------------------------------------------------------
+if (!$projectSet) {
+    $projectSet = DB_GetCurrentProjectSetName();
+    if(!$projectSet) {
+        $projectSet = null;
+    }
+}
+
+?>
         <h2> Status </h2>
         <form action="">
             <table>
@@ -125,11 +115,4 @@ $states = DB_GetProjectSetStates($projectSet);
         <form action="editentry.php">
             <input type="submit" value="Add New Entry" />
         </form>
-    </body>
-</html>
-
-<?php
-
-DB_End();
-
-?>
+<?php require_once('../footer.php') ?>
