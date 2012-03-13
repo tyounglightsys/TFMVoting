@@ -206,21 +206,59 @@ class Admin_Entry_Table extends Entry_Table{
 
 /** \brief A subclass of Entry_Table that shows all the entries for voting on.
  */
-class Voting_Entry_Table extends Entry_Table{
+class Voting_Entry_Table extends Entry_Table {
+    // Constructor -------------------------------------------------------------    
+    function __construct($name){
+        parent::__construct($name, false);
+        
+        /*print('kitten');
+        $this->name = $name;
+        $this->criteria = DB_GetProjectSetCriteria($name); */
+    }
     
     // Implemented for Entry_Table ---------------------------------------------
     function writeStart(){
-        
+        print('kitten');
+        /*ECHO '
+        <div id="votingForm">
+            <form name="postVote" action="" method="post">';*/
     }
     
     function writeEntry($id, $name, $url, $overallScore){
-        
+        print('kitten');
+        /* ECHO '
+                <div id="project">
+                    <h2><div id="projectUrl"><a href="' . $url . '">' . $url . '</a></div><div id="projectName">' . $name . '</div></h2>
+                    <table>
+                        <div id="sliderBox">';
+                            foreach($this->getCriteria() as $j => $crit) {
+                                echo '
+                            <tr>
+                                <td>' . htmlspecialchars($crit["name"]) . '</td>
+                                <td>
+                                    <input type="range" class="sliderBar" id="sliderBar' . $id . '.' . $j . '" name="p' . $id . '.' . $crit["name"]
+                                        . '" value="0" min="-10" max="10" onchange="displaySliderValue(\'sliderValue' . $id . '.' . $j . '\', this.value)" />
+                                    <span id="sliderValue' . $id . '.' . $j . '"><script>document.write(document.getElementById(\'sliderBar' . $id . '.' . $j . '\').value)</script></span>
+                                </td>
+                            </tr>';
+                            }
+                            echo '
+                        </div>
+                    </table>
+                </div>'; */
     }
     
     function writeEnd(){
-        
+        print('kitten');
+        /* ECHO '
+                <table>
+                    <tr>
+                        <td><input type="submit" name="submit" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>'; */
     }
-    
 }
 
 /// \}
