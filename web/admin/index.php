@@ -11,19 +11,6 @@
 // Includes and Requires -------------------------------------------------------
 require_once('../header_start.php');
 
-// Header Overrides ------------------------------------------------------------
-if (!$projectSet) {
-    $projectSet = DB_GetCurrentProjectSetName();
-    if(!$projectSet) {
-        $projectSet = null;
-    }
-}
-
-// Variables -------------------------------------------------------------------
-$title = "";
-$states = array("resultsVisible" => false, "votingOpen" => false, "archived" => false);
-$header_div_extra = null;
-
 // Processing ------------------------------------------------------------------
 DB_Start();
 
@@ -50,31 +37,39 @@ if(isset($_POST[P_ADMIN_ACTION])){
     }
 }
 
+if (!$projectSet) {
+    $projectSet = DB_GetCurrentProjectSetName();
+    if(!$projectSet) {
+        $projectSet = null;
+    }
+}
+
 // Generation ------------------------------------------------------------------
 $title = $projectSet . " > Administration";
 $states = DB_GetProjectSetStates($projectSet);
+$names = DB_GetAllProjectSetNames();
+
 
 // Set additional header div information
-$header_div_extra = '<div id="projectSetActions"> 
-                <form action="index.php">
-                    <select name="projectSet">
-                        ';
+$div_header_extra ='<div id="projectSetActions"> 
+                    <form action="index.php">
+                    <select name="projectSet">';
 
 // Generate list of projects
-$names = DB_GetAllProjectSetNames();
 foreach($names as $name){
-    $header_div_extra .= '<option value="'
+    $div_header_extra .= '<option value="'
         . htmlspecialchars($name, ENT_QUOTES)
-        . '" ' . ($name == $projectSet) ? "selected=\'true\'" : ""
+        . '" ' . (($name == $projectSet) ? "selected=\'true\'" : "")
         . '>' . htmlentities($name) . '</option>';
 }
 
-$header_div_extra .= '
+// Finish off extra header info
+$div_header_extra .= '
                     </select>
                     <input type="submit" value="Change Project Set" />
                 </form>
                 <form action="newset.php">
-                    <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)); ?>" name="<?php print(P_NEWSET_PREV_PROJ_SET)?>" />
+                    <input type="hidden" value="' . htmlspecialchars($projectSet, ENT_QUOTES) . '" name="' . htmlspecialchars(P_NEWSET_PREV_PROJ_SET, ENT_QUOTES) . '"/>
                     <input type="submit" value="New Project Set" />
                 </form>
             </div>';
