@@ -30,6 +30,8 @@ require_once("../functions.php");
                     <td> <input id="nameField" type="text" name="url" /> </td>
                 </tr>
             </table>
+            <input type="checkbox" name="confidential" />Confidential</input>
+            <hr />
             <a href="index.php">Cancel</a>
             <input type="submit" value="Done" />
         </form>
