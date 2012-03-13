@@ -238,22 +238,19 @@ class Voting_Entry_Table extends Entry_Table {
     function __construct($name){
         parent::__construct($name, false);
         
-        /*print('kitten');
         $this->name = $name;
-        $this->criteria = DB_GetProjectSetCriteria($name); */
+        $this->criteria = DB_GetProjectSetCriteria($name);
     }
     
     // Implemented for Entry_Table ---------------------------------------------
     function writeStart(){
-        print('kitten');
-        /*ECHO '
+        ECHO '
         <div id="votingForm">
-            <form name="postVote" action="" method="post">';*/
+            <form name="postVote" action="" method="post">';
     }
     
     function writeEntry($id, $name, $url, $overallScore, $scores){
-        print('kitten');
-        /* ECHO '
+        ECHO '
                 <div id="project">
                     <h2><div id="projectUrl"><a href="' . $url . '">' . $url . '</a></div><div id="projectName">' . $name . '</div></h2>
                     <table>
@@ -272,19 +269,18 @@ class Voting_Entry_Table extends Entry_Table {
                             echo '
                         </div>
                     </table>
-                </div>'; */
+                </div>';
     }
     
     function writeEnd(){
-        print('kitten');
-        /* ECHO '
+        ECHO '
                 <table>
                     <tr>
                         <td><input type="submit" name="submit" /></td>
                     </tr>
                 </table>
             </form>
-        </div>'; */
+        </div>';
     }
 }
 
