@@ -12,27 +12,36 @@
 require_once("../config.php");
 require_once("../components.php");
 require_once("../functions.php");
+require_once("../params.php");
 
-// Variables -------------------------------------------------------------------
-$projectSet = null;
-$title = "";
-$states = array("resultsVisible" => false, "votingOpen" => false, "archived" => false);
-
-// Generation ------------------------------------------------------------------
+// Processing ------------------------------------------------------------------
 DB_Start();
 
-// Get current project set
-if(isset($_GET["projectSet"]) && DB_GetProjectSetExists($_GET["projectSet"])){
-    $projectSet = $_GET["projectSet"];
-}
-else{
-    $projectSet = DB_GetCurrentProjectSetName();
-    if(!$projectSet){
-        $projectSet = null;
+if(isset($_POST[P_ADMIN_ACTION])){
+    switch($_POST[P_ADMIN_ACTION]){
+        case PV_ADMIN_ACTION_STATE_CHANGE:
+            if($projectSet){
+                DB_SetProjectSetStates($projectSet,
+                                       $_POST[P_ADMIN_STATE_VOTING_OPEN],
+                                       $_POST[P_ADMIN_STATE_RESULTS_VISIBLE],
+                                       $_POST[P_ADMIN_STATE_ARCHIVED]);
+            }
+            break;
+        case PV_ADMIN_ACTION_NEW_PROJECT_SET:
+            if(!$projectSet){
+                DB_CreateProjectSet($projectSet);
+            }
+            break;
+        case PV_ADMIN_ACTION_NEW_ENTRY:
+            if($projectSet){
+                DB_CreateEntry($projectSet, $entryName, $entryURL, $entryDescription, $entryPrivate);
+            }
+            break;
     }
 }
 
-$title = htmlentities($projectSet) . " > Administration";
+// Generation ------------------------------------------------------------------
+$title = $projectSet . " > Administration";
 $states = DB_GetProjectSetStates($projectSet);
 
 ?>
@@ -47,8 +56,8 @@ $states = DB_GetProjectSetStates($projectSet);
         <div id="header">
             <h1> <?php print($title) ?></h1>
             <div id="projectSetActions"> 
-                <form action="index.php">
-                    <select name="projectSet">
+                <form action="index.php" method="get">
+                    <select name="<?php print(P_ADMIN_PROJ_SET); ?>">
                         
                         <?php
                             // Generate list of projects
@@ -65,6 +74,7 @@ $states = DB_GetProjectSetStates($projectSet);
                     <input type="submit" value="Change Project Set" />
                 </form>
                 <form action="newset.php">
+                    <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)); ?>" name="<?php print(P_NEWSET_PREV_PROJ_SET)?>" />
                     <input type="submit" value="New Project Set" />
                 </form>
             </div>
@@ -75,7 +85,7 @@ $states = DB_GetProjectSetStates($projectSet);
             <table>
                 <tr>
                     <td>Open:</td>
-                    <td><input type="checkbox" name="votingOpen"
+                    <td><input type="checkbox" name="<?php print(P_ADMIN_STATE_VOTING_OPEN); ?>"
                         
                         <?php
                             // Show the status for the votingOpen category
@@ -88,7 +98,7 @@ $states = DB_GetProjectSetStates($projectSet);
                 </tr>
                 <tr>
                     <td>Showing Results:</td>
-                    <td><input type="checkbox" name="showingResults" 
+                    <td><input type="checkbox" name="<?php print(P_ADMIN_STATE_SHOWING_RESULTS); ?>"
                     
                         <?php
                             // Show the status for the resultsVisible category
@@ -101,7 +111,7 @@ $states = DB_GetProjectSetStates($projectSet);
                 </tr>
                 <tr>
                     <td>Archived: </td>
-                    <td><input type="checkbox" name="archived"
+                    <td><input type="checkbox" name="<?php print(P_ADMIN_STATE_ARCHIVED); ?>"
                     
                         <?php
                             // Show the status for the archived category
@@ -113,7 +123,7 @@ $states = DB_GetProjectSetStates($projectSet);
                     </td>
                 </tr>
             </table>
-            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)); ?>" name="projectSet" />
+            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)); ?>" name=<?php print(P_ADMIN_PROJ_SET) ?> />
             <input type="submit" value="Update State" />
         </form>
 
