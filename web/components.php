@@ -34,7 +34,7 @@ abstract class Entry_Table{
                            "' ORDER BY `order` ASC") or die(mysql_error());
         }
         else{
-            $this->res = mysql_query("SELECT `id`, `name`, `url` 0 as totalScore FROM `entry` WHERE `setname` = '" .
+            $this->res = mysql_query("SELECT `id`, `name`, `url`, 0 as totalScore FROM `entry` WHERE `setname` = '" .
                            mysql_real_escape_string($this->name) .
                            "' ORDER BY `order` ASC") or die(mysql_error());
         }
