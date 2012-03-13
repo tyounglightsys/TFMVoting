@@ -10,7 +10,7 @@ require_once('../functions.php');
 
 $projects = array(
                  array('id' => 0,
-                       'name' => 'Something',
+                       'name' => 'Something really very very long for no reason whatsoever',
                        'url' => 'http://lolcats'),
                  array('id' => 1,
                        'name' => 'Something else',
@@ -19,9 +19,6 @@ $projects = array(
                        'name' => 'Something fun',
                        'url' => 'wat')
                 );
-
-$PROJECT_ID = 0;
-$PROJECT_NAME = 1;
 ?>
 <html>
     <head>
@@ -32,23 +29,25 @@ $PROJECT_NAME = 1;
         <div id="header"><h1>Voting</h1></div>
         <div id="votingForm">
             <form name="postVote" action="" method="post"> <?php foreach($projects as $project) {
-            print('
-                <div class="project">
-                    <h2><span id="projectName">' . $project['name'] . '</span><span id="projectUrl"><a href="' . $project['url'] . '">' . $project['url'] . '</a></span></h2>
+            echo '
+                <div id="project">
+                    <h2><div id="projectUrl"><a href="' . $project['url'] . '">' . $project['url'] . '</a></div><div id="projectName">' . $project['name'] . '</div></h2>
                     <table>
-                        <div id="sliderBox">');
-                            foreach($CRITERIA_DEFAULT as $criteria) { print('
+                        <div id="sliderBox">';
+                            foreach($CRITERIA_DEFAULT as $criteria) {
+                                echo '
                             <tr>
                                 <td>' . $criteria[$CRITERIA_NAME] . '</td>
                                 <td><input type="range" name="p' . $project['id'] . '.' . $criteria[$CRITERIA_NAME]
                                 . '" value="0" min="-10" max="10" /></td>
-                            </tr>');
-                            } print('
+                            </tr>';
+                            }
+                            echo '
                         </div>
                     </table>
-                </div>');
-            }
-            ?>
+                </div>';
+            } ?>
+
                 <table>
                     <tr>
                         <td><input type="submit" name="submit" /></td>
@@ -56,8 +55,8 @@ $PROJECT_NAME = 1;
                 </table>
             </form>
         </div>
-        <div id="showVoted">
-            <div id="projectName"><?php echo $NAME ?></div>
-        </div>
+        <!--<div id="showVoted">
+            <div id="projectName"><?php echo $projects[0]['name'] ?></div>
+        </div>-->
     </body>
 </html>

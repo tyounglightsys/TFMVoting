@@ -1,6 +1,10 @@
-div, span, h1, h2, h3, h4, h5, body, head, html, p, a, form {
+* {
     margin: 0;
     padding: 5px;
+}
+
+input, table, div#sliderBox {
+    padding: 0;
 }
 
 body {
@@ -9,7 +13,7 @@ body {
 
 div#header {
     position: relative;
-    background-color: rgb(100, 120, 255);
+    background-color: #6478ff;
     color: white;
     margin-bottom: 5px;
 }
@@ -20,15 +24,38 @@ div#projectSetActions {
     text-align: right;
 }
 
+div#project {
+    min-width: 380px;
+    //border: 1px solid black;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    
+    width: 700px;
+    margin: 10px 0;
+}
+
 div#projectName {
     margin: 0;
     padding: 0;
-    min-width: 400px;
+    min-width: 260px;
 }
 
-span#projectUrl {
-    position: relative;
-    left: 50px;
+div#projectUrl {
+    display: block;
+    float: right;
+    clear: right;
+    
+    border: 1px solid black;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    
+    width: auto;
+    
+    margin-left: auto;
+    margin-right: 0;    
+    padding: 2px;
 }
 
 textArea#descriptionField {
