@@ -24,7 +24,34 @@ $title = "";
 $states = array("resultsVisible" => false, "votingOpen" => false, "archived" => false);
 $header_div_extra = null;
 
-$title = htmlentities($projectSet) . " > Administration";
+// Processing ------------------------------------------------------------------
+DB_Start();
+
+if(isset($_POST[P_ADMIN_ACTION])){
+    switch($_POST[P_ADMIN_ACTION]){
+        case PV_ADMIN_ACTION_STATE_CHANGE:
+            if($projectSet){
+                DB_SetProjectSetStates($projectSet,
+                                       $_POST[P_ADMIN_STATE_VOTING_OPEN],
+                                       $_POST[P_ADMIN_STATE_RESULTS_VISIBLE],
+                                       $_POST[P_ADMIN_STATE_ARCHIVED]);
+            }
+            break;
+        case PV_ADMIN_ACTION_NEW_PROJECT_SET:
+            if(!$projectSet){
+                DB_CreateProjectSet($projectSet);
+            }
+            break;
+        case PV_ADMIN_ACTION_NEW_ENTRY:
+            if($projectSet){
+                DB_CreateEntry($projectSet, $entryName, $entryURL, $entryDescription, $entryPrivate);
+            }
+            break;
+    }
+}
+
+// Generation ------------------------------------------------------------------
+$title = $projectSet . " > Administration";
 $states = DB_GetProjectSetStates($projectSet);
 
 // Set additional header div information
@@ -47,6 +74,7 @@ $header_div_extra .= '
                     <input type="submit" value="Change Project Set" />
                 </form>
                 <form action="newset.php">
+                    <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)); ?>" name="<?php print(P_NEWSET_PREV_PROJ_SET)?>" />
                     <input type="submit" value="New Project Set" />
                 </form>
             </div>';
@@ -59,7 +87,7 @@ require_once('../header_end.php');
             <table>
                 <tr>
                     <td>Open:</td>
-                    <td><input type="checkbox" name="votingOpen"
+                    <td><input type="checkbox" name="<?php print(P_ADMIN_STATE_VOTING_OPEN); ?>"
                         
                         <?php
                             // Show the status for the votingOpen category
@@ -72,7 +100,7 @@ require_once('../header_end.php');
                 </tr>
                 <tr>
                     <td>Showing Results:</td>
-                    <td><input type="checkbox" name="showingResults" 
+                    <td><input type="checkbox" name="<?php print(P_ADMIN_STATE_SHOWING_RESULTS); ?>"
                     
                         <?php
                             // Show the status for the resultsVisible category
@@ -85,7 +113,7 @@ require_once('../header_end.php');
                 </tr>
                 <tr>
                     <td>Archived: </td>
-                    <td><input type="checkbox" name="archived"
+                    <td><input type="checkbox" name="<?php print(P_ADMIN_STATE_ARCHIVED); ?>"
                     
                         <?php
                             // Show the status for the archived category
@@ -97,7 +125,7 @@ require_once('../header_end.php');
                     </td>
                 </tr>
             </table>
-            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)); ?>" name="projectSet" />
+            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)); ?>" name=<?php print(P_ADMIN_PROJ_SET) ?> />
             <input type="submit" value="Update State" />
         </form>
 

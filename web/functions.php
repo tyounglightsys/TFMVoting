@@ -112,8 +112,28 @@ function DB_GetAllProjectSetStates(){
     
 }
 
-function DB_GetEntryData($connData, $entryID){
-    
+/** \brief Set the states associated with a project set.
+ * \param projectSetName The name of the project set.
+ * \param votingOpen If the project set is supposed to be open.
+ * \param resultsVisible If the results should be visible.
+ * \param archived If the project set is supposed to be archived.
+ */
+function DB_SetProjectSetStates($projectSetName, $votingOpen, $resultsVisible, $archived){
+    mysql_query("UPDATE `set` SET `resultsVisible` = " . (int)$resultsVisible . ",
+                            `votingOpen` = " . (int)$votingOpen . ",
+                            `archived` = " . (int)$archived) or die(mysql_error());
+}
+
+function DB_CreateProjectSet($setName){
+    mysql_query("INSERT INTO `set` (`resultsVisible`, `votingOpen`, `archived`) VALUES (0, 0, 0)") or die(mysql_error());
+}
+
+function DB_CreateEntry($projectSet, $entryName, $entryURL, $entryDescription, $entryPrivate){
+    mysql_query("INSERT INTO `entry` (`url`, `name`, `description`) VALUES ('" .
+                mysql_escape_string((string)$entryURL) . "', '" .
+                mysql_escape_string((string)$entryName) . "'," .
+                mysql_escape_string((string)$entryDescription) . "'," .
+                (int)$entryPrivate . ")") or die(mysql_error());
 }
 
 /// \}
