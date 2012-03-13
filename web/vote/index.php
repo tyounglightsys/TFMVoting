@@ -10,7 +10,7 @@ require_once('../functions.php');
 
 $projects = array(
                  array('id' => 0,
-                       'name' => 'Something really very very long for no reason whatsoever',
+                       'name' => 'Something',
                        'url' => 'http://lolcats'),
                  array('id' => 1,
                        'name' => 'Something else',
