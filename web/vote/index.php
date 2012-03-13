@@ -5,9 +5,17 @@
  */
 
 // Includes and Requires -------------------------------------------------------
+require_once('../header_start.php');
+
+// Header Overrides ------------------------------------------------------------
+if (!$projectSet) {
+    $projectSet = DB_GetCurrentProjectSetName();
+    if(!$projectSet) {
+        $projectSet = null;
+    }
+}
 
 // Variables -------------------------------------------------------------------
-$projectSet = null;
 $title = '';
 $head_extra = null;
 
@@ -22,16 +30,8 @@ $head_extra = '<script src="../html5slider.js"></script>
             }
         </script>';
 
-// Header Require --------------------------------------------------------------
-require_once('../header.php');
-
-// Header Overrides ------------------------------------------------------------
-if (!$projectSet) {
-    $projectSet = DB_GetCurrentProjectSetName();
-    if(!$projectSet) {
-        $projectSet = null;
-    }
-}
+// Header ----------------------------------------------------------------------
+require_once('../header_end.php');
 
 $votingTable = new Voting_Entry_Table($projectSet);
 $votingTable->generate();

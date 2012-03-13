@@ -9,13 +9,17 @@
  */
 
 // Includes and Requires -------------------------------------------------------
-require_once('../config.php');
-require_once('../functions.php');
+require_once('../header_start.php');
 
-DB_Start();
+// Header Overrides ------------------------------------------------------------
+if (!$projectSet) {
+    $projectSet = DB_GetCurrentProjectSetName();
+    if(!$projectSet) {
+        $projectSet = null;
+    }
+}
 
 // Variables -------------------------------------------------------------------
-$projectSet = null;
 $title = "";
 $states = array("resultsVisible" => false, "votingOpen" => false, "archived" => false);
 $header_div_extra = null;
@@ -47,18 +51,8 @@ $header_div_extra .= '
                 </form>
             </div>';
 
-
-// Header Require --------------------------------------------------------------
-require_once('../header.php');
-
-// Header Overrides ------------------------------------------------------------
-if (!$projectSet) {
-    $projectSet = DB_GetCurrentProjectSetName();
-    if(!$projectSet) {
-        $projectSet = null;
-    }
-}
-
+// Header ----------------------------------------------------------------------
+require_once('../header_end.php');
 ?>
         <h2> Status </h2>
         <form action="">
