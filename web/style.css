@@ -1,4 +1,4 @@
-div, span, h1, h2, h3, h4, h5, body, head, html, p, a {
+div, span, h1, h2, h3, h4, h5, body, head, html, p, a, form {
     margin: 0;
     padding: 5px;
 }
@@ -8,6 +8,7 @@ body {
 }
 
 div#header {
+    position: relative;
     background-color: rgb(100, 120, 255);
     color: white;
     margin-bottom: 5px;
@@ -22,6 +23,10 @@ div#projectSetActions {
 textArea#descriptionField {
     width: 100%;
     height: 5em;
+}
+
+table {
+    text-align: left;
 }
 
 a {
