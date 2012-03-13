@@ -14,7 +14,7 @@
  * The format of this is an array of arrays, where the subarrays are a name and
  * a description.
  */
-$CRITERIA_DEFAUT = array(
+$CRITERIA_DEFAULT = array(
     array('Impact', "What is the actual/potential Kingdom impact?"),
     array('Quality', "Technical quality, usability, etc."),
     array('Cooperation', "How well does it utilize and/or encourage cooperation in the Body?"),
