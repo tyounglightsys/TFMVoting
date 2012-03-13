@@ -24,6 +24,13 @@ $projects = array(
     <head>
         <title>Project Voting</title>
         <link rel="stylesheet" type="text/css" href="../style.css">
+        <script src="../html5slider.js"></script>
+        <script type="text/javascript">
+            function displaySliderValue(elementId, value) {
+                var elem = document.getElementById(elementId);
+                elem.innerHTML = value;
+            }
+        </script>
     </head>
     <body>
         <div id="header"><h1>Voting</h1></div>
@@ -34,12 +41,15 @@ $projects = array(
                     <h2><div id="projectUrl"><a href="' . $project['url'] . '">' . $project['url'] . '</a></div><div id="projectName">' . $project['name'] . '</div></h2>
                     <table>
                         <div id="sliderBox">';
-                            foreach($CRITERIA_DEFAULT as $criteria) {
+                            foreach($CRITERIA_DEFAULT as $j => $criteria) {
                                 echo '
                             <tr>
                                 <td>' . $criteria[$CRITERIA_NAME] . '</td>
-                                <td><input type="range" name="p' . $project['id'] . '.' . $criteria[$CRITERIA_NAME]
-                                . '" value="0" min="-10" max="10" /></td>
+                                <td>
+                                    <input type="range" class="sliderBar" id="sliderBar' . $project['id'] . '.' . $j . '" name="p' . $project['id'] . '.' . $criteria[$CRITERIA_NAME]
+                                    . '" value="0" min="-10" max="10" onchange="displaySliderValue(\'sliderValue' . $project['id'] . '.' . $j . '\', this.value)" />
+                                    <span id="sliderValue' . $project['id'] . '.' . $j . '"><script>document.write(document.getElementById(\'sliderBar' . $project['id'] . '.' . $j . '\').value)</script></span>
+                                </td>
                             </tr>';
                             }
                             echo '
