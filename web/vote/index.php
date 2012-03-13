@@ -35,12 +35,14 @@ $title = htmlentities($projectSet, ENT_QUOTES | ENT_HTML401) . ' Project Voting'
                 elem.innerHTML = value;
             }
         </script>
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
     </head>
     <body>
         <div id="header"><h1><?php ECHO $title ?></h1></div>
         <?php
             $votingTable = new Voting_Entry_Table($projectSet);
-            $votingTable->generate();
-        ?>
+            $votingTable->generate();?>
     </body>
 </html>

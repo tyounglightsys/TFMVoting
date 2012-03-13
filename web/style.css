@@ -24,15 +24,19 @@ div#projectSetActions {
     text-align: right;
 }
 
+div#votingForm {
+    margin: auto;
+}
+
 div#project {
     min-width: 380px;
-    //border: 1px solid black;
+    border: 1px solid black;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     
     width: 700px;
-    margin: 10px 0;
+    margin: 14px 0;
 }
 
 div#projectName {
