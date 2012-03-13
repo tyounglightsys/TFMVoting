@@ -39,7 +39,7 @@ $title = htmlentities($projectSet, ENT_QUOTES | ENT_HTML401) . ' Project Voting'
     <body>
         <div id="header"><h1><?php ECHO $title ?></h1></div>
         <?php
-            $votingTable = Voting_Entry_Table($projectSet);
+            $votingTable = new Voting_Entry_Table($projectSet);
             $votingTable->generate();
         ?>
     </body>
