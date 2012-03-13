@@ -63,7 +63,8 @@ $states = DB_GetProjectSetStates($projectSet);
     
                     </select>
                     <input type="submit" value="Change Project Set" />
-                    <br />
+                </form>
+                <form action="newset.php">
                     <input type="submit" value="New Project Set" />
                 </form>
             </div>
@@ -112,6 +113,8 @@ $states = DB_GetProjectSetStates($projectSet);
                     </td>
                 </tr>
             </table>
+            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)); ?>" name="projectSet" />
+            <input type="submit" value="Update State" />
         </form>
 
         <h2>Entries</h2>
