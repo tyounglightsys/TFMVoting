@@ -252,7 +252,10 @@ class Voting_Entry_Table extends Entry_Table {
     function writeEntry($id, $name, $url, $overallScore, $scores){
         ECHO '
                 <div id="project">
-                    <h2><div id="projectUrl"><a href="' . $url . '">' . $url . '</a></div><div id="projectName">' . $name . '</div></h2>
+                    <h2>
+                        <div id="projectUrl"><a href="' . $url . '">' . $url . '</a></div>
+                        <div id="projectName">' . $name . '&nbsp;' . '<span id="totalScore' . $id . '">0</span>' . '</div>
+                    </h2>
                     <table>
                         <div id="sliderBox">';
                             foreach($this->getCriteria() as $j => $crit) {
