@@ -137,6 +137,17 @@ abstract class Entry_Table{
  */
 class Archive_Entry_Table extends Entry_Table{
     
+    // Constructor -------------------------------------------------------------
+    
+    /** \brief Create a new Entry_Table for viewing an archived project set.
+     * \param setName The name of the project set to view.
+     * \pre You must have verifed that the use is actually allowed to view the
+     * project set.
+     */
+    function __construct($setName){
+        parent::__construct($setName, true);
+    }
+    
     // Implemented for Entry_Table ---------------------------------------------
     function writeStart(){
         
@@ -161,9 +172,6 @@ class Admin_Entry_Table extends Entry_Table{
     
     function __construct($name){
         parent::__construct($name, true);
-        
-        $this->name = $name;
-        $this->criteria = DB_GetProjectSetCriteria($name);
     }
     
     // Implemented for Entry_Table ---------------------------------------------
