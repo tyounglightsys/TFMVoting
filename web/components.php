@@ -15,7 +15,6 @@ class Entry_Table{
     
     function __construct($name){
         $this->name = $name;
-        
     }
     
 }

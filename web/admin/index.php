@@ -8,6 +8,8 @@ require_once("../config.php");
 require_once("../components.php");
 require_once("../functions.php");
 
+DB_Start(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+
 ?>
 
 <html>
@@ -21,7 +23,13 @@ require_once("../functions.php");
             <div id="projectSetActions"> 
                 <form action="index.php">
                     <select name="projectSet">
-                        <option value="placeholder" selected="true"> Project Set List </option>
+                        <?php
+                            // Generate list of projects
+                            $names = DB_GetAllProjectSetNames();
+                            foreach($names as $name){
+                                printf('<option value="%s" selected="true"> ' . htmlentities($name) .  ' </option>', $name);
+                            }
+                        ?>
                     </select>
                     <input type="submit" value="Change Project Set" />
                     <br />
@@ -35,7 +43,7 @@ require_once("../functions.php");
         <form action="">
             <table>
                 <tr>
-                    <td>Voting Open:</td>
+                    <td>Open:</td>
                     <td><input type="checkbox" name="votingOpen" /></td>
                 </tr>
                 
@@ -60,3 +68,9 @@ require_once("../functions.php");
         </form>
     </body>
 </html>
+
+<?php
+
+DB_End();
+
+?>
