@@ -116,7 +116,8 @@ $states = DB_GetProjectSetStates($projectSet);
 
         <h2>Entries</h2>
         <?php
-            // Generate table
+            $et = new Admin_Entry_Table($projectSet);
+            $et->generate();
         ?>
         <form action="editentry.php">
             <input type="submit" value="Add New Entry" />

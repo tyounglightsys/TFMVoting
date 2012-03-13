@@ -24,12 +24,29 @@ function DB_Start($host = DB_HOST, $user = DB_USERNAME, $password = DB_PASSWORD,
     mysql_selectdb($database) or die(mysql_error());
 }
 
+/** \brief End the connection to the database.
+ */
 function DB_End(){
     mysql_close();
 }
 
+/** \brief Get the criteria associated with a specific project set.
+ * \param projectSetName The name of the project set to get the critera from.
+ * \return This returns an array of associative arrays which will have the keys
+ * "name", "description", and "id".  This will return an empty array on an
+ * invalid projectSetName.
+ */
 function DB_GetProjectSetCriteria($projectSetName){
+    $res = mysql_query("SELECT `id`, `name`, `description`  FROM `criteria` WHERE `setname` = '" .
+                       mysql_real_escape_string($projectSetName) .
+                       "'") or die(mysql_error());
+    $toRet = array();
     
+    while($row = mysql_fetch_array($res)){
+        array_push($toRet, $row);
+    }
+    
+    return $toRet;
 }
 
 /** \brief This returns an associative array of the different states of the
@@ -43,7 +60,9 @@ function DB_GetProjectSetCriteria($projectSetName){
  * specified project set.
  */
 function DB_GetProjectSetStates($projectSetName){
-    $res = mysql_query("SELECT `resultsVisible`, `votingOpen`, `archived`  FROM `set` WHERE `name` = '" . mysql_real_escape_string($projectSetName) . "'") or die(mysql_error());
+    $res = mysql_query("SELECT `resultsVisible`, `votingOpen`, `archived`  FROM `set` WHERE `name` = '" .
+                       mysql_real_escape_string($projectSetName) .
+                       "'") or die(mysql_error());
     $row = mysql_fetch_array($res);
     return $row;
 }
@@ -82,27 +101,14 @@ function DB_GetAllProjectSetNames(){
  * \return This returns a boolean stating if the project exists.
  */
 function DB_GetProjectSetExists($projectSetName){
-    $res = mysql_query("SELECT `name` FROM `set` WHERE `name` = '" . mysql_real_escape_string($projectSetName) . "' LIMIT 1") or die(mysql_error());
+    $res = mysql_query("SELECT `name` FROM `set` WHERE `name` = '" .
+                       mysql_real_escape_string($projectSetName) .
+                       "' LIMIT 1") or die(mysql_error());
     $row = mysql_fetch_row($res);
     return (boolean)$row;
 }
 
 function DB_GetAllProjectSetStates(){
-    
-}
-
-/** \brief This gets all the basic data associated with the entries in a project
- * \param projectSetName The name of the project set to use.
- * \return This returns a two dimensional table with a the first column being
- * the id and the second column being the name. The third column is the
- * url. If the query did not work, false is returned.
- */
-function DB_GetProjectEntries($projectSetName){
-    $res = mysql_query("SELECT `id`, `name`, `url` WHERE `setname` = `" . mysql_real_escape_string($projectSetName) . "`");
-    return mysql_fetch_array($res);
-}
-
-function DB_GetProjectEntriesWithVotes($projectSetName){
     
 }
 
