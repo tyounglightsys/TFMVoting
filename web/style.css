@@ -20,6 +20,17 @@ div#projectSetActions {
     text-align: right;
 }
 
+div#projectName {
+    margin: 0;
+    padding: 0;
+    min-width: 400px;
+}
+
+span#projectUrl {
+    position: relative;
+    left: 50px;
+}
+
 textArea#descriptionField {
     width: 100%;
     height: 5em;
