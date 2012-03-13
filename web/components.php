@@ -29,29 +29,29 @@ abstract class Entry_Table{
         
         // Run the actual query
         if($needsScores){
-            $this->res = mysql_query("SELECT `id`, `name`, `url` FROM `entry` WHERE `setname` = '" .
+            $this->res = mysql_query("SELECT `id`, `name`, `url`, IFNULL((SELECT SUM(s.value) FROM `vote` as v INNER JOIN `vote_subresults` as s ON s.voteid = v.id WHERE v.entryid = e.id), 0) as totalScore FROM `entry` as e WHERE `setname` = '" .
                            mysql_real_escape_string($this->name) .
                            "' ORDER BY `order` ASC") or die(mysql_error());
         }
         else{
-            $this->res = mysql_query("SELECT `id`, `name`, `url` FROM `entry` WHERE `setname` = '" .
+            $this->res = mysql_query("SELECT `id`, `name`, `url` 0 as totalScore FROM `entry` WHERE `setname` = '" .
                            mysql_real_escape_string($this->name) .
                            "' ORDER BY `order` ASC") or die(mysql_error());
         }
         
         // Get total scores
-        $this->needsScores = array();
+        $this->scores = array();
         if($needsScores){
             $this->scores = array();
             if(mysql_numrows($this->res) > 0){
                 mysql_data_seek($this->res, 0);
+                
                 while($entry = mysql_fetch_array($this->res)){
                     array_push($this->scores, $entry["totalScore"]);
                 }
-            
+                
                 arsort($this->scores);
             }
-            return $this->scores;
         }
     }
     
@@ -68,7 +68,7 @@ abstract class Entry_Table{
     /** \brief Get a sorted array of all scores for all projects.
      */
     function getAllTotalScores(){
-        
+        return $this->scores;
     }
     
     // Action ------------------------------------------------------------------
@@ -81,8 +81,30 @@ abstract class Entry_Table{
         
         if(mysql_numrows($this->res) > 0){
             mysql_data_seek($this->res, 0);
+            
             while($entry = mysql_fetch_array($this->res)){
-                $this->writeEntry($entry["id"], $entry["name"], $entry["url"], 0);
+                $scores = array();
+                if($this->needsScores){
+                    foreach($this->getCriteria() as $criteria){
+                        $res = mysql_query("SELECT
+                                                IFNULL(
+                                                    SUM(
+                                                        (SELECT SUM(s.value)
+                                                            FROM `vote_subresults` AS s
+                                                        WHERE s.voteid = v.id
+                                                            AND s.criteriaid = " . $criteria["id"] . ")
+                                                        ),
+                                                    0) AS total
+                                                FROM `vote` AS v
+                                                WHERE v.entryid = " . $entry["id"] . "") or die(mysql_error());
+                        
+                        while($row = mysql_fetch_array($res)){
+                            array_push($scores, $row["total"]);
+                        }
+                    }
+                }
+                
+                $this->writeEntry($entry["id"], $entry["name"], $entry["url"], $entry["totalScore"], $scores);
             }
         }
         
@@ -96,8 +118,13 @@ abstract class Entry_Table{
     abstract function writeStart();
     
     /** \brief Called for writing an individual cell.
-    */
-    abstract function writeEntry($id, $name, $url, $overallScore);
+     * \param id The ID of the entry itself.
+     * \param name The name of the entry.
+     * \param url The URL of the entry.
+     * \param overallScores The total sum of all the scores.
+     * \param scores All the totals for all the criterion.
+     */
+    abstract function writeEntry($id, $name, $url, $overallScore, $scores);
     
     /** \brief This is called when we are done writing the entry table.
      */
@@ -115,7 +142,7 @@ class Archive_Entry_Table extends Entry_Table{
         
     }
     
-    function writeEntry($id, $name, $url, $overallScore){
+    function writeEntry($id, $name, $url, $overallScore, $scores){
         
     }
     
@@ -155,19 +182,19 @@ class Admin_Entry_Table extends Entry_Table{
         print("</tr>");
     }
     
-    function writeEntry($id, $name, $url, $overallScore){
+    function writeEntry($id, $name, $url, $overallScore, $scores){
         $allScores = $this->getAllTotalScores();
         if($overallScore == $allScores[0]){
             $badgeSource = "<img src='../badges/first.png' />";
         }
         else if($overallScore == $allScores[1]){
-            $badgeSource = "<img src='../badges/first.png' />";
-        }
-        else if($overallScore == $allScores[2]){
             $badgeSource = "<img src='../badges/second.png' />";
         }
-        else if($overallScore == $allScores[length($allScores) - 1]){
+        else if($overallScore == $allScores[2]){
             $badgeSource = "<img src='../badges/third.png' />";
+        }
+        else if($overallScore == $allScores[count($allScores) - 1]){
+            $badgeSource = "<img src='../badges/last.png' />";
         }
         else    {
             $badgeSource = "<img src='../badges/blank.png' />";
@@ -179,8 +206,8 @@ class Admin_Entry_Table extends Entry_Table{
                 <td>" . $url . "</td>
                 <td>" . $overallScore . "</td>");
         
-        foreach($this->getCriteria() as $crit){
-            print("<td>" . "a" . "</td>");
+        foreach($scores as $score){
+            print("<td>" . $score . "</td>");
         }
         
         print("<td>
@@ -213,7 +240,7 @@ class Voting_Entry_Table extends Entry_Table{
         
     }
     
-    function writeEntry($id, $name, $url, $overallScore){
+    function writeEntry($id, $name, $url, $overallScore, $scores){
         
     }
     
