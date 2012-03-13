@@ -1,35 +1,34 @@
-div,span,h1,h2,h3,h4,h5,body,head,html,p,a,form{
+div, span, h1, h2, h3, h4, h5, body, head, html, p, a, form {
     margin: 0;
     padding: 5px;
 }
 
-body{
+body {
     font-family: sans-serif;
 }
 
-div#header{
+div#header {
     position: relative;
     background-color: rgb(100, 120, 255);
     color: white;
     margin-bottom: 5px;
 }
 
-div#projectSetActions{
-    position: absolute;
-    right: 0;
-    top: 0;
-    text-align: right;   
+div#projectSetActions {
+    float: right;
+    clear: right;
+    text-align: right;
 }
 
-textArea#descriptionField{
+textArea#descriptionField {
     width: 100%;
     height: 5em;
 }
 
-table{
+table {
     text-align: left;
 }
 
-a{
+a {
     color: rgb(70, 70, 70);
 }
