@@ -34,12 +34,12 @@ function DB_End(){
  * \param projectSetName The name of the project set to get the critera from.
  * \return This returns an array of associative arrays which will have the keys
  * "name", "description", and "id".  This will return an empty array on an
- * invalid projectSetName.
+ * invalid projectSetName.  It is ordered by id in ascending order. 
  */
 function DB_GetProjectSetCriteria($projectSetName){
     $res = mysql_query("SELECT `id`, `name`, `description`  FROM `criteria` WHERE `setname` = '" .
                        mysql_real_escape_string($projectSetName) .
-                       "'") or die(mysql_error());
+                       "' ORDER BY `id`") or die(mysql_error());
     $toRet = array();
     
     while($row = mysql_fetch_array($res)){
