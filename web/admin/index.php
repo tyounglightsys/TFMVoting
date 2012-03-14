@@ -78,7 +78,7 @@ $div_header_extra .= '
             </div>';
 
 // Header ----------------------------------------------------------------------
-require_once($layout_path_root . 'header_end.php');
+require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 ?>
         <h2> Status </h2>
         <form action="index.php" method="post">
@@ -137,4 +137,4 @@ require_once($layout_path_root . 'header_end.php');
             <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name="<?php print(htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES))?>"/>
             <input type="submit" value="Add New Entry" />
         </form>
-<?php require_once($layout_path_root . 'footer.php') ?>
+<?php require_once(LAYOUT_PATH_ROOT . 'footer.php') ?>

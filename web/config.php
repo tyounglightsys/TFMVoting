@@ -46,6 +46,19 @@ define('WWW', get_www_path(), true);
 // Set $web_dir to the location that you have the voting web project in.
 $web_dir = "~danielrothfus/tfm/";
 
+// Get rid of dumb module
+if(get_magic_quotes_gpc()){
+    foreach($_REQUEST as $key => $getulet){
+        $_REQUEST[$key] = stripslashes($getulet);
+    }
+    foreach($_GET as $key => $getulet){
+        $_GET[$key] = stripslashes($getulet);
+    }
+    foreach($_POST as $key => $getulet){
+        $_POST[$key] = stripslashes($getulet);
+    }
+}
+
 define("LAYOUT_PATH_ROOT", ROOT . 'layout/');
 define("LAYOUT_PATH_WWW", WWW . $web_dir . 'layout/');
 define("INCLUDE_PATH_ROOT", ROOT . 'includes/');
