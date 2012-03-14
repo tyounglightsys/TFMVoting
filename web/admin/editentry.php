@@ -4,37 +4,36 @@
  * \brief A file to edit a new entry or a currently existing entry.
  */
 
-require_once("../config.php");
-require_once("../components.php");
-require_once("../functions.php");
-require_once("../params.php");
+require_once('../header_start.php');
+
+$title = "Edit Entry";
+
+require_once('../header_end.php');
 
 ?>
-
-<html>
-    <head>
-        <title> Edit Entry </title>
-        <link href="../style.css" type="text/css" rel="stylesheet" />
-    </head>
-    <body>
-        <div id="header">
-            <h1> Edit Entry </h1>
-        </div>
-        <form action="index.php">
+        <form action="index.php" method="post">
             <table>
                 <tr>
                     <td> Name: </td>
-                    <td> <input id="nameField" type="text" name="name" /> </td>
+                    <td> <input id="nameField" type="text" name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_NAME, ENT_QUOTES)) ?>" /> </td>
                 </tr>
                 <tr>
                     <td> URL: </td>
-                    <td> <input id="nameField" type="text" name="url" /> </td>
+                    <td> <input id="nameField" type="text" name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_URL, ENT_QUOTES)) ?>" /> </td>
                 </tr>
             </table>
-            <input type="checkbox" name="confidential" />Confidential</input>
-            <hr />
+            <input type="checkbox" name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_SENSITIVE, ENT_QUOTES)) ?>" />Sensitive</input>
+            <br/>
+            <textarea name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_DESCRIPTION, ENT_QUOTES)) ?>"></textarea>
+            <hr/>
             <a href="index.php">Cancel</a>
+            <input type="hidden" name="<?php print(htmlspecialchars(P_ADMIN_ACTION, ENT_QUOTES)) ?>" value="<?php print(htmlspecialchars(PV_ADMIN_ACTION_NEW_ENTRY, ENT_QUOTES)) ?>" />
+            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name="<?php print(htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES)) ?>" />
             <input type="submit" value="Done" />
         </form>
-    </body>
-</html>
+
+<?php
+
+require_once("../footer.php");
+
+?>

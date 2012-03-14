@@ -148,10 +148,11 @@ function DB_CreateProjectSet($setName){
 }
 
 function DB_CreateEntry($projectSet, $entryName, $entryURL, $entryDescription, $entryPrivate){
-    mysql_query("INSERT INTO `entry` (`url`, `name`, `description`, `sensitive`) VALUES ('" .
+    mysql_query("INSERT INTO `entry` (`setname`, `url`, `name`, `description`, `sensitive`) VALUES ('" .
+                mysql_escape_string((string)$projectSet) . "', '" .
                 mysql_escape_string((string)$entryURL) . "', '" .
-                mysql_escape_string((string)$entryName) . "'," .
-                mysql_escape_string((string)$entryDescription) . "'," .
+                mysql_escape_string((string)$entryName) . "', '" .
+                mysql_escape_string((string)$entryDescription) . "', " .
                 (int)$entryPrivate . ")") or die(mysql_error());
 }
 

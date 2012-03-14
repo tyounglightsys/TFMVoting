@@ -29,7 +29,11 @@ if(isset($_POST[P_ADMIN_ACTION])){
             break;
         case PV_ADMIN_ACTION_NEW_ENTRY:
             if($projectSet){
-                DB_CreateEntry($projectSet, $entryName, $entryURL, $entryDescription, $entryPrivate);
+                DB_CreateEntry($projectSet,
+                               (string)$_POST[P_ADMIN_ENTRY_NAME],
+                               (string)$_POST[P_ADMIN_ENTRY_URL],
+                               (string)$_POST[P_ADMIN_ENTRY_DESCRIPTION],
+                               $_POST[P_ADMIN_ENTRY_SENSITIVE] ? 1 : 0);
             }
             break;
     }
@@ -67,7 +71,7 @@ $div_header_extra .= '
                     <input type="submit" value="Change Project Set" />
                 </form>
                 <form action="newset.php">
-                    <input type="hidden" value="' . htmlspecialchars($projectSet, ENT_QUOTES) . '" name="' . htmlspecialchars(P_NEWSET_PREV_PROJ_SET, ENT_QUOTES) . '"/>
+                    <input type="hidden" value="' . htmlspecialchars($projectSet, ENT_QUOTES) . '" name="' . htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES) . '"/>
                     <input type="submit" value="New Project Set" />
                 </form>
             </div>';
@@ -119,7 +123,7 @@ require_once('../header_end.php');
                 </tr>
             </table>
             <input type="hidden" name="<?php print(htmlspecialchars(P_ADMIN_ACTION, ENT_QUOTES)) ?>" value="<?php print(htmlspecialchars(PV_ADMIN_ACTION_STATE_CHANGE, ENT_QUOTES)) ?>" />
-            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name=<?php print(P_ALL_PROJ_SET) ?> />
+            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name="<?php print(htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES)) ?>" />
             <input type="submit" value="Update State" />
         </form>
 
@@ -129,6 +133,7 @@ require_once('../header_end.php');
             $et->generate();
         ?>
         <form action="editentry.php">
+            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name="<?php print(htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES))?>"/>
             <input type="submit" value="Add New Entry" />
         </form>
 <?php require_once('../footer.php') ?>

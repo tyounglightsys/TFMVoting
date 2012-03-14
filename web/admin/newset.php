@@ -33,12 +33,7 @@ require_once("../params.php");
         
         <!-- Cancel form -->
         <form action="index.php" method="get">
-            <?php
-                // Make sure we go back to the previous page if necessary
-                if(isset($_REQUEST[P_NEWSET_PREV_PROJ_SET])){
-                    print('<input type="hidden" value="' . htmlspecialchars($_REQUEST[P_NEWSET_PREV_PROJ_SET], ENT_QUOTES) . '" name="projectSet" />');
-                }
-            ?>
+            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name="<?php print(htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES)) ?>" />
             <input type="submit" value="Cancel" />
         </form>
         

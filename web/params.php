@@ -33,7 +33,7 @@ define(PV_ADMIN_ACTION_NEW_PROJECT_SET, "newProjectSet");
 /** \brief On this action, we create a new entry whose name is given by the name
  * parameter.
  *
- * This should be sent via POSt.
+ * This should be sent via POST.
  */
 define(PV_ADMIN_ACTION_NEW_ENTRY, "newEntry");
 
@@ -46,8 +46,10 @@ define(P_ADMIN_STATE_ARCHIVED, "archived");
 define(P_ADMIN_STATE_RESULTS_VISIBLE, "resultsVisible");
 define(P_ADMIN_STATE_VOTING_OPEN, "votingOpen");
 
-// New set ---------------------------------------------------------------------
-define(P_NEWSET_PREV_PROJ_SET, "prevProjectSet");
+define(P_ADMIN_ENTRY_SENSITIVE, "sensitiveEntry");
+define(P_ADMIN_ENTRY_NAME, "entryName");
+define(P_ADMIN_ENTRY_DESCRIPTION, "entryDescription");
+define(P_ADMIN_ENTRY_URL, "newEntryURL");
 
 /// \}
 
