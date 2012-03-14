@@ -22,11 +22,12 @@ require_once("../params.php");
         </div>
         
         <!-- OK form --> 
-        <form action="index.php">
+        <form action="index.php" method="post">
             <p>
                 Name:
-                <input id="nameField" type="text" name="name" />
+                <input id="nameField" type="text" name="<?php print(htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES)) ?>" />
             </p>
+            <input type="hidden" name="<?php print(htmlspecialchars(P_ADMIN_ACTION, ENT_QUOTES)) ?>" value="<?php print(htmlspecialchars(PV_ADMIN_ACTION_NEW_PROJECT_SET, ENT_QUOTES)) ?>" />
             <input type="submit" value="Done" />
         </form>
         
