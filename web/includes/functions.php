@@ -164,19 +164,4 @@ function DB_CreateEntry($projectSet, $entryName, $url, $description, $sensitive)
 
 /// \}
 
-/** \defgroup utils Miscillaneous Utilities
- * \brief These are miscellaneous utilities to reduce duplicate code.
- * \{
- */
-
-/** \brief This function returns the string "true" or "false" depending on the
- * input.
- * \return The literal string of the boolean value.
- */
-function UT_BoolString($boolVal){
-    return $boolVal ? "true" : "false";
-}
-
-/// \}
-
 ?>
