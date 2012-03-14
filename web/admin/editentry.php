@@ -5,11 +5,11 @@
  */
 
 require_once('../config.php');
-require_once($layout_path_root . 'header_start.php');
+require_once(LAYOUT_PATH_ROOT . 'header_start.php');
 
 $title = "Edit Entry";
 
-require_once($layout_path_root . 'header_end.php');
+require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
 ?>
         <form action="index.php" method="post">
@@ -35,6 +35,6 @@ require_once($layout_path_root . 'header_end.php');
 
 <?php
 
-require_once($layout_path_root . 'footer.php');
+require_once(LAYOUT_PATH_ROOT . 'footer.php');
 
 ?>

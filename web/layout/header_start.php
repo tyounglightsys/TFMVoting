@@ -15,9 +15,9 @@
  */
 
 // Requires --------------------------------------------------------------------
-require_once($include_path_root . "components.php");
-require_once($include_path_root . "functions.php");
-require_once($include_path_root . "params.php");
+require_once(INCLUDE_PATH_ROOT . "components.php");
+require_once(INCLUDE_PATH_ROOT . "functions.php");
+require_once(INCLUDE_PATH_ROOT . "params.php");
 
 // Variables -------------------------------------------------------------------
 $projectSet = null;

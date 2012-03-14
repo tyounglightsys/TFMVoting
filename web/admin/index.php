@@ -10,7 +10,7 @@
 
 // Includes and Requires -------------------------------------------------------
 require_once('../config.php');
-require_once($layout_path_root . 'header_start.php');
+require_once(LAYOUT_PATH_ROOT . 'header_start.php');
 
 // Processing ------------------------------------------------------------------
 if(isset($_POST[P_ADMIN_ACTION])){
