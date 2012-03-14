@@ -27,7 +27,7 @@ div#projectSetActions {
     text-align: right;
 }
 
-div#projectSetActions {
+div#projectSetActions form {
     padding: 0;
 }
 
