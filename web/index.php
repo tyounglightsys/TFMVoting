@@ -25,7 +25,7 @@ $div_header_extra = null;
 
 $title = 'Archives';
 
-require_once($layout_path_root . 'header_end.php');
+require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
 $archiveTable = new Archive_Entry_Table($projectSet);
 $archiveTable->generate();
@@ -52,4 +52,4 @@ $archiveTable->generate();
         }
         ?>*/
 
-include($layout_path_root . 'footer.php');
+include(LAYOUT_PATH_ROOT . 'footer.php');
