@@ -150,15 +150,21 @@ class Archive_Entry_Table extends Entry_Table{
     
     // Implemented for Entry_Table ---------------------------------------------
     function writeStart(){
-        
+        echo '
+            <table>';
     }
     
     function writeEntry($id, $name, $url, $overallScore, $scores){
-        
+        echo '
+                <tr>
+                    <td> ' . $name . ' </td>
+                    <td> <a href="' . $url . '">' . $url . '</a> </td>
+                </tr>';
     }
     
     function writeEnd(){
-        
+        echo '
+            </table>';
     }
     
 }
