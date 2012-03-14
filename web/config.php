@@ -43,6 +43,7 @@ function get_www_path()
 }
 define('WWW', get_www_path(), true);
 
+// Set $web_dir to the location that you have the voting web project in.
 $web_dir = "TFM/";
 
 $layout_path_root = ROOT . 'layout/';
