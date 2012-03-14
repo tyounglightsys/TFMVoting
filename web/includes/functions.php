@@ -131,7 +131,7 @@ function DB_SetProjectSetStates($projectSetName, $votingOpen, $resultsVisible, $
     mysql_query("UPDATE `set` SET `resultsVisible` = " . (int)$resultsVisible . ",
                             `votingOpen` = " . (int)$votingOpen . ",
                             `archived` = " . (int)$archived . "
-                    WHERE `name` = '" . mysql_escape_string($projectSetName) . "'")or die(mysql_error());
+                    WHERE `name` = '" . mysql_real_escape_string($projectSetName) . "'")or die(mysql_error());
 }
 
 /** \brief Create a project set with a given name.
@@ -145,14 +145,14 @@ function DB_CreateProjectSet($setName, $criterias){
         
         // Insert the project set
         mysql_query("INSERT INTO `set` (`name`, `resultsVisible`, `votingOpen`, `archived`)
-                    VALUES ('" . mysql_escape_string($setName) . "', 0, 0, 0)") or die(mysql_error());
+                    VALUES ('" . mysql_real_escape_string($setName) . "', 0, 0, 0)") or die(mysql_error());
         
         // Add all the criteria
         foreach($criterias as $criteria){
             mysql_query("INSERT INTO `criteria` (`setname`, `name`, `description`)
-                            VALUES ('" . mysql_escape_string($setName) . "', '" .
-                                        mysql_escape_string($criteria[0]) . "', '" .
-                                        mysql_escape_string($criteria[1]) . "')") or die(mysql_error());
+                            VALUES ('" . mysql_real_escape_string($setName) . "', '" .
+                                        mysql_real_escape_string($criteria[0]) . "', '" .
+                                        mysql_real_escape_string($criteria[1]) . "')") or die(mysql_error());
         }
     }
 }
@@ -165,10 +165,10 @@ function DB_CreateProjectSet($setName, $criterias){
  */
 function DB_CreateEntry($projectSet, $entryName, $url, $description, $sensitive){
     mysql_query("INSERT INTO `entry` (`setname`, `url`, `name`, `description`, `sensitive`) VALUES ('" .
-                mysql_escape_string((string)$projectSet) . "', '" .
-                mysql_escape_string((string)$url) . "', '" .
-                mysql_escape_string((string)$entryName) . "', '" .
-                mysql_escape_string((string)$description) . "', " .
+                mysql_real_escape_string((string)$projectSet) . "', '" .
+                mysql_real_escape_string((string)$url) . "', '" .
+                mysql_real_escape_string((string)$entryName) . "', '" .
+                mysql_real_escape_string((string)$description) . "', " .
                 (int)$sensitive . ")") or die(mysql_error());
 }
 

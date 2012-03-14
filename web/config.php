@@ -46,10 +46,23 @@ define('WWW', get_www_path(), true);
 // Set $web_dir to the location that you have the voting web project in.
 $web_dir = "TFM/";
 
-$layout_path_root = ROOT . 'layout/';
-$layout_path_www = WWW . $web_dir . 'layout/';
-$include_path_root = ROOT . 'includes/';
-$include_path_www = WWW . $web_dir . 'includes/';
-$badges_path_www = WWW . $web_dir . 'badges/';
+// Get rid of dumb module
+if(get_magic_quotes_gpc()){
+    foreach($_REQUEST as $key => $getulet){
+        $_REQUEST[$key] = stripslashes($getulet);
+    }
+    foreach($_GET as $key => $getulet){
+        $_GET[$key] = stripslashes($getulet);
+    }
+    foreach($_POST as $key => $getulet){
+        $_POST[$key] = stripslashes($getulet);
+    }
+}
+
+define("LAYOUT_PATH_ROOT", ROOT . 'layout/');
+define("LAYOUT_PATH_WWW", WWW . $web_dir . 'layout/');
+define("INCLUDE_PATH_ROOT", ROOT . 'includes/');
+define("INCLUDE_PATH_WWW", WWW . $web_dir . 'includes/');
+define("BADGES_PATH_WWW", WWW . $web_dir . 'badges/');
 
 ?>

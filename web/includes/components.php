@@ -6,7 +6,7 @@
  * \{
  */
 
-require_once($include_path_root . "functions.php");
+require_once(INCLUDE_PATH_ROOT . "functions.php");
 
 // Classes ---------------------------------------------------------------------
 
@@ -91,19 +91,19 @@ abstract class Entry_Table{
         $allScores = $this->getAllTotalScores();
 
         if((int)$scoreTotal== $allScores[0]){
-            return $badges_path_www . 'first.png';
+            return BADGES_PATH_WWW . 'first.png';
         }
         else if((int)$scoreTotal == $allScores[1]){
-            return $badges_path_www . 'second.png';
+            return BADGES_PATH_WWW . 'second.png';
         }
         else if((int)$scoreTotal == $allScores[2]){
-            return $badges_path_www . 'third.png';
+            return BADGES_PATH_WWW . 'third.png';
         }
         else if((int)$scoreTotal == $allScores[count($allScores) - 1]){
-            return $badges_path_www . 'last.png';
+            return BADGES_PATH_WWW . 'last.png';
         }
         else{
-            return $badges_path_www . 'blank.png';
+            return BADGES_PATH_WWW . 'blank.png';
         }
     }
     

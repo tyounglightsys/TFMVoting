@@ -6,7 +6,7 @@
 
 // Includes and Requires -------------------------------------------------------
 require_once('../config.php');
-require_once($layout_path_root . 'header_start.php');
+require_once(LAYOUT_PATH_ROOT . 'header_start.php');
 
 // Header Overrides ------------------------------------------------------------
 if (!$projectSet) {
@@ -32,10 +32,10 @@ $head_extra = '<script src="' . $layout_path_www . 'html5slider.js"></script>
         </script>';
 
 // Header ----------------------------------------------------------------------
-require_once($layout_path_root . 'header_end.php');
+require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
 $votingTable = new Voting_Entry_Table($projectSet);
 $votingTable->generate();
 
-require_once($layout_path_root . 'footer.php')
+require_once(LAYOUT_PATH_ROOT . 'footer.php')
 ?>
