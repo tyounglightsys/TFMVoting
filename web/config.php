@@ -31,7 +31,6 @@ define(DB_HOST, "127.0.0.1");
 define(DB_DATABASE, "tfm");
 
 define('ROOT', str_replace('\\', '/', dirname(__FILE__)) . '/', true);
-
 function get_www_path()
 {
     $http_root = $_SERVER['DOCUMENT_ROOT'];
@@ -42,12 +41,13 @@ function get_www_path()
     $www_dir = 'http://' . $http_host . $uri[1] . '/';
     return $www_dir;
 }
-
 define('WWW', get_www_path(), true);
 
+$web_dir = "TFM/";
+
 $layout_path_root = ROOT . 'layout/';
-$layout_path_www = WWW . 'TFM/layout/';
+$layout_path_www = WWW . $web_dir . 'layout/';
 $include_path_root = ROOT . 'includes/';
-$include_path_www = WWW . 'TFM/includes/';
+$include_path_www = WWW . $web_dir . 'includes/';
 
 ?>
