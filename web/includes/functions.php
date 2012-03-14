@@ -147,13 +147,19 @@ function DB_CreateProjectSet($setName){
     }
 }
 
-function DB_CreateEntry($projectSet, $entryName, $entryURL, $entryDescription, $entryPrivate){
+/** \brief Create an entry to a project set.
+ * \param entryName The name of the entry to create.
+ * \param url The URL associated with the entry.
+ * \param description The description of the entry.
+ * \param sensitive If the entry is to be hidden in archive views.
+ */
+function DB_CreateEntry($projectSet, $entryName, $url, $description, $sensitive){
     mysql_query("INSERT INTO `entry` (`setname`, `url`, `name`, `description`, `sensitive`) VALUES ('" .
                 mysql_escape_string((string)$projectSet) . "', '" .
-                mysql_escape_string((string)$entryURL) . "', '" .
+                mysql_escape_string((string)$url) . "', '" .
                 mysql_escape_string((string)$entryName) . "', '" .
-                mysql_escape_string((string)$entryDescription) . "', " .
-                (int)$entryPrivate . ")") or die(mysql_error());
+                mysql_escape_string((string)$description) . "', " .
+                (int)$sensitive . ")") or die(mysql_error());
 }
 
 /// \}
