@@ -27,17 +27,27 @@ abstract class Entry_Table{
         $this->criteria = DB_GetProjectSetCriteria($name);
         $this->needsScores = $needsScores;
         
-        // Run the actual query
-        if($needsScores){
-            $this->res = mysql_query("SELECT `id`, `name`, `url`, IFNULL((SELECT SUM(s.value) FROM `vote` as v INNER JOIN `vote_subresults` as s ON s.voteid = v.id WHERE v.entryid = e.id), 0) as totalScore FROM `entry` as e WHERE `setname` = '" .
-                           mysql_real_escape_string($this->name) .
-                           "' ORDER BY `order` ASC") or die(mysql_error());
+        // Construct the MySQL query for pulling the entry's id, name, url, sensitive state, and total votes
+        $query = "SELECT `id`, `name`, `url`, `sensitive`,";
+        if ($needsScores) {
+            $query .= " IFNULL ("
+                . "(SELECT SUM(s.value)"
+                . " FROM `vote` AS v"
+                . " INNER JOIN `vote_subresults` AS s"
+                . " ON s.voteid = v.id"
+                . " WHERE v.entryid = e.id),"
+            . " 0)";
+        } else {
+            $query .= " 0";
         }
-        else{
-            $this->res = mysql_query("SELECT `id`, `name`, `url`, 0 as totalScore FROM `entry` WHERE `setname` = '" .
-                           mysql_real_escape_string($this->name) .
-                           "' ORDER BY `order` ASC") or die(mysql_error());
-        }
+        $query .= " AS totalScore"
+            . " FROM `entry`"
+            . " WHERE `setname` = '"
+            . mysql_real_escape_string($this->name)
+            . "' ORDER BY `order` ASC";
+
+        // Perform the constructed MySQL query
+        $this->res = mysql_query($query) or die(mysql_error());
         
         // Get total scores
         $this->scores = array();
@@ -104,7 +114,7 @@ abstract class Entry_Table{
                     }
                 }
                 
-                $this->writeEntry($entry["id"], $entry["name"], $entry["url"], $entry["totalScore"], $scores);
+                $this->writeEntry($entry["id"], $entry["name"], $entry["url"], $entry["sensitive"], $entry["totalScore"], $scores);
             }
         }
         
@@ -124,7 +134,7 @@ abstract class Entry_Table{
      * \param overallScores The total sum of all the scores.
      * \param scores All the totals for all the criterion.
      */
-    abstract function writeEntry($id, $name, $url, $overallScore, $scores);
+    abstract function writeEntry($id, $name, $url, $sensitive, $overallScore, $scores);
     
     /** \brief This is called when we are done writing the entry table.
      */
@@ -154,7 +164,8 @@ class Archive_Entry_Table extends Entry_Table{
             <table>';
     }
     
-    function writeEntry($id, $name, $url, $overallScore, $scores){
+    function writeEntry($id, $name, $url, $sensitive, $overallScore, $scores){
+        echo $sensitive;
         echo '
                 <tr>
                     <td> ' . $name . ' </td>
@@ -196,7 +207,7 @@ class Admin_Entry_Table extends Entry_Table{
         print("</tr>");
     }
     
-    function writeEntry($id, $name, $url, $overallScore, $scores){
+    function writeEntry($id, $name, $url, $sensitive, $overallScore, $scores){
         $allScores = $this->getAllTotalScores();
         if((int)$overallScore == $allScores[0]){
             $badgeSource = "<img src='../badges/first.png' />";
@@ -257,9 +268,6 @@ class Voting_Entry_Table extends Entry_Table {
     // Constructor -------------------------------------------------------------    
     function __construct($name){
         parent::__construct($name, false);
-        
-        $this->name = $name;
-        $this->criteria = DB_GetProjectSetCriteria($name);
     }
     
     // Implemented for Entry_Table ---------------------------------------------
@@ -269,7 +277,7 @@ class Voting_Entry_Table extends Entry_Table {
             <form name="postVote" action="" method="post">';
     }
     
-    function writeEntry($id, $name, $url, $overallScore, $scores){
+    function writeEntry($id, $name, $url, $sensitive, $overallScore, $scores){
         ECHO '
                 <div id="project">
                     <h2>

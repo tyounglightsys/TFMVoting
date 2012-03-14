@@ -10,6 +10,14 @@ require_once('config.php');
     . (file_exists($layout_path_root . 'header_start.php') ? "true" : "false"));*/
 require_once($layout_path_root . 'header_start.php');
 
+// Header Overrides ------------------------------------------------------------
+if (!$projectSet) {
+    $projectSet = DB_GetCurrentProjectSetName();
+    if(!$projectSet) {
+        $projectSet = null;
+    }
+}
+
 // Variables -------------------------------------------------------------------
 $title = '';
 $head_extra = null;
@@ -19,7 +27,7 @@ $title = 'Archives';
 
 require_once($layout_path_root . 'header_end.php');
 
-$archiveTable = new Archive_Entry_Table();
+$archiveTable = new Archive_Entry_Table($projectSet);
 $archiveTable->generate();
 ?>
             <!--<table>
