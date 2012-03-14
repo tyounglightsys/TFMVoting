@@ -4,11 +4,12 @@
  * \brief A file to edit a new entry or a currently existing entry.
  */
 
-require_once('../header_start.php');
+require_once('../config.php');
+require_once($layout_path_root . 'header_start.php');
 
 $title = "Edit Entry";
 
-require_once('../header_end.php');
+require_once($layout_path_root . 'header_end.php');
 
 ?>
         <form action="index.php" method="post">
@@ -34,6 +35,6 @@ require_once('../header_end.php');
 
 <?php
 
-require_once("../footer.php");
+require_once($layout_path_root . 'footer.php');
 
 ?>
