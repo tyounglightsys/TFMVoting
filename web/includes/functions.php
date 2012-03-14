@@ -6,10 +6,6 @@
  * \{
  */
 
-// Requires --------------------------------------------------------------------
-//Temporary fix
-//require_once("../config.php");
-
 // Functions -------------------------------------------------------------------
 
 /** \brief Connect to the database for the data.
@@ -140,36 +136,40 @@ function DB_SetProjectSetStates($projectSetName, $votingOpen, $resultsVisible, $
 
 /** \brief Create a project set with a given name.
  * \param setName The name of the set to create.
+ * \param criterias An array of arrays that contain two elements, the first one
+ * being a string for the criteria name and the second being a string for the
+ * criteria description.
  */
-function DB_CreateProjectSet($setName){
+function DB_CreateProjectSet($setName, $criterias){
     if(!DB_GetProjectSetExists($setName)){
+        
+        // Insert the project set
         mysql_query("INSERT INTO `set` (`name`, `resultsVisible`, `votingOpen`, `archived`)
                     VALUES ('" . mysql_escape_string($setName) . "', 0, 0, 0)") or die(mysql_error());
+        
+        // Add all the criteria
+        foreach($criterias as $criteria){
+            mysql_query("INSERT INTO `criteria` (`setname`, `name`, `description`)
+                            VALUES ('" . mysql_escape_string($setName) . "', '" .
+                                        mysql_escape_string($criteria[0]) . "', '" .
+                                        mysql_escape_string($criteria[1]) . "')") or die(mysql_error());
+        }
     }
 }
 
-function DB_CreateEntry($projectSet, $entryName, $entryURL, $entryDescription, $entryPrivate){
+/** \brief Create an entry to a project set.
+ * \param entryName The name of the entry to create.
+ * \param url The URL associated with the entry.
+ * \param description The description of the entry.
+ * \param sensitive If the entry is to be hidden in archive views.
+ */
+function DB_CreateEntry($projectSet, $entryName, $url, $description, $sensitive){
     mysql_query("INSERT INTO `entry` (`setname`, `url`, `name`, `description`, `sensitive`) VALUES ('" .
                 mysql_escape_string((string)$projectSet) . "', '" .
-                mysql_escape_string((string)$entryURL) . "', '" .
+                mysql_escape_string((string)$url) . "', '" .
                 mysql_escape_string((string)$entryName) . "', '" .
-                mysql_escape_string((string)$entryDescription) . "', " .
-                (int)$entryPrivate . ")") or die(mysql_error());
-}
-
-/// \}
-
-/** \defgroup utils Miscillaneous Utilities
- * \brief These are miscellaneous utilities to reduce duplicate code.
- * \{
- */
-
-/** \brief This function returns the string "true" or "false" depending on the
- * input.
- * \return The literal string of the boolean value.
- */
-function UT_BoolString($boolVal){
-    return $boolVal ? "true" : "false";
+                mysql_escape_string((string)$description) . "', " .
+                (int)$sensitive . ")") or die(mysql_error());
 }
 
 /// \}

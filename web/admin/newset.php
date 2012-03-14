@@ -4,11 +4,12 @@
  * \brief A file to allow you to create a new project set.
  */
 
-require_once('../header_start.php');
+require_once('../config.php');
+require_once($layout_path_root . 'header_start.php');
 
 $title = "New Project Set";
 
-require_once('../header_end.php');
+require_once($layout_path_root . 'header_end.php');
 
 ?>
         <!-- OK form --> 
@@ -26,3 +27,9 @@ require_once('../header_end.php');
             <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name="<?php print(htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES)) ?>" />
             <input type="submit" value="Cancel" />
         </form>
+
+<?php
+
+require_once($layout_path_root . 'footer.php');
+
+?>

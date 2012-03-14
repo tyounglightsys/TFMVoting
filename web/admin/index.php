@@ -25,7 +25,7 @@ if(isset($_POST[P_ADMIN_ACTION])){
             break;
         case PV_ADMIN_ACTION_NEW_PROJECT_SET:
             if(!$projectSet){
-                DB_CreateProjectSet($_POST[P_ALL_PROJ_SET]);
+                DB_CreateProjectSet($_POST[P_ALL_PROJ_SET], $CRITERIA_DEFAULT);
             }
             break;
         case PV_ADMIN_ACTION_NEW_ENTRY:
@@ -92,7 +92,7 @@ require_once($layout_path_root . 'header_end.php');
                             if($states["votingOpen"]){
                                 print("checked='yes'");
                             }
-                        ?>"/>
+                        ?>/>
                         
                     </td>
                 </tr>
@@ -105,7 +105,7 @@ require_once($layout_path_root . 'header_end.php');
                             if($states["resultsVisible"]){
                                 print("checked='yes'");
                             }
-                        ?>"/>
+                        ?>/>
                         
                     </td>
                 </tr>
@@ -118,7 +118,7 @@ require_once($layout_path_root . 'header_end.php');
                             if($states["archived"]){
                                 print("checked='yes'");
                             }
-                        ?>"/>
+                        ?>/>
                     
                     </td>
                 </tr>
