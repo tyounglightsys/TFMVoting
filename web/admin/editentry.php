@@ -20,7 +20,7 @@ require_once($layout_path_root . 'header_end.php');
                 </tr>
                 <tr>
                     <td> URL: </td>
-                    <td> <input id="nameField" type="text" name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_URL, ENT_QUOTES)) ?>" /> </td>
+                    <td> <input id="nameField" type="text" name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_URL, ENT_QUOTES)) ?>" value="http://"/> </td>
                 </tr>
             </table>
             <input type="checkbox" name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_SENSITIVE, ENT_QUOTES)) ?>" />Sensitive</input>

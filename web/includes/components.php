@@ -219,13 +219,13 @@ class Admin_Entry_Table extends Entry_Table{
     
     function writeEntry($id, $name, $url, $overallScore, $scores){
         print("<tr>
-                <td><img src='" . $this->getBadgePath($overallScore) . "'/></td>
-                <td>" . $name . "</td>
-                <td>" . $url . "</td>
-                <td>" . $overallScore . "</td>");
+                <td><img src='" . htmlspecialchars($this->getBadgePath($overallScore), ENT_QUOTES) . "'/></td>
+                <td>" . htmlentities($name) . "</td>
+                <td><a href=" . htmlentities($url) . ">" . htmlentities($url) . "</a></td>
+                <td>" . htmlentities($overallScore) . "</td>");
         
         foreach($scores as $score){
-            print("<td>" . $score . "</td>");
+            print("<td>" . htmlentities($score) . "</td>");
         }
         
         print("<td>
