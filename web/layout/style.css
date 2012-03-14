@@ -27,6 +27,10 @@ div#projectSetActions {
     text-align: right;
 }
 
+div#projectSetActions form {
+    padding: 0;
+}
+
 div#votingForm {
     margin: auto;
 }
