@@ -191,11 +191,10 @@ class Archive_Entry_Table extends Entry_Table{
     }
     
     function writeEntry($id, $name, $url, $sensitive, $overallScore, $scores){
-        echo $sensitive;
         echo '
                 <tr>
-                    <td> ' . $name . ' </td>
-                    <td> <a href="' . $url . '">' . $url . '</a> </td>
+                    <td> ' . ((!$sensitive) ? $name : "Sensitive Project") . ' </td>
+                    <td> <a href="' . ((!$sensitive) ? $url : "Sensitive Project") . '">' . ((!$sensitive) ? $url : "Sensitive Project") . '</a> </td>
                 </tr>';
     }
     
