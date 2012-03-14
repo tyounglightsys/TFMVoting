@@ -12,16 +12,14 @@
 require_once('../header_start.php');
 
 // Processing ------------------------------------------------------------------
-DB_Start();
-
 if(isset($_POST[P_ADMIN_ACTION])){
     switch($_POST[P_ADMIN_ACTION]){
         case PV_ADMIN_ACTION_STATE_CHANGE:
             if($projectSet){
                 DB_SetProjectSetStates($projectSet,
-                                       $_POST[P_ADMIN_STATE_VOTING_OPEN],
-                                       $_POST[P_ADMIN_STATE_RESULTS_VISIBLE],
-                                       $_POST[P_ADMIN_STATE_ARCHIVED]);
+                                       $_POST[P_ADMIN_STATE_VOTING_OPEN] ? 1 : 0,
+                                       $_POST[P_ADMIN_STATE_RESULTS_VISIBLE] ? 1 : 0,
+                                       $_POST[P_ADMIN_STATE_ARCHIVED] ? 1 : 0);
             }
             break;
         case PV_ADMIN_ACTION_NEW_PROJECT_SET:
@@ -59,7 +57,7 @@ $div_header_extra ='<div id="projectSetActions">
 foreach($names as $name){
     $div_header_extra .= '<option value="'
         . htmlspecialchars($name, ENT_QUOTES)
-        . '" ' . (($name == $projectSet) ? "selected=\'true\'" : "")
+        . '" ' . (($name == $projectSet) ? "selected='true'" : "")
         . '>' . htmlentities($name) . '</option>';
 }
 
@@ -78,7 +76,7 @@ $div_header_extra .= '
 require_once('../header_end.php');
 ?>
         <h2> Status </h2>
-        <form action="">
+        <form action="index.php" method="post">
             <table>
                 <tr>
                     <td>Open:</td>
@@ -95,7 +93,7 @@ require_once('../header_end.php');
                 </tr>
                 <tr>
                     <td>Showing Results:</td>
-                    <td><input type="checkbox" name="<?php print(P_ADMIN_STATE_SHOWING_RESULTS); ?>"
+                    <td><input type="checkbox" name="<?php print(P_ADMIN_STATE_RESULTS_VISIBLE); ?>"
                     
                         <?php
                             // Show the status for the resultsVisible category
@@ -120,7 +118,8 @@ require_once('../header_end.php');
                     </td>
                 </tr>
             </table>
-            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)); ?>" name=<?php print(P_ADMIN_PROJ_SET) ?> />
+            <input type="hidden" name="<?php print(htmlspecialchars(P_ADMIN_ACTION, ENT_QUOTES)) ?>" value="<?php print(htmlspecialchars(PV_ADMIN_ACTION_STATE_CHANGE, ENT_QUOTES)) ?>" />
+            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name=<?php print(P_ALL_PROJ_SET) ?> />
             <input type="submit" value="Update State" />
         </form>
 

@@ -133,11 +133,18 @@ function DB_GetAllProjectSetStates(){
 function DB_SetProjectSetStates($projectSetName, $votingOpen, $resultsVisible, $archived){
     mysql_query("UPDATE `set` SET `resultsVisible` = " . (int)$resultsVisible . ",
                             `votingOpen` = " . (int)$votingOpen . ",
-                            `archived` = " . (int)$archived) or die(mysql_error());
+                            `archived` = " . (int)$archived . "
+                    WHERE `name` = '" . mysql_escape_string($projectSetName) . "'")or die(mysql_error());
 }
 
+/** \brief Create a project set with a given name.
+ * \param setName The name of the set to create.
+ */
 function DB_CreateProjectSet($setName){
-    mysql_query("INSERT INTO `set` (`resultsVisible`, `votingOpen`, `archived`) VALUES (0, 0, 0)") or die(mysql_error());
+    if(!DB_GetProjectSetExists($setName)){
+        mysql_query("INSERT INTO `set` (`name`, `resultsVisible`, `votingOpen`, `archived`)
+                    VALUES (" . mysql_escape_string($setName) . "0, 0, 0)") or die(mysql_error());
+    }
 }
 
 function DB_CreateEntry($projectSet, $entryName, $entryURL, $entryDescription, $entryPrivate){
