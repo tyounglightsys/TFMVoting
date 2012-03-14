@@ -44,11 +44,12 @@ function get_www_path()
 define('WWW', get_www_path(), true);
 
 // Set $web_dir to the location that you have the voting web project in.
-$web_dir = "TFM/";
+$web_dir = "~danielrothfus/tfm/";
 
 $layout_path_root = ROOT . 'layout/';
 $layout_path_www = WWW . $web_dir . 'layout/';
 $include_path_root = ROOT . 'includes/';
 $include_path_www = WWW . $web_dir . 'includes/';
+$badges_path_www = WWW . $web_dir . 'badges/';
 
 ?>

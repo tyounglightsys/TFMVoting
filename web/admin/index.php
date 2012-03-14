@@ -92,7 +92,7 @@ require_once($layout_path_root . 'header_end.php');
                             if($states["votingOpen"]){
                                 print("checked='yes'");
                             }
-                        ?>"/>
+                        ?>/>
                         
                     </td>
                 </tr>
@@ -105,7 +105,7 @@ require_once($layout_path_root . 'header_end.php');
                             if($states["resultsVisible"]){
                                 print("checked='yes'");
                             }
-                        ?>"/>
+                        ?>/>
                         
                     </td>
                 </tr>
@@ -118,7 +118,7 @@ require_once($layout_path_root . 'header_end.php');
                             if($states["archived"]){
                                 print("checked='yes'");
                             }
-                        ?>"/>
+                        ?>/>
                     
                     </td>
                 </tr>

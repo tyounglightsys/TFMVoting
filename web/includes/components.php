@@ -6,7 +6,8 @@
  * \{
  */
 
-require_once("functions.php");
+require_once("../config.php");
+require_once($include_path_root . "functions.php");
 
 // Classes ---------------------------------------------------------------------
 
@@ -69,6 +70,32 @@ abstract class Entry_Table{
      */
     function getAllTotalScores(){
         return $this->scores;
+    }
+    
+    /** \brief Get the path to the image for the badge if the entry has a given
+     * total score.
+     * \param scoreTotal The total of the scores passed to the writeEntry
+     * method
+     * \return This returns a path to the image.  It should be valid anywhere.
+     */
+    function getBadgePath($scoreTotal){
+        $allScores = $this->getAllTotalScores();
+        
+        if((int)$scoreTotal== $allScores[0]){
+            return $badges_path_www . 'first.png';
+        }
+        else if((int)$scoreTotal == $allScores[1]){
+            return $badges_path_www . 'second.png';
+        }
+        else if((int)$scoreTotal == $allScores[2]){
+            return $badges_path_www . 'third.png';
+        }
+        else if((int)$scoreTotal == $allScores[count($allScores) - 1]){
+            return $badges_path_www . 'last.png';
+        }
+        else{
+            return $badges_path_www . 'blank.png';
+        }
     }
     
     // Action ------------------------------------------------------------------
@@ -191,25 +218,8 @@ class Admin_Entry_Table extends Entry_Table{
     }
     
     function writeEntry($id, $name, $url, $overallScore, $scores){
-        $allScores = $this->getAllTotalScores();
-        if((int)$overallScore == $allScores[0]){
-            $badgeSource = "<img src='../badges/first.png' />";
-        }
-        else if((int)$overallScore == $allScores[1]){
-            $badgeSource = "<img src='../badges/second.png' />";
-        }
-        else if((int)$overallScore == $allScores[2]){
-            $badgeSource = "<img src='../badges/third.png' />";
-        }
-        else if((int)$overallScore == $allScores[count($allScores) - 1]){
-            $badgeSource = "<img src='../badges/last.png' />";
-        }
-        else{
-            $badgeSource = "<img src='../badges/blank.png' />";
-        }
-        
         print("<tr>
-                <td>" . $badgeSource . "</td>
+                <td><img src='" . $this->getBadgePath($overallScore) . "'/></td>
                 <td>" . $name . "</td>
                 <td>" . $url . "</td>
                 <td>" . $overallScore . "</td>");
