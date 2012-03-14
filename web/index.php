@@ -5,7 +5,8 @@
  */
 
 // Includes and Requires -------------------------------------------------------
-require_once('layout/header_start.php');
+require_once('../config.php');
+require_once($layout_path_root . 'header_start.php');
 
 // Variables -------------------------------------------------------------------
 $title = '';
@@ -14,7 +15,7 @@ $div_header_extra = null;
 
 $title = 'Archives';
 
-require_once('layout/header_end.php');
+require_once($layout_path_root . 'header_end.php');
 
 $archiveTable = new Archive_Entry_Table();
 $archiveTable->generate();
@@ -41,4 +42,4 @@ $archiveTable->generate();
         }
         ?>*/
 
-include('layout/footer.php');
+include($layout_path_root . 'footer.php');

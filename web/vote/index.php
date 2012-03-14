@@ -6,7 +6,6 @@
 
 // Includes and Requires -------------------------------------------------------
 require_once('../config.php');
-
 require_once($layout_path_root . 'header_start.php');
 
 // Header Overrides ------------------------------------------------------------
