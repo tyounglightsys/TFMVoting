@@ -4,27 +4,26 @@
  * \brief This shows the archives of the application.
  */
 
-require_once("config.php");
-require_once("components.php");
-require_once("functions.php");
+// Includes and Requires -------------------------------------------------------
+require_once('header_start.php');
 
+// Variables -------------------------------------------------------------------
+$title = '';
+$head_extra = null;
+$div_header_extra = null;
+
+$title = 'Archives';
+
+require_once('header_end.php');
 ?>
-
-<html>
-    <head>
-        <title> TFM Results </title>
-        <link href="style.css" type="text/css" rel="stylesheet" />
-    </head>
-    <body>
-        
-        <div id="header">
-            <h1>Results</h1>
-        </div>
-        
         <?php
         if(!isset($_GET["projectSetName"])){
             ?>
             <h2>Archives</h2>
+            <?php
+                $archiveTable = new Archive_Entry_Table();
+                $archiveTable->generate();
+            ?>
             <table>
                 <tr>
                     <th> Project Name </th>

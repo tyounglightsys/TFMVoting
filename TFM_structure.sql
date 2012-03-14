@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.1.44)
 # Database: TFM
-# Generation Time: 2012-03-12 13:52:54 -0600
+# Generation Time: 2012-03-13 18:24:21 -0600
 # ************************************************************
 
 
@@ -31,7 +31,7 @@ CREATE TABLE `criteria` (
   `name` varchar(255) NOT NULL DEFAULT '',
   `description` varchar(1023) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 
@@ -44,10 +44,12 @@ CREATE TABLE `entry` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(255) NOT NULL DEFAULT '',
   `name` varchar(255) NOT NULL DEFAULT '',
+  `description` varchar(4095) NOT NULL DEFAULT '',
   `setname` varchar(255) NOT NULL DEFAULT '',
   `order` smallint(6) NOT NULL,
+  `sensitive` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 
@@ -63,7 +65,7 @@ CREATE TABLE `set` (
   `archived` tinyint(1) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 
@@ -76,7 +78,7 @@ CREATE TABLE `vote` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entryid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 
@@ -90,7 +92,7 @@ CREATE TABLE `vote_subresults` (
   `criteriaid` int(11) NOT NULL,
   `value` int(11) NOT NULL,
   PRIMARY KEY (`voteid`,`criteriaid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 
