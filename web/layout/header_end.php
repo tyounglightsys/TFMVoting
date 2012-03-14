@@ -1,7 +1,7 @@
 <html>
     <head>
         <title><?php ECHO htmlentities($title, ENT_QUOTES | ENT_HTML401 | ENT_HTML5) ?></title>
-        <link rel="stylesheet" type="text/css" href="../style.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo $layout_path_www ?>style.css">
         <?php echo $head_extra ?>
     </head>
     <body>

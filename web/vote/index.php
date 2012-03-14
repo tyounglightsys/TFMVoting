@@ -5,7 +5,8 @@
  */
 
 // Includes and Requires -------------------------------------------------------
-require_once('../header_start.php');
+require_once('../config.php');
+require_once($layout_path_root . 'header_start.php');
 
 // Header Overrides ------------------------------------------------------------
 if (!$projectSet) {
@@ -22,7 +23,7 @@ $head_extra = null;
 $title = $projectSet . ' Project Voting';
 
 // Set additional head information
-$head_extra = '<script src="../html5slider.js"></script>
+$head_extra = '<script src="' . $layout_path_www . 'html5slider.js"></script>
         <script type="text/javascript">
             function displaySliderValue(elementId, value) {
                 var elem = document.getElementById(elementId);
@@ -31,10 +32,10 @@ $head_extra = '<script src="../html5slider.js"></script>
         </script>';
 
 // Header ----------------------------------------------------------------------
-require_once('../header_end.php');
+require_once($layout_path_root . 'header_end.php');
 
 $votingTable = new Voting_Entry_Table($projectSet);
 $votingTable->generate();
 
-require_once('../footer.php')
+require_once($layout_path_root . 'footer.php')
 ?>

@@ -5,7 +5,8 @@
  */
 
 // Includes and Requires -------------------------------------------------------
-require_once('header_start.php');
+require_once('../config.php');
+require_once($layout_path_root . 'header_start.php');
 
 // Variables -------------------------------------------------------------------
 $title = '';
@@ -14,17 +15,12 @@ $div_header_extra = null;
 
 $title = 'Archives';
 
-require_once('header_end.php');
+require_once($layout_path_root . 'header_end.php');
+
+$archiveTable = new Archive_Entry_Table();
+$archiveTable->generate();
 ?>
-        <?php
-        if(!isset($_GET["projectSetName"])){
-            ?>
-            <h2>Archives</h2>
-            <?php
-                $archiveTable = new Archive_Entry_Table();
-                $archiveTable->generate();
-            ?>
-            <table>
+            <!--<table>
                 <tr>
                     <th> Project Name </th>
                     <th> Link </th>
@@ -33,9 +29,9 @@ require_once('header_end.php');
                     <td> Reallynotaproject </td>
                     <td> <a href="">View</a> </td>
                 </tr>
-            </table>
-            <?php
-        }
+            </table>-->
+<?php
+/*        }
         else{
             ?>
             <h2> Specific Project Set </h2>
@@ -44,7 +40,6 @@ require_once('header_end.php');
             </p>
             <?php
         }
-        ?>
-        
-    </body>
-</html>
+        ?>*/
+
+include($layout_path_root . 'footer.php');

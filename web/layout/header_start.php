@@ -15,10 +15,10 @@
  */
 
 // Requires --------------------------------------------------------------------
-require_once("config.php");
-require_once("components.php");
-require_once("functions.php");
-require_once("params.php");
+//require_once("../config.php");
+require_once($include_path_root . "components.php");
+require_once($include_path_root . "functions.php");
+require_once($include_path_root . "params.php");
 
 // Variables -------------------------------------------------------------------
 $projectSet = null;
