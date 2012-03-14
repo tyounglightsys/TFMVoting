@@ -139,11 +139,24 @@ function DB_SetProjectSetStates($projectSetName, $votingOpen, $resultsVisible, $
 
 /** \brief Create a project set with a given name.
  * \param setName The name of the set to create.
+ * \param criterias An array of arrays that contain two elements, the first one
+ * being a string for the criteria name and the second being a string for the
+ * criteria description.
  */
-function DB_CreateProjectSet($setName){
+function DB_CreateProjectSet($setName, $criterias){
     if(!DB_GetProjectSetExists($setName)){
+        
+        // Insert the project set
         mysql_query("INSERT INTO `set` (`name`, `resultsVisible`, `votingOpen`, `archived`)
                     VALUES ('" . mysql_escape_string($setName) . "', 0, 0, 0)") or die(mysql_error());
+        
+        // Add all the criteria
+        foreach($criterias as $criteria){
+            mysql_query("INSERT INTO `criteria` (`setname`, `name`, `description`)
+                            VALUES ('" . mysql_escape_string($setName) . "', '" .
+                                        mysql_escape_string($criteria[0]) . "', '" .
+                                        mysql_escape_string($criteria[1]) . "')") or die(mysql_error());
+        }
     }
 }
 
