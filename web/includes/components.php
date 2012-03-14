@@ -89,7 +89,7 @@ abstract class Entry_Table{
      */
     function getBadgePath($scoreTotal){
         $allScores = $this->getAllTotalScores();
-        
+
         if((int)$scoreTotal== $allScores[0]){
             return $badges_path_www . 'first.png';
         }

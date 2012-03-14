@@ -27,6 +27,8 @@ $title = 'Archives';
 
 require_once($layout_path_root . 'header_end.php');
 
+echo '<h2>' . htmlentities($projectSet) . ' > Projects</h2>';
+
 $archiveTable = new Archive_Entry_Table($projectSet);
 $archiveTable->generate();
 ?>
