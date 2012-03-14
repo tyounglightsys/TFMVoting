@@ -41,7 +41,7 @@ abstract class Entry_Table{
             $query .= " 0";
         }
         $query .= " AS totalScore"
-            . " FROM `entry`"
+            . " FROM `entry` AS e"
             . " WHERE `setname` = '"
             . mysql_real_escape_string($this->name)
             . "' ORDER BY `order` ASC";
