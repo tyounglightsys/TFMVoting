@@ -3,8 +3,9 @@
     padding: 5px;
 }
 
-input, table, div#sliderBox {
+input, table, button, select, option, div#sliderBox {
     padding: 0;
+    margin: 0;
 }
 
 body {
