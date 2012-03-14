@@ -27,8 +27,8 @@ $projectSet = null;
 DB_Start();
 
 // Get current project set
-if(isset($_GET["projectSet"]) && DB_GetProjectSetExists($_GET["projectSet"])){
-    $projectSet = $_GET["projectSet"];
+if(isset($_REQUEST[P_ALL_PROJ_SET]) && DB_GetProjectSetExists($_REQUEST[P_ALL_PROJ_SET])){
+    $projectSet = $_REQUEST[P_ALL_PROJ_SET];
 }
 
 ?>

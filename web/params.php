@@ -7,13 +7,10 @@
  * \{
  */
 
-// Admin index -----------------------------------------------------------------
+// All pages in general --------------------------------------------------------
+define(P_ALL_PROJ_SET, "projectSet");
 
-/** \brief This defines what project set is being operated on or created.
- *
- * Can be set in POST or GET.
- */
-define(P_ADMIN_PROJ_SET, "projectSet");
+// Admin index -----------------------------------------------------------------
 
 /** \brief This defines what action the page is requesting if it is set.
  *
