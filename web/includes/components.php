@@ -6,7 +6,6 @@
  * \{
  */
 
-require_once("../config.php");
 require_once($include_path_root . "functions.php");
 
 // Classes ---------------------------------------------------------------------
