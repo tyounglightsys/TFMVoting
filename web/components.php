@@ -47,10 +47,10 @@ abstract class Entry_Table{
                 mysql_data_seek($this->res, 0);
                 
                 while($entry = mysql_fetch_array($this->res)){
-                    array_push($this->scores, $entry["totalScore"]);
+                    array_push($this->scores, (int)$entry["totalScore"]);
                 }
                 
-                arsort($this->scores);
+                rsort($this->scores);
             }
         }
     }
@@ -192,19 +192,19 @@ class Admin_Entry_Table extends Entry_Table{
     
     function writeEntry($id, $name, $url, $overallScore, $scores){
         $allScores = $this->getAllTotalScores();
-        if($overallScore == $allScores[0]){
+        if((int)$overallScore == $allScores[0]){
             $badgeSource = "<img src='../badges/first.png' />";
         }
-        else if($overallScore == $allScores[1]){
+        else if((int)$overallScore == $allScores[1]){
             $badgeSource = "<img src='../badges/second.png' />";
         }
-        else if($overallScore == $allScores[2]){
+        else if((int)$overallScore == $allScores[2]){
             $badgeSource = "<img src='../badges/third.png' />";
         }
-        else if($overallScore == $allScores[count($allScores) - 1]){
+        else if((int)$overallScore == $allScores[count($allScores) - 1]){
             $badgeSource = "<img src='../badges/last.png' />";
         }
-        else    {
+        else{
             $badgeSource = "<img src='../badges/blank.png' />";
         }
         
@@ -227,6 +227,12 @@ class Admin_Entry_Table extends Entry_Table{
                 <td>
                     <form>
                         <input type='submit' value='v' />
+                        <input type='hidden' name='projectSet' value='" . htmlspecialchars($this->name, ENT_QUOTES) . "'>
+                    </form>
+                </td>
+                <td>
+                    <form>
+                        <input type='submit' value='Edit' />
                         <input type='hidden' name='projectSet' value='" . htmlspecialchars($this->name, ENT_QUOTES) . "'>
                     </form>
                 </td>
