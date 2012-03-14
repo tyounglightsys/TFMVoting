@@ -108,8 +108,20 @@ function DB_GetProjectSetExists($projectSetName){
     return (boolean)$row;
 }
 
+/** \brief Get all the project states of all projects.
+ * \return This returns an array of associative arrays with the keys "name",
+ * "resultsVisible", "votingOpen", and "archived" or an empty array if there
+ * are no project sets.
+ */
 function DB_GetAllProjectSetStates(){
-    
+    $res = mysql_query("SELECT `name`, `resultsVisible`, `votingOpen`, `archived`
+                            FROM `set`
+                            ORDER BY `date` DESC") or die(mysql_error());
+    $toRet = array();
+    while($row = mysql_fetch_array($res)){
+        array_push($toRet, $row);
+    }
+    return $toRet;
 }
 
 /** \brief Set the states associated with a project set.
