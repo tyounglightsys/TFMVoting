@@ -384,4 +384,3 @@ class Voting_Entry_Table extends Entry_Table {
 /// \}
 
 ?>
-
