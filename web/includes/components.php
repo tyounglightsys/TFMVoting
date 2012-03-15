@@ -194,7 +194,8 @@ class Archive_Entry_Table extends Entry_Table{
         echo '
                 <tr>
                     <td> ' . ((!$sensitive) ? $name : "Sensitive Project") . ' </td>
-                    <td> <a href="' . ((!$sensitive) ? $url : "Sensitive Project") . '">' . ((!$sensitive) ? $url : "Sensitive Project") . '</a> </td>
+                    <td> <a' . ((!$sensitive) ? ' href="' . $url . '">' : '>') . ((!$sensitive) ? $url : "Sensitive Project")
+                           . '</a> </td>
                 </tr>';
     }
     
@@ -290,7 +291,10 @@ class Voting_Entry_Table extends Entry_Table {
                 <div id="project">
                     <h2>
                         <div id="projectUrl"><a href="' . $url . '">' . $url . '</a></div>
-                        <div id="projectName">' . $name . '&nbsp;' . '<span id="totalScore' . $id . '">0</span>' . '</div>
+                        <div id="projectName" class="description">' . $name . '
+                            <span class="descriptiontext">' . $description . '</span>' . '
+                            <span id="totalScore' . $id . '">0</span>' . '
+                        </div>
                     </h2>
                     <table>
                         <div id="sliderBox">';
@@ -299,9 +303,20 @@ class Voting_Entry_Table extends Entry_Table {
                             <tr>
                                 <td>' . htmlspecialchars($crit["name"]) . '</td>
                                 <td>
+                                    <!--[if IE]>
+                                    <select name="p' . $id . '.' . $crit["name"] . '">';
+                                    for($k = -10; $k <= 10; $k++) {
+                                        echo '
+                                        <option value="' . $k . '">' . $k . '</option>';
+                                    }
+                                    echo '
+                                    </select>
+                                    <![endif-->
+                                    <!--[if !IE]-->
                                     <input type="range" class="sliderBar" id="sliderBar' . $id . '.' . $j . '" name="p' . $id . '.' . $crit["name"]
                                         . '" value="0" min="-10" max="10" onchange="displaySliderValue(\'sliderValue' . $id . '.' . $j . '\', this.value)" />
                                     <span id="sliderValue' . $id . '.' . $j . '"><script>document.write(document.getElementById(\'sliderBar' . $id . '.' . $j . '\').value)</script></span>
+                                    <!--<![endif]-->
                                 </td>
                             </tr>';
                             }

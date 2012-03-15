@@ -23,7 +23,7 @@ $head_extra = null;
 $title = $projectSet . ' Project Voting';
 
 // Set additional head information
-$head_extra = '<script src="' . $layout_path_www . 'html5slider.js"></script>
+$head_extra = '<script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script>
         <script type="text/javascript">
             function displaySliderValue(elementId, value) {
                 var elem = document.getElementById(elementId);
