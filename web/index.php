@@ -9,14 +9,9 @@ require_once('config.php');
 /*die($layout_path_root . 'header_start.php' . ' exists: '
     . (file_exists($layout_path_root . 'header_start.php') ? "true" : "false"));*/
 require_once(LAYOUT_PATH_ROOT . 'header_start.php');
+require('includes/functions.php');
 
 // Header Overrides ------------------------------------------------------------
-if (!$projectSet) {
-    $projectSet = DB_GetCurrentProjectSetName();
-    if(!$projectSet) {
-        $projectSet = null;
-    }
-}
 
 // Variables -------------------------------------------------------------------
 $title = '';
@@ -27,8 +22,38 @@ $title = 'Archives';
 
 require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
-$archiveTable = new Archive_Entry_Table($projectSet);
-$archiveTable->generate();
+if ($projectSet) {
+    $states = DB_GetProjectSetStates($projectSet);
+    
+    if ($states["votingOpen"]) {
+        echo '
+            <h2>' . htmlentities($projectSet) . ' > Projects</h2>';
+
+        $archiveTable = new Archive_Entry_Table($projectSet);
+        $archiveTable->generate();
+    } else {
+        $projectSet = null;
+    }
+}
+
+if (!$projectSet) {
+    echo '
+            <h2>Archives > Project Set Listings</h2>
+            <div id="projectSetListing">';
+    
+    $names_states = DB_GetAllProjectSetStates();
+    foreach($names_states as $i => $name) {
+        if ($name["archived"]) {
+            echo '
+                <h3><a href="index.php?projectSet='
+            . htmlspecialchars($name["name"], ENT_QUOTES) . '">'
+            . htmlentities($name["name"], ENT_QUOTES) . '</a></h3>';
+        }
+    }
+    
+    echo '
+            </div>';
+}
 ?>
             <!--<table>
                 <tr>

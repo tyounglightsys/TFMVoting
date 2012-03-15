@@ -81,3 +81,37 @@ table {
 a {
     color: rgb(70, 70, 70);
 }
+
+.description {
+    position: relative;
+}
+
+.description span {
+    display: none;
+    position: absolute;
+    
+    font-size: 1em;
+    min-width: 6em;
+    
+    border: 1px solid black;
+    border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    -webkit-border-radius: 0.2em;
+    -khtml-border-radius: 0.2em;
+    -o-border-radius: 0.2em;
+    
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+    filter: alpha(opacity=90);
+    -moz-opacity: 0.9;
+    -webkit-opacity: 0.9;
+    -khtml-opacity: 0.9;
+    -o-opacity: 0.9;
+    opacity: 0.9;
+}
+
+.description:hover span.descriptiontext {
+    display: block;
+    bottom: 100%;
+    left: 1em;
+    margin-bottom: 1em;
+}

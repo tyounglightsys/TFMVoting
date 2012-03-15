@@ -44,7 +44,7 @@ function get_www_path()
 define('WWW', get_www_path(), true);
 
 // Set $web_dir to the location that you have the voting web project in.
-$web_dir = "~danielrothfus/tfm/";
+$web_dir = "TFM/";
 
 // Get rid of dumb module
 if(get_magic_quotes_gpc()){
