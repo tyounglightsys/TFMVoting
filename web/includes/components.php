@@ -28,7 +28,7 @@ abstract class Entry_Table{
         $this->needsScores = $needsScores;
         
         // Construct the MySQL query for pulling the entry's id, name, url, sensitive state, and total votes
-        $query = "SELECT `id`, `name`, `url`, `sensitive`,";
+        $query = "SELECT `id`, `name`, `url`, `sensitive`, `description`,";
         if ($needsScores) {
             $query .= " IFNULL ("
                 . "(SELECT SUM(s.value)"
@@ -140,7 +140,9 @@ abstract class Entry_Table{
                     }
                 }
                 
-                $this->writeEntry($entry["id"], $entry["name"], $entry["url"], $entry["sensitive"], $entry["totalScore"], $scores);
+                $this->writeEntry($entry["id"], $entry["name"], $entry["url"],
+                                  $entry["sensitive"], $entry["totalScore"],
+                                  $entry["description"], $scores);
             }
         }
         
@@ -158,9 +160,12 @@ abstract class Entry_Table{
      * \param name The name of the entry.
      * \param url The URL of the entry.
      * \param overallScores The total sum of all the scores.
-     * \param scores All the totals for all the criterion.
+     * \param description The description of the entry.
+     * \param scores All the totals for all the criterion in the same order as
+     * returned by getCriteria.
      */
-    abstract function writeEntry($id, $name, $url, $sensitive, $overallScore, $scores);
+    abstract function writeEntry($id, $name, $url, $sensitive, $overallScore,
+                                 $description, $scores);
     
     /** \brief This is called when we are done writing the entry table.
      */
@@ -190,7 +195,7 @@ class Archive_Entry_Table extends Entry_Table{
             <table>';
     }
     
-    function writeEntry($id, $name, $url, $sensitive, $overallScore, $scores){
+    function writeEntry($id, $name, $url, $sensitive, $overallScore, $description, $scores){
         echo '
                 <tr>
                     <td> ' . ((!$sensitive) ? $name : "Sensitive Project") . ' </td>
@@ -233,7 +238,7 @@ class Admin_Entry_Table extends Entry_Table{
         print("</tr>");
     }
     
-    function writeEntry($id, $name, $url, $sensitive, $overallScore, $scores){
+    function writeEntry($id, $name, $url, $sensitive, $overallScore, $description, $scores){
         print("<tr>
                 <td><img src='" . htmlspecialchars($this->getBadgePath($overallScore), ENT_QUOTES) . "'/></td>
                 <td>" . htmlentities($name) . "</td>
@@ -286,7 +291,7 @@ class Voting_Entry_Table extends Entry_Table {
             <form name="postVote" action="" method="post">';
     }
     
-    function writeEntry($id, $name, $url, $sensitive, $overallScore, $scores){
+    function writeEntry($id, $name, $url, $sensitive, $overallScore, $description, $scores){
         ECHO '
                 <div id="project">
                     <h2>
