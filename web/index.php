@@ -9,7 +9,6 @@ require_once('config.php');
 /*die($layout_path_root . 'header_start.php' . ' exists: '
     . (file_exists($layout_path_root . 'header_start.php') ? "true" : "false"));*/
 require_once(LAYOUT_PATH_ROOT . 'header_start.php');
-require('includes/functions.php');
 
 // Header Overrides ------------------------------------------------------------
 
