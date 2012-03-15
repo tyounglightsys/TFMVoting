@@ -37,6 +37,16 @@ if(isset($_POST[P_ADMIN_ACTION])){
                                $_POST[P_ADMIN_ENTRY_SENSITIVE] ? 1 : 0);
             }
             break;
+        case PV_ADMIN_ACTION_MOVE_ENTRY:
+            if($projectSet){
+                $entries = DB_GetAllEntryIDsInProjectSet($projectSet);
+                if(in_array((int)$_POST[P_ADMIN_ENTRY_ID], $entries)){
+                    DB_MoveEntry($projectSet,
+                                 (int)$_POST[P_ADMIN_ENTRY_ID],
+                                 (int)$_POST[P_ADMIN_MOVE_DIRECTION]);
+                }
+            }
+            break;
     }
 }
 

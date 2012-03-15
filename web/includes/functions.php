@@ -164,12 +164,16 @@ function DB_CreateProjectSet($setName, $criterias){
  * \param sensitive If the entry is to be hidden in archive views.
  */
 function DB_CreateEntry($projectSet, $entryName, $url, $description, $sensitive){
-    mysql_query("INSERT INTO `entry` (`setname`, `url`, `name`, `description`, `sensitive`) VALUES ('" .
+    $res = mysql_query("SELECT MAX(`order`) + 1 FROM `entry` WHERE `setname` = '" . mysql_real_escape_string($projectSet) . "'") or die(mysql_error());
+    $row = mysql_fetch_row($res);
+    
+    mysql_query("INSERT INTO `entry` (`setname`, `url`, `name`, `description`, `sensitive`, `order`) VALUES ('" .
                 mysql_real_escape_string((string)$projectSet) . "', '" .
                 mysql_real_escape_string((string)$url) . "', '" .
                 mysql_real_escape_string((string)$entryName) . "', '" .
                 mysql_real_escape_string((string)$description) . "', " .
-                (int)$sensitive . ")") or die(mysql_error());
+                (int)$sensitive . "," . 
+                (int)$row[0] . ")") or die(mysql_error());
 }
 
 /** \brief Vote for all entries in a specific project set.
@@ -201,9 +205,50 @@ function DB_GetAllEntryIDsInProjectSet($projectSetName){
     $res = mysql_query("SELECT `id` FROM `entry` WHERE `setname` = '" . mysql_real_escape_string($projectSetName) . "'") or die(mysql_error());
     $toRet = array();
     while($row = mysql_fetch_array($res)){
-        array_push($toRet = $row["id"]);
+        array_push($toRet, $row["id"]);
     }
     return $toRet;
+}
+
+/** \brief Move an entry up in a specific project set.
+ * \param projectSetName The name of the project set.
+ * \param entryID The id of the entry to move up in the list.
+ * \param direction Direction is an integer that determines by its sign which
+ * way to move the entry - one up or one down.  (Down being towards the
+ * beginning of the list - lower index.)
+ * \pre projectSetName and entryID must be valid.
+ */
+function DB_MoveEntry($projectSetName, $entryID, $direction){
+    if((int)$direction == 0){
+        return;
+    }
+    
+    $res = mysql_query("SELECT `id`, `order`
+                FROM `entry`
+                WHERE `setname` = '" . mysql_real_escape_string("$projectSetName") . "' ORDER BY `order`") or die(mysql_error());
+    
+    $lastID = false;
+    $lastOrder = false;
+    while($row = mysql_fetch_array($res)){
+        if((int)$direction < 0){
+            if((int)$row["id"] == $entryID){
+                if($lastID !== false){
+                    mysql_query("UPDATE `entry` SET `order` = " . (int)$lastOrder . " WHERE `id` = " . (int)$entryID) or die(mysql_error());
+                    mysql_query("UPDATE `entry` SET `order` = " . (int)$row["order"] . " WHERE `id` = " . (int)$lastID) or die(mysql_error());
+                }
+                break;
+            }
+        }
+        else{
+            if((int)$lastID === $entryID){
+                mysql_query("UPDATE `entry` SET `order` = " . (int)$lastOrder . " WHERE `id` = " . (int)$row["id"]) or die(mysql_error());
+                mysql_query("UPDATE `entry` SET `order` = " . (int)$row["order"] . " WHERE `id` = " . (int)$entryID) or die(mysql_error());
+                break;
+            }
+        }
+        $lastID = $row["id"];
+        $lastOrder = $row["order"];
+    }
 }
 
 /// \}

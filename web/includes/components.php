@@ -81,6 +81,14 @@ abstract class Entry_Table{
         return $this->scores;
     }
     
+    /** \brief Get the name of the project set that this entry_table is working
+     * for.
+     * \return This returns the project name.
+     */
+    function getProjectSetName(){
+        return $this->name;
+    }
+    
     /** \brief Get the path to the image for the badge if the entry has a given
      * total score.
      * \param scoreTotal The total of the scores passed to the writeEntry
@@ -250,21 +258,26 @@ class Admin_Entry_Table extends Entry_Table{
         }
         
         print("<td>
-                    <form>
+                    <form method='post' action='index.php'>
                         <input type='submit' value='^' />
-                        <input type='hidden' name='projectSet' value='" . htmlspecialchars($this->name, ENT_QUOTES) . "'>
+                        <input type='hidden' name='" . htmlspecialchars(P_ADMIN_MOVE_DIRECTION, ENT_QUOTES) . "' value='-1' />
+                        <input type='hidden' name='" . htmlspecialchars(P_ADMIN_ENTRY_ID, ENT_QUOTES) . "' value='" . (int)$id . "' />
+                        <input type='hidden' name='" . htmlspecialchars(P_ADMIN_ACTION, ENT_QUOTES) . "' value='" . htmlspecialchars(PV_ADMIN_ACTION_MOVE_ENTRY, ENT_QUOTES) . "' />
+                        <input type='hidden' value='" . htmlspecialchars($this->getProjectSetName(), ENT_QUOTES) . "' name='" . htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES) . "'/>
                     </form>
                 </td>
                 <td>
-                    <form>
+                    <form method='post' action='index.php'>
                         <input type='submit' value='v' />
-                        <input type='hidden' name='projectSet' value='" . htmlspecialchars($this->name, ENT_QUOTES) . "'>
+                        <input type='hidden' name='" . htmlspecialchars(P_ADMIN_MOVE_DIRECTION, ENT_QUOTES) . "' value='1' />
+                        <input type='hidden' name='" . htmlspecialchars(P_ADMIN_ENTRY_ID, ENT_QUOTES) . "' value='" . (int)$id . "' />
+                        <input type='hidden' name='" . htmlspecialchars(P_ADMIN_ACTION, ENT_QUOTES) . "' value='" . htmlspecialchars(PV_ADMIN_ACTION_MOVE_ENTRY, ENT_QUOTES) . "' />
+                        <input type='hidden' value='" . htmlspecialchars($this->getProjectSetName(), ENT_QUOTES) . "' name='" . htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES) . "'/>
                     </form>
                 </td>
                 <td>
-                    <form>
+                    <form method='post' action='index.php'>
                         <input type='submit' value='Edit' />
-                        <input type='hidden' name='projectSet' value='" . htmlspecialchars($this->name, ENT_QUOTES) . "'>
                     </form>
                 </td>
               </tr>");

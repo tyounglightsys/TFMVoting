@@ -37,6 +37,8 @@ define(PV_ADMIN_ACTION_NEW_PROJECT_SET, "newProjectSet");
  */
 define(PV_ADMIN_ACTION_NEW_ENTRY, "newEntry");
 
+define(PV_ADMIN_ACTION_MOVE_ENTRY, "moveEntry");
+
 /** \brief This parameter is passed in POST when you want to create a new
  * entry to the project set.
  */
@@ -50,6 +52,9 @@ define(P_ADMIN_ENTRY_SENSITIVE, "sensitiveEntry");
 define(P_ADMIN_ENTRY_NAME, "entryName");
 define(P_ADMIN_ENTRY_DESCRIPTION, "entryDescription");
 define(P_ADMIN_ENTRY_URL, "newEntryURL");
+
+define(P_ADMIN_MOVE_DIRECTION, "moveDir");
+define(P_ADMIN_ENTRY_ID, "entryID");
 
 /// \}
 
