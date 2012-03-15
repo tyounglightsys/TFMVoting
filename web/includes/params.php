@@ -56,6 +56,9 @@ define(P_ADMIN_ENTRY_URL, "newEntryURL");
 define(P_ADMIN_MOVE_DIRECTION, "moveDir");
 define(P_ADMIN_ENTRY_ID, "entryID");
 
+// Edit/New entry --------------------------------------------------------------
+define(P_NEWEDIT_ENTRY_ID, "entryID");
+
 // Vote index ------------------------------------------------------------------
 
 /** \brief This action

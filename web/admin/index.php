@@ -30,11 +30,23 @@ if(isset($_POST[P_ADMIN_ACTION])){
             break;
         case PV_ADMIN_ACTION_NEW_ENTRY:
             if($projectSet){
-                DB_CreateEntry($projectSet,
+                if(isset($_POST[P_ADMIN_ENTRY_ID])){
+                    $entries = DB_GetAllEntryIDsInProjectSet($projectSet);
+                    if(in_array((int)$_POST[P_ADMIN_ENTRY_ID], $entries)){
+                        DB_EditEntry((int)$_POST[P_ADMIN_ENTRY_ID],
+                                    (string)$_POST[P_ADMIN_ENTRY_NAME],
+                                    (string)$_POST[P_ADMIN_ENTRY_URL],
+                                    (string)$_POST[P_ADMIN_ENTRY_DESCRIPTION],
+                                    $_POST[P_ADMIN_ENTRY_SENSITIVE] ? 1 : 0);
+                    }
+                }
+                else{
+                    DB_CreateEntry($projectSet,
                                (string)$_POST[P_ADMIN_ENTRY_NAME],
                                (string)$_POST[P_ADMIN_ENTRY_URL],
                                (string)$_POST[P_ADMIN_ENTRY_DESCRIPTION],
                                $_POST[P_ADMIN_ENTRY_SENSITIVE] ? 1 : 0);
+                }
             }
             break;
         case PV_ADMIN_ACTION_MOVE_ENTRY:

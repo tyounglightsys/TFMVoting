@@ -276,7 +276,9 @@ class Admin_Entry_Table extends Entry_Table{
                     </form>
                 </td>
                 <td>
-                    <form method='post' action='index.php'>
+                    <form method='post' action='editentry.php'>
+                        <input type='hidden' value='" . (int)$id . "' name='" . htmlspecialchars(P_NEWEDIT_ENTRY_ID, ENT_QUOTES) . "'/>
+                        <input type='hidden' value='" . htmlspecialchars($this->getProjectSetName(), ENT_QUOTES) . "' name='" . htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES) . "'/>
                         <input type='submit' value='Edit' />
                     </form>
                 </td>
@@ -305,15 +307,29 @@ class Voting_Entry_Table extends Entry_Table {
     }
     
     function writeEntry($id, $name, $url, $sensitive, $overallScore, $description, $scores){
+        $criteriaSum = "";
+        foreach($this->getCriteria() as $critID => $crit){
+            $criteriaSum .= "parseInt(document.getElementById('sliderBar" . $id . "." . $critID . "').value) +";
+        }
+        
         ECHO '
                 <div id="project">
                     <h2>
-                        <div id="projectUrl"><a href="' . $url . '">' . $url . '</a></div>
-                        <div id="projectName" class="description">' . $name . '
-                            <span class="descriptiontext">' . $description . '</span>' . '
+                        <div id="projectUrl"><a href="' . htmlspecialchars($url, ENT_QUOTES) . '">' . htmlentities($url) . '</a></div>
+                        <div id="projectName" class="description">' . htmlentities($name) . ':
                             <span id="totalScore' . $id . '">0</span>' . '
                         </div>
                     </h2>
+                    <p>
+                        ' . htmlentities($description) . '
+                    </p>
+                    <hr />
+                    <script>
+                        function recalcScores' . (int)$id . '(){
+                            elem = document.getElementById("totalScore' . (int)$id . '");
+                            elem.innerHTML = ' . $criteriaSum . ' 0;
+                        }
+                    </script>
                     <table>
                         <div id="sliderBox">';
                             foreach($this->getCriteria() as $j => $crit) {
@@ -332,7 +348,7 @@ class Voting_Entry_Table extends Entry_Table {
                                     <![endif-->
                                     <!--[if !IE]-->
                                     <input type="range" class="sliderBar" id="sliderBar' . $id . '.' . $j . '" name="' . $id . '.' . $crit["id"]
-                                        . '" value="0" min="-10" max="10" onchange="displaySliderValue(\'sliderValue' . $id . '.' . $j . '\', this.value)" />
+                                        . '" value="0" min="-10" max="10" onchange="displaySliderValue(\'sliderValue' . $id . '.' . $j . '\', this.value); recalcScores' . (int)$id . '()" />
                                     <span id="sliderValue' . $id . '.' . $j . '"><script>document.write(document.getElementById(\'sliderBar' . $id . '.' . $j . '\').value)</script></span>
                                     <!--<![endif]-->
                                 </td>
@@ -349,7 +365,7 @@ class Voting_Entry_Table extends Entry_Table {
                 <input type="hidden" name="' . P_VOTE_ACTION . '" />
                 <table>
                     <tr>
-                        <td><input type="submit" name="submit" /></td>
+                        <td><input type="submit" name="submit" value="Submit Votes" /></td>
                     </tr>
                 </table>
             </form>

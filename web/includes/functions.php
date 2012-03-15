@@ -9,7 +9,7 @@
 // Functions -------------------------------------------------------------------
 
 /** \brief Connect to the database for the data.
- *
+ * 
  * This never returns a failure, as it dies on failure.
  * \param host The host to connect to.
  * \param user The username to log in with.
@@ -176,6 +176,21 @@ function DB_CreateEntry($projectSet, $entryName, $url, $description, $sensitive)
                 (int)$row[0] . ")") or die(mysql_error());
 }
 
+/** \brief Change an entry's data.
+ * \param entryID The ID of the entry to modify.
+ * \param entryName The new name for the entry.
+ * \param url The new URL of the entry.
+ * \param description The description of the entry.
+ * \param sensitive The new value for if the the entry is to be sensitive or not.
+ */
+function DB_EditEntry($entryID, $entryName, $url, $description, $sensitive){
+    mysql_query("UPDATE `entry` SET `url` = '" . mysql_real_escape_string((string)$url) .
+                "', `name` = '" . mysql_real_escape_string((string)$entryName) .
+                "', `description` = '" . mysql_real_escape_string((string)$description) .
+                "', `sensitive` = '" . (int)$sensitive . "'
+                WHERE `id` = " . (int)$entryID) or die(mysql_error());
+}
+
 /** \brief Vote for all entries in a specific project set.
  * \param projectSetName The name of the project set to vote for.
  * \param votes An associative array where each key is an entry ID and each
@@ -250,6 +265,11 @@ function DB_MoveEntry($projectSetName, $entryID, $direction){
         $lastID = $row["id"];
         $lastOrder = $row["order"];
     }
+}
+
+function DB_GetEntryData($entryID){
+    $res = mysql_query("SELECT * FROM `entry` WHERE `id` = " . (int)$entryID . "");
+    return mysql_fetch_array($res);
 }
 
 /// \}
