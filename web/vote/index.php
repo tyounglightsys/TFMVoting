@@ -41,7 +41,7 @@ require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 $projectSetState = DB_GetProjectSetStates($projectSet);
 
 if ($projectSetState["votingOpen"]) {
-    if (isset($_POST[P_VOTE_ACTION]) && !in_array($_COOKIE[$projectSet])) {
+    if (isset($_POST[P_VOTE_ACTION]) && !isset($_COOKIE[$projectSet])) {
         // Variables
         $keys = array();
         $criteriaKeys = array();
