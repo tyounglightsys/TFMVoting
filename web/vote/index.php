@@ -36,10 +36,10 @@ require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
 if (isset($_POST[P_VOTE_ACTION])) {
     
-} else {
-    $votingTable = new Voting_Entry_Table($projectSet);
-    $votingTable->generate();
 }
+
+$votingTable = new Voting_Entry_Table($projectSet);
+$votingTable->generate();
 
 require_once(LAYOUT_PATH_ROOT . 'footer.php')
 ?>
