@@ -207,7 +207,8 @@ function DB_VoteForProjectSet($projectSetName, $votes){
         $voteID = $voteID[0];
         
         foreach($criteriaVotes as $criteriaID => $criteriaVote){
-            mysql_query("INSERT INTO `vote_subresults` (`criteriaid`, `value`) VALUES (" . (int)$criteriaID . ", " . (int)$criteriaVote . ")") or die(mysql_error());
+            mysql_query("INSERT INTO `vote_subresults` (`voteid`, `criteriaid`, `value`) VALUES (" . (int)$voteID
+                        . ", " . (int)$criteriaID . ", " . (int)$criteriaVote . ")") or die(mysql_error());
         }
     }
 }
