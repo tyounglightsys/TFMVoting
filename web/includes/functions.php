@@ -28,7 +28,7 @@ function DB_End(){
 }
 
 /** \brief Get the criteria associated with a specific project set.
- * \param projectSetName The name of the project set to get the critera from.
+ * \param projectSetName The name of the project set to get the criteria from.
  * \return This returns an array of associative arrays which will have the keys
  * "name", "description", and "id".  This will return an empty array on an
  * invalid projectSetName.  It is ordered by id in ascending order. 
@@ -170,6 +170,40 @@ function DB_CreateEntry($projectSet, $entryName, $url, $description, $sensitive)
                 mysql_real_escape_string((string)$entryName) . "', '" .
                 mysql_real_escape_string((string)$description) . "', " .
                 (int)$sensitive . ")") or die(mysql_error());
+}
+
+/** \brief Vote for all entries in a specific project set.
+ * \param projectSetName The name of the project set to vote for.
+ * \param votes An associative array where each key is an entry ID and each
+ * value is another associative array of the criteria IDs as the keys and the
+ * vote value as the value.
+ * \pre You must verify you have the right project set entry IDs and the
+ * right ranged vote values.
+ */
+function DB_VoteForProjectSet($projectSetName, $votes){
+    foreach($votes as $entryID => $criteriaVotes){
+        mysql_query("INSERT INTO `vote` (`entryid`) VALUES (" . (int)$entryID . ")") or die(mysql_error());
+        $idRes = mysql_query("SELECT LAST_INSERT_ID()") or die(mysql_error());
+        $voteID = mysql_fetch_row($idRes);
+        $voteID = $voteID[0];
+        
+        foreach($criteriaVotes as $criteriaID => $criteriaVote){
+            mysql_query("INSERT INTO `vote_subresults` (`criteriaid`, `value`) VALUES (" . (int)$criteriaID . ", " . (int)$criteriaVote . ")") or die(mysql_error());
+        }
+    }
+}
+
+/** \brief Get the IDs of all entries in a specific project set.
+ * \param projectSetName The name of the project set to get the entry IDs of.
+ * \return This returns an array of the IDs of all entries in the project set.
+ */
+function DB_GetAllEntryIDsInProjectSet($projectSetName){
+    $res = mysql_query("SELECT `id` FROM `entry` WHERE `setname` = '" . mysql_real_escape_string($projectSetName) . "'") or die(mysql_error());
+    $toRet = array();
+    while($row = mysql_fetch_array($res)){
+        array_push($toRet = $row["id"]);
+    }
+    return $toRet;
 }
 
 /// \}
