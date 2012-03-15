@@ -90,7 +90,11 @@ a {
     display: none;
     position: absolute;
     
-    font-size: 1em;
+    background-color: white;
+    color: black;
+    
+    font-size: 0.6em;
+    font-style: normal;
     min-width: 6em;
     
     border: 1px solid black;
@@ -111,7 +115,7 @@ a {
 
 .description:hover span.descriptiontext {
     display: block;
-    bottom: 100%;
-    left: 1em;
-    margin-bottom: 1em;
+    top: 100%;
+    left: 0.7em;
+    margin-top: 0;
 }
