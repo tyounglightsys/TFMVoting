@@ -27,10 +27,16 @@ require_once(LAYOUT_PATH_ROOT . 'header_end.php');
             <br/>
             <textarea name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_DESCRIPTION, ENT_QUOTES)) ?>"></textarea>
             <hr/>
-            <a href="index.php">Cancel</a>
+            
             <input type="hidden" name="<?php print(htmlspecialchars(P_ADMIN_ACTION, ENT_QUOTES)) ?>" value="<?php print(htmlspecialchars(PV_ADMIN_ACTION_NEW_ENTRY, ENT_QUOTES)) ?>" />
             <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name="<?php print(htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES)) ?>" />
             <input type="submit" value="Done" />
+        </form>
+        
+        <!-- Cancel form -->
+        <form action="index.php" method="get">
+            <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name="<?php print(htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES)) ?>" />
+            <input type="submit" value="Cancel" />
         </form>
 
 <?php
