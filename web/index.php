@@ -24,7 +24,7 @@ require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 if ($projectSet) {
     $states = DB_GetProjectSetStates($projectSet);
     
-    if ($states["votingOpen"]) {
+    if ($states["archived"]) {
         echo '
             <h2>' . htmlentities($projectSet) . ' > Projects</h2>';
 
