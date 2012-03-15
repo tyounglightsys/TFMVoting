@@ -317,10 +317,13 @@ class Voting_Entry_Table extends Entry_Table {
                     <h2>
                         <div id="projectUrl"><a href="' . htmlspecialchars($url, ENT_QUOTES) . '">' . htmlentities($url) . '</a></div>
                         <div id="projectName" class="description">' . htmlentities($name) . ':
-                            <span class="descriptiontext">' . htmlentities($description) . '</span>' . '
                             <span id="totalScore' . $id . '">0</span>' . '
                         </div>
                     </h2>
+                    <p>
+                        ' . htmlentities($description) . '
+                    </p>
+                    <hr />
                     <script>
                         function recalcScores' . (int)$id . '(){
                             elem = document.getElementById("totalScore' . (int)$id . '");
