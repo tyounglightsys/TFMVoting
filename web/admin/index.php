@@ -59,6 +59,14 @@ if(isset($_POST[P_ADMIN_ACTION])){
                 }
             }
             break;
+        case PV_ADMIN_ACTION_DELETE_ENTRY:
+            if($projectSet && isset($_POST[P_ADMIN_ENTRY_ID])){
+                $entries = DB_GetAllEntryIDsInProjectSet($projectSet);
+                if(in_array((int)$_POST[P_ADMIN_ENTRY_ID], $entries)){
+                    DB_DeleteEntry((int)$_POST[P_ADMIN_ENTRY_ID]);
+                }
+            }
+            break;
     }
 }
 

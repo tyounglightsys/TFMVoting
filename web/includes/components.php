@@ -282,6 +282,14 @@ class Admin_Entry_Table extends Entry_Table{
                         <input type='submit' value='Edit' />
                     </form>
                 </td>
+                <td>
+                    <form method='post' action='index.php'>
+                        <input type='hidden' value='" . (int)$id . "' name='" . htmlspecialchars(P_NEWEDIT_ENTRY_ID, ENT_QUOTES) . "'/>
+                        <input type='hidden' name='" . htmlspecialchars(P_ADMIN_ACTION, ENT_QUOTES) . "' value='" . htmlspecialchars(PV_ADMIN_ACTION_DELETE_ENTRY, ENT_QUOTES) . "' />
+                        <input type='hidden' value='" . htmlspecialchars($this->getProjectSetName(), ENT_QUOTES) . "' name='" . htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES) . "'/>
+                        <input type='submit' value='Delete' />
+                    </form>
+                </td>
               </tr>");
     }
     

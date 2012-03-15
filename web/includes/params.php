@@ -39,6 +39,8 @@ define(PV_ADMIN_ACTION_NEW_ENTRY, "newEntry");
 
 define(PV_ADMIN_ACTION_MOVE_ENTRY, "moveEntry");
 
+define(PV_ADMIN_ACTION_DELETE_ENTRY, "deleteEntry");
+
 /** \brief This parameter is passed in POST when you want to create a new
  * entry to the project set.
  */

@@ -42,7 +42,7 @@ if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && isset($_CO
 require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
 if ($projectSetState["votingOpen"]) {
-    if (isset($_POST[P_VOTE_ACTION]) && !in_array($_COOKIE[$projectSet])) {
+    if (isset($_POST[P_VOTE_ACTION]) && !isset($_COOKIE[$projectSet])) {
         // Variables
         $keys = array();
         $criteriaKeys = array();

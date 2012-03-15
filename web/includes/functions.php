@@ -267,9 +267,30 @@ function DB_MoveEntry($projectSetName, $entryID, $direction){
     }
 }
 
+/** \brief This returns an associative array with data about the entry.
+ * \param entryID The ID of the entry to look at.
+ * \return This returns an associative array with the keys "id", "url", "name",
+ * "description", "setname", "order", and "sensitive" if it can find the
+ * entry or false if not.
+ */
 function DB_GetEntryData($entryID){
     $res = mysql_query("SELECT * FROM `entry` WHERE `id` = " . (int)$entryID . "");
     return mysql_fetch_array($res);
+}
+
+/** \brief Delete an entry and all associated data.
+ * \param entryID The id of the entry to delete.
+ */
+function DB_DeleteEntry($entryID){
+    $res = mysql_query("SELECT `id` FROM `vote` WHERE `entryid` = " . (int)$entryID) or die(mysql_error());
+    mysql_query("DELETE FROM `vote` WHERE `entryid` = " . (int)$entryID) or die(mysql_error());
+    
+    $megaquery = "DELETE FROM `vote_subresults` WHERE 0 ";
+    while($row = mysql_fetch_array($res)){
+        $megaquery .= " OR `voteid` = " . (int)$row["id"];
+    }
+    mysql_query($megaquery) or die(mysql_error());
+    mysql_query("DELETE FROM `entry` WHERE `id` = " . (int)$entryID) or die(mysql_error());
 }
 
 /// \}
