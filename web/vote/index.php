@@ -34,8 +34,12 @@ $head_extra = '<script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script>
 // Header ----------------------------------------------------------------------
 require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
-$votingTable = new Voting_Entry_Table($projectSet);
-$votingTable->generate();
+if (isset($_POST[P_VOTE_ACTION])) {
+    
+} else {
+    $votingTable = new Voting_Entry_Table($projectSet);
+    $votingTable->generate();
+}
 
 require_once(LAYOUT_PATH_ROOT . 'footer.php')
 ?>

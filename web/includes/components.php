@@ -288,7 +288,7 @@ class Voting_Entry_Table extends Entry_Table {
     function writeStart(){
         ECHO '
         <div id="votingForm">
-            <form name="postVote" action="" method="post">';
+            <form action="index.php" method="post">';
     }
     
     function writeEntry($id, $name, $url, $sensitive, $overallScore, $description, $scores){
@@ -309,7 +309,7 @@ class Voting_Entry_Table extends Entry_Table {
                                 <td>' . htmlspecialchars($crit["name"]) . '</td>
                                 <td>
                                     <!--[if IE]>
-                                    <select name="p' . $id . '.' . $crit["name"] . '">';
+                                    <select name="' . $id . '.' . $crit["name"] . '">';
                                     for($k = -10; $k <= 10; $k++) {
                                         echo '
                                         <option value="' . $k . '">' . $k . '</option>';
@@ -318,7 +318,7 @@ class Voting_Entry_Table extends Entry_Table {
                                     </select>
                                     <![endif-->
                                     <!--[if !IE]-->
-                                    <input type="range" class="sliderBar" id="sliderBar' . $id . '.' . $j . '" name="p' . $id . '.' . $crit["name"]
+                                    <input type="range" class="sliderBar" id="sliderBar' . $id . '.' . $j . '" name="' . $id . '.' . $crit["id"]
                                         . '" value="0" min="-10" max="10" onchange="displaySliderValue(\'sliderValue' . $id . '.' . $j . '\', this.value)" />
                                     <span id="sliderValue' . $id . '.' . $j . '"><script>document.write(document.getElementById(\'sliderBar' . $id . '.' . $j . '\').value)</script></span>
                                     <!--<![endif]-->
@@ -333,6 +333,7 @@ class Voting_Entry_Table extends Entry_Table {
     
     function writeEnd(){
         ECHO '
+                <input type="hidden" name="' . P_VOTE_ACTION . '" />
                 <table>
                     <tr>
                         <td><input type="submit" name="submit" /></td>

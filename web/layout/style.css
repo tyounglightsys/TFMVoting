@@ -86,7 +86,7 @@ a {
     position: relative;
 }
 
-.description span {
+.description span.descriptiontext {
     display: none;
     position: absolute;
     
@@ -118,4 +118,9 @@ a {
     top: 100%;
     left: 0.7em;
     margin-top: 0;
+}
+
+hr {
+    margin: 0.4em 0;
+    padding: 0;
 }

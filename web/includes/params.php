@@ -51,6 +51,13 @@ define(P_ADMIN_ENTRY_NAME, "entryName");
 define(P_ADMIN_ENTRY_DESCRIPTION, "entryDescription");
 define(P_ADMIN_ENTRY_URL, "newEntryURL");
 
+// Vote index ------------------------------------------------------------------
+
+/** \brief This action
+ *
+ */
+define(P_VOTE_ACTION, "postVote");
+
 /// \}
 
 ?>
