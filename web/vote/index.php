@@ -35,7 +35,7 @@ $head_extra = '<script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script>
         </script>';
 
 // Cookie
-if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && isset($_COOKIE[$projectSet]))
+if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && !isset($_COOKIE[$projectSet]))
     setcookie('lolhai', 'true', time()+(60*60*24*30), $web_dir . '/vote/');
 
 // Header ----------------------------------------------------------------------
