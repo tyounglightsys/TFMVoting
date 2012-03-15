@@ -365,7 +365,7 @@ class Voting_Entry_Table extends Entry_Table {
                 <input type="hidden" name="' . P_VOTE_ACTION . '" />
                 <table>
                     <tr>
-                        <td><input type="submit" name="submit" /></td>
+                        <td><input type="submit" name="submit" value="Submit Votes" /></td>
                     </tr>
                 </table>
             </form>
