@@ -402,6 +402,7 @@ class Voting_Entry_Table extends Entry_Table {
     function writeEnd(){
         ECHO '
                 <input type="hidden" name="' . P_VOTE_ACTION . '" />
+                <input type="hidden" name="projectSet" />
                 <table>
                     <tr>
                         <td><input type="submit" name="submit" value="Submit Votes" /></td>
