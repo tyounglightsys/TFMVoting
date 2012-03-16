@@ -41,7 +41,7 @@ function get_www_path()
     
     $uri = explode($http_root, $script_root);
     $http_host = $_SERVER['HTTP_HOST'];
-    $www_dir = 'http://' . $http_host;
+    $www_dir = 'http://' . $http_host . ((isset($uri[1]) && $uri[1]) ? $uri[1] : '');
     if (substr($www_dir, -1) != '/') {
         $www_dir .= '/';
     }
@@ -50,11 +50,8 @@ function get_www_path()
 define('WWW', get_www_path(), true);
 
 // If necessary, set $web_dir to this project's directory.
-// (Fix for bad webservers)
+// (Fix for poorly configured webservers)
 $web_dir = "TFM/";
-
-// Do not change this line, please.
-$web_dir =  ((isset($uri[1]) && $uri[1]) ? $uri[1] : '') . $web_dir;
 
 // Get rid of dumb module
 if(get_magic_quotes_gpc()){
@@ -74,5 +71,6 @@ define('LAYOUT_PATH_WWW', WWW . $web_dir . 'layout/');
 define('INCLUDE_PATH_ROOT', ROOT . 'includes/');
 define('INCLUDE_PATH_WWW', WWW . $web_dir . 'includes/');
 define('BADGES_PATH_WWW', WWW . $web_dir . 'badges/');
+define('COOKIE_PATH', ((isset($uri[1]) && $uri[1]) ? $uri[1] : '') . $web_dir);
 
 ?>

@@ -29,8 +29,7 @@ $head_extra = null;
 
 // Cookie
 if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && (isset($_POST["projectSet"]) && !isset($_COOKIE[$_POST["projectSet"]]))) {
-    setCookieInfo('projectSetViewed', $_POST['projectSet'], time()+(60*60*24*30), '/' . $web_dir . 'vote/');
-    //setcookie(urlencode($_POST["projectSet"]), 'true', time()+(60*60*24*30), '/' . $web_dir . 'vote/');
+    setCookieInfo('projectSetViewed', $_POST['projectSet'], time()+(60*60*24*30), '/' . COOKIE_PATH . 'vote/');
 }
 
 // Set additional head information
