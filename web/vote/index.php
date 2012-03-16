@@ -26,13 +26,9 @@ $title = $projectSet . ' Project Voting';
 $head_extra = null;
 
 // Cookie
-//if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && !isset($_COOKIE[$projectSet])) {
+if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && !isset($_COOKIE[$projectSet])) {
     setcookie($projectSet, 'true', time()+(60*60*24*30), '/' . $web_dir . 'vote/');
-    foreach($_COOKIE as $cookie) {
-        echo $cookie . "<br />";
-    }
-    die();
-//}
+}
 
 // Set additional head information
 $head_extra = '<script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script>
@@ -46,8 +42,8 @@ $head_extra = '<script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script>
 // Header ----------------------------------------------------------------------
 require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
-if ($projectSetState["votingOpen"]) {
-    if (isset($_POST[P_VOTE_ACTION]) && !isset($_COOKIE[$projectSet])) {
+if ($projectSetState["votingOpen"] && !isset($_COOKIE[$projectSet])) {
+    if (isset($_POST[P_VOTE_ACTION])) {
         // Variables
         $keys = array();
         $criteriaKeys = array();
@@ -90,7 +86,11 @@ if ($projectSetState["votingOpen"]) {
         $votingTable = new Voting_Entry_Table($projectSet);
         $votingTable->generate();
     }
-} else {
+}
+else if(isset($_COOKIE[$projectSet])){
+    echo("Thanks for voting!");
+}
+else{
     echo 'This project set isn\'t open for voting. Please go back to the archive.';
 }
 
