@@ -349,6 +349,7 @@ class Voting_Entry_Table extends Entry_Table {
         $criteriaSum = "";
         foreach($this->getCriteria() as $critID => $crit){
             $criteriaSum .= "parseInt(document.getElementById('sliderBar" . $id . "." . $critID . "').value) + ";
+            $criteriaSum .= "parseInt(document.getElementById('dropDown" . $id . "." . $critID . "').value) + ";
         }
         
         ECHO '
@@ -377,15 +378,15 @@ class Voting_Entry_Table extends Entry_Table {
                                 <td>' . htmlspecialchars($crit["name"]) . '</td>
                                 <td>
                                     <!--[if IE]>
-                                    <select id="sliderBar' . $id . '.' . $j . '" name="' . $id . '.' . $crit["name"] . '">';
+                                    <select id="dropDown' . $id . '.' . $j . '" name="' . $id . '.' . $crit["name"] . '" onchange="recalcScores' . $id . '()">';
                                     for($k = -10; $k <= 10; $k++) {
                                         echo '
-                                        <option value="' . $k . '">' . $k . '</option>';
+                                        <option value="' . $k . '"' . (($k == 0) ? ' SELECTED' : '') . '>' . $k . '</option>';
                                     }
                                     echo '
                                     </select>
                                     <![endif-->
-                                    <!--[if !IE]-->
+                                    <!--[if !IE]><!-->
                                     <input type="range" class="sliderBar" id="sliderBar' . $id . '.' . $j . '" name="' . $id . '.' . $crit["id"]
                                         . '" value="0" min="-10" max="10" onchange="displaySliderValue(\'sliderValue' . $id . '.' . $j . '\', this.value); recalcScores' . (int)$id . '()" />
                                     <span id="sliderValue' . $id . '.' . $j . '"><script>document.write(document.getElementById(\'sliderBar' . $id . '.' . $j . '\').value)</script></span>

@@ -11,6 +11,8 @@ require_once(LAYOUT_PATH_ROOT . 'header_start.php');
 // Definitions -----------------------------------------------------------------
 define('PROJECT_NUMBER', 0);
 define('CRITERIA_NUMBER', 1);
+define('MAX', 10);
+define('MIN', -10);
 
 // Header Overrides ------------------------------------------------------------
 if (!$projectSet) {
@@ -67,6 +69,12 @@ if ($projectSetState["votingOpen"] && !isCookieSet('projectSetViewed', $projectS
         
         for ($i = 0; $i < count($keys); $i++) {
             foreach($_POST as $key => $value) {
+                if ($value > MAX) {
+                    $value = MAX;
+                } else if ($value < MIN) {
+                    $value = MIN;
+                }
+                
                 $voteInfo = explode('_', $key);
                 
                 if ($voteInfo[PROJECT_NUMBER] && is_numeric($voteInfo[PROJECT_NUMBER])
