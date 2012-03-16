@@ -16,7 +16,7 @@ require_once(LAYOUT_PATH_ROOT . 'header_start.php');
 if(isset($_POST[P_ADMIN_ACTION])){
     switch($_POST[P_ADMIN_ACTION]){
         case PV_ADMIN_ACTION_STATE_CHANGE:
-            if($projectSet){
+            if($projectSet !== null){
                 DB_SetProjectSetStates($projectSet,
                                        $_POST[P_ADMIN_STATE_VOTING_OPEN] ? 1 : 0,
                                        $_POST[P_ADMIN_STATE_RESULTS_VISIBLE] ? 1 : 0,
@@ -24,12 +24,12 @@ if(isset($_POST[P_ADMIN_ACTION])){
             }
             break;
         case PV_ADMIN_ACTION_NEW_PROJECT_SET:
-            if(!$projectSet){
+            if($projectSet === null){
                 DB_CreateProjectSet($_POST[P_ALL_PROJ_SET], $CRITERIA_DEFAULT);
             }
             break;
         case PV_ADMIN_ACTION_NEW_ENTRY:
-            if($projectSet){
+            if($projectSet !== null){
                 if(isset($_POST[P_ADMIN_ENTRY_ID])){
                     $entries = DB_GetAllEntryIDsInProjectSet($projectSet);
                     if(in_array((int)$_POST[P_ADMIN_ENTRY_ID], $entries)){
@@ -50,7 +50,7 @@ if(isset($_POST[P_ADMIN_ACTION])){
             }
             break;
         case PV_ADMIN_ACTION_MOVE_ENTRY:
-            if($projectSet){
+            if($projectSet !== null){
                 $entries = DB_GetAllEntryIDsInProjectSet($projectSet);
                 if(in_array((int)$_POST[P_ADMIN_ENTRY_ID], $entries)){
                     DB_MoveEntry($projectSet,
@@ -60,7 +60,7 @@ if(isset($_POST[P_ADMIN_ACTION])){
             }
             break;
         case PV_ADMIN_ACTION_DELETE_ENTRY:
-            if($projectSet && isset($_POST[P_ADMIN_ENTRY_ID])){
+            if($projectSet !== null && isset($_POST[P_ADMIN_ENTRY_ID])){
                 $entries = DB_GetAllEntryIDsInProjectSet($projectSet);
                 if(in_array((int)$_POST[P_ADMIN_ENTRY_ID], $entries)){
                     DB_DeleteEntry((int)$_POST[P_ADMIN_ENTRY_ID]);
@@ -70,10 +70,11 @@ if(isset($_POST[P_ADMIN_ACTION])){
     }
 }
 
-if (!$projectSet) {
+if ($projectSet === null) {
     $projectSet = DB_GetCurrentProjectSetName();
-    if(!$projectSet) {
-        $projectSet = null;
+    if($projectSet === false) {
+        header("Location: newset.php");
+        exit();
     }
 }
 

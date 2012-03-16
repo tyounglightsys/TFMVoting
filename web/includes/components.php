@@ -241,7 +241,7 @@ class Archive_Entry_Table extends Entry_Table{
             }
         }
         print("</tr>");
-        print("<tr><td colspan='" . ($resultsVisible ? 4 + count($scores) : 2) . "'><i><b>Description:</b> " . htmlentities($description) . "<i /></td></tr>");
+        print("<tr><td /><td colspan='" . ($resultsVisible ? 3 + count($scores) : 1) . "'><i><b>Description:</b> " . htmlentities($description) . "<i /></td></tr>");
     }
     
     function writeEnd(){
