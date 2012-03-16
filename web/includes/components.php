@@ -199,22 +199,53 @@ class Archive_Entry_Table extends Entry_Table{
     
     // Implemented for Entry_Table ---------------------------------------------
     function writeStart(){
-        echo '
-            <table>';
+        $resultsVisible = DB_GetProjectSetStates($this->getProjectSetName());
+        $resultsVisible = $resultsVisible["resultsVisible"];
+        
+        print("<table><tr>");
+        if($resultsVisible){
+            print("<th></th>");
+        }
+        print("<th>Name</th><th>URL</th>");
+        if($resultsVisible){
+            print("<th>Total Score</th>");
+            foreach($this->getCriteria() as $crit){
+                print("<th>" . htmlentities($crit["name"]) . "</th>");
+            }
+        }
+        
+        print("</tr>");
     }
     
     function writeEntry($id, $name, $url, $sensitive, $overallScore, $description, $scores){
-        echo '
-                <tr>
-                    <td> ' . ((!$sensitive) ? $name : "Sensitive Project") . ' </td>
-                    <td> <a' . ((!$sensitive) ? ' href="' . $url . '">' : '>') . ((!$sensitive) ? $url : "Sensitive Project")
-                           . '</a> </td>
-                </tr>';
+        $resultsVisible = DB_GetProjectSetStates($this->getProjectSetName());
+        $resultsVisible = $resultsVisible["resultsVisible"];
+        
+        if($sensitive){
+            $name = "Sensitive Project";
+            $url = "Sensitive Project";
+            $description = "Sensitive Project";
+        }
+        
+        print("<tr>");
+        if($resultsVisible){
+            print("<td><img src='" . htmlspecialchars($this->getBadgePath($overallScore), ENT_QUOTES) . "'/></td>");
+        }
+        print("<td>" . htmlentities($name) . "</td>
+                <td><a " . ($sensitive ? "" : "href='" . htmlentities($url) . "'") . ">" . htmlentities($url) . "</a></td>");
+        if($resultsVisible){
+            print("<td>" . htmlentities($overallScore) . "</td>");
+        
+            foreach($scores as $score){
+                print("<td>" . htmlentities($score) . "</td>");
+            }
+        }
+        print("</tr>");
+        print("<tr><td colspan='" . ($resultsVisible ? 4 + count($scores) : 2) . "'><b>Description:</b> " . htmlentities($description) . "<hr /></td></tr>");
     }
     
     function writeEnd(){
-        echo '
-            </table>';
+        print("</table>");
     }
     
 }
@@ -250,7 +281,7 @@ class Admin_Entry_Table extends Entry_Table{
         print("<tr>
                 <td><img src='" . htmlspecialchars($this->getBadgePath($overallScore), ENT_QUOTES) . "'/></td>
                 <td>" . htmlentities($name) . "</td>
-                <td><a href=" . htmlentities($url) . ">" . htmlentities($url) . "</a></td>
+                <td><a href='" . htmlentities($url) . "'>" . htmlentities($url) . "</a></td>
                 <td>" . htmlentities($overallScore) . "</td>");
         
         foreach($scores as $score){
