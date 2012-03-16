@@ -25,6 +25,15 @@ $projectSetState = DB_GetProjectSetStates($projectSet);
 $title = $projectSet . ' Project Voting';
 $head_extra = null;
 
+// Cookie
+//if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && !isset($_COOKIE[$projectSet])) {
+    setcookie($projectSet, 'true', time()+(60*60*24*30), '/' . $web_dir . 'vote/');
+    foreach($_COOKIE as $cookie) {
+        echo $cookie . "<br />";
+    }
+    die();
+//}
+
 // Set additional head information
 $head_extra = '<script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script>
         <script type="text/javascript">
@@ -33,10 +42,6 @@ $head_extra = '<script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script>
                 elem.innerHTML = value;
             }
         </script>';
-
-// Cookie
-if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && !isset($_COOKIE[$projectSet]))
-    setcookie('lolhai', 'true', time()+(60*60*24*30), $web_dir . '/vote/');
 
 // Header ----------------------------------------------------------------------
 require_once(LAYOUT_PATH_ROOT . 'header_end.php');
