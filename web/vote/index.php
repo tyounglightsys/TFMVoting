@@ -9,8 +9,8 @@ require_once('../config.php');
 require_once(LAYOUT_PATH_ROOT . 'header_start.php');
 
 // Definitions -----------------------------------------------------------------
-define(PROJECT_NUMBER, 0);
-define(CRITERIA_NUMBER, 1);
+define('PROJECT_NUMBER', 0);
+define('CRITERIA_NUMBER', 1);
 
 // Header Overrides ------------------------------------------------------------
 if (!$projectSet) {
@@ -42,7 +42,7 @@ $head_extra = '<script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script>
 // Header ----------------------------------------------------------------------
 require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
-if ($projectSetState["votingOpen"] && !isset($_COOKIE[urlencode($_POST["projectSet"])])) {
+if ($projectSetState["votingOpen"] && !isset($_COOKIE[urlencode($projectSet)])) {
     if (isset($_POST[P_VOTE_ACTION])) {
         // Variables
         $projectSet = $_POST["projectSet"];
@@ -88,10 +88,10 @@ if ($projectSetState["votingOpen"] && !isset($_COOKIE[urlencode($_POST["projectS
         $votingTable->generate();
     }
 }
-else if(isset($_COOKIE[urlencode($_POST["projectSet"])])){
+else if(isset($_COOKIE[urlencode($_POST["projectSet"])])) {
     echo("Thanks for voting!");
 }
-else{
+else {
     echo 'This project set isn\'t open for voting. Please go back to the archive.';
 }
 

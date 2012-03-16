@@ -22,13 +22,13 @@ $CRITERIA_DEFAULT = array(
 );
 /// \}
 
-define(CRITERIA_NAME, 0);
-define(CRITERIA_DESCRIPTION, 1);
+define('CRITERIA_NAME', 0);
+define('CRITERIA_DESCRIPTION', 1);
 
-define(DB_USERNAME, "tfm");
-define(DB_PASSWORD, "tfm");
-define(DB_HOST, "127.0.0.1");
-define(DB_DATABASE, "tfm");
+define('DB_USERNAME', "tfm");
+define('DB_PASSWORD', "tfm");
+define('DB_HOST', "127.0.0.1");
+define('DB_DATABASE', "tfm");
 
 define('ROOT', str_replace('\\', '/', dirname(__FILE__)), true);
 if (substr(ROOT, -1) != '/') {
@@ -41,7 +41,7 @@ function get_www_path()
     
     $uri = explode($http_root, $script_root);
     $http_host = $_SERVER['HTTP_HOST'];
-    $www_dir = 'http://' . $http_host . $uri[1];
+    $www_dir = 'http://' . $http_host . ((isset($uri[1]) && $uri[1]) ? $uri[1] : '');
     if (substr($www_dir, -1) != '/') {
         $www_dir .= '/';
     }
@@ -49,7 +49,8 @@ function get_www_path()
 }
 define('WWW', get_www_path(), true);
 
-// Set $web_dir to the location that you have the voting web project in.
+// If necessary, set $web_dir to this project's directory.
+// (Fix for bad webservers)
 $web_dir = "TFM/";
 
 // Get rid of dumb module
@@ -65,10 +66,10 @@ if(get_magic_quotes_gpc()){
     }
 }
 
-define("LAYOUT_PATH_ROOT", ROOT . 'layout/');
-define("LAYOUT_PATH_WWW", WWW . $web_dir . 'layout/');
-define("INCLUDE_PATH_ROOT", ROOT . 'includes/');
-define("INCLUDE_PATH_WWW", WWW . $web_dir . 'includes/');
-define("BADGES_PATH_WWW", WWW . $web_dir . 'badges/');
+define('LAYOUT_PATH_ROOT', ROOT . 'layout/');
+define('LAYOUT_PATH_WWW', WWW . $web_dir . 'layout/');
+define('INCLUDE_PATH_ROOT', ROOT . 'includes/');
+define('INCLUDE_PATH_WWW', WWW . $web_dir . 'includes/');
+define('BADGES_PATH_WWW', WWW . $web_dir . 'badges/');
 
 ?>
