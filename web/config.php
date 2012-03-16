@@ -30,7 +30,10 @@ define(DB_PASSWORD, "tfm");
 define(DB_HOST, "127.0.0.1");
 define(DB_DATABASE, "tfm");
 
-define('ROOT', str_replace('\\', '/', dirname(__FILE__)) . '/', true);
+define('ROOT', str_replace('\\', '/', dirname(__FILE__)), true);
+if (substr(ROOT, -1) != '/') {
+    define('ROOT', ROOT . '/');
+}
 function get_www_path()
 {
     $http_root = $_SERVER['DOCUMENT_ROOT'];
@@ -38,7 +41,10 @@ function get_www_path()
     
     $uri = explode($http_root, $script_root);
     $http_host = $_SERVER['HTTP_HOST'];
-    $www_dir = 'http://' . $http_host . $uri[1] . '/';
+    $www_dir = 'http://' . $http_host . $uri[1];
+    if (substr($www_dir, -1) != '/') {
+        $www_dir .= '/';
+    }
     return $www_dir;
 }
 define('WWW', get_www_path(), true);
