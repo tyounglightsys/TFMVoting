@@ -348,7 +348,7 @@ class Voting_Entry_Table extends Entry_Table {
     function writeEntry($id, $name, $url, $sensitive, $overallScore, $description, $scores){
         $criteriaSum = "";
         foreach($this->getCriteria() as $critID => $crit){
-            $criteriaSum .= "parseInt(document.getElementById('sliderBar" . $id . "." . $critID . "').value) +";
+            $criteriaSum .= "parseInt(document.getElementById('sliderBar" . $id . "." . $critID . "').value) + ";
         }
         
         ECHO '
@@ -366,7 +366,7 @@ class Voting_Entry_Table extends Entry_Table {
                     <script>
                         function recalcScores' . (int)$id . '(){
                             elem = document.getElementById("totalScore' . (int)$id . '");
-                            elem.innerHTML = ' . $criteriaSum . ' 0;
+                            elem.innerHTML = ' . $criteriaSum . '0;
                         }
                     </script>
                     <table>
@@ -377,7 +377,7 @@ class Voting_Entry_Table extends Entry_Table {
                                 <td>' . htmlspecialchars($crit["name"]) . '</td>
                                 <td>
                                     <!--[if IE]>
-                                    <select name="' . $id . '.' . $crit["name"] . '">';
+                                    <select id="sliderBar' . $id . '.' . $j . '" name="' . $id . '.' . $crit["name"] . '">';
                                     for($k = -10; $k <= 10; $k++) {
                                         echo '
                                         <option value="' . $k . '">' . $k . '</option>';
