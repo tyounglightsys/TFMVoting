@@ -26,8 +26,8 @@ $title = $projectSet . ' Project Voting';
 $head_extra = null;
 
 // Cookie
-if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && !isset($_COOKIE[urlencode($projectSet)])) {
-    setcookie(urlencode($projectSet), 'true', time()+(60*60*24*30), '/' . $web_dir . 'vote/');
+if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && !isset($_COOKIE[urlencode($_POST["projectSet"])]) {
+    setcookie(urlencode($_POST["projectSet"]), 'true', time()+(60*60*24*30), '/' . $web_dir . 'vote/');
 }
 
 // Set additional head information
@@ -42,7 +42,7 @@ $head_extra = '<script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script>
 // Header ----------------------------------------------------------------------
 require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
-if ($projectSetState["votingOpen"] && !isset($_COOKIE[urlencode($projectSet)])) {
+if ($projectSetState["votingOpen"] && !isset($_COOKIE[urlencode($_POST["projectSet"])])) {
     if (isset($_POST[P_VOTE_ACTION])) {
         // Variables
         $projectSet = $_POST["projectSet"];
@@ -88,7 +88,7 @@ if ($projectSetState["votingOpen"] && !isset($_COOKIE[urlencode($projectSet)])) 
         $votingTable->generate();
     }
 }
-else if(isset($_COOKIE[urlencode($projectSet)])){
+else if(isset($_COOKIE[urlencode($_POST["projectSet"])])){
     echo("Thanks for voting!");
 }
 else{

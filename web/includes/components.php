@@ -30,7 +30,7 @@ abstract class Entry_Table{
         // Construct the MySQL query for pulling the entry's id, name, url, sensitive state, and total votes
         $query = "SELECT `id`, `name`, `url`, `sensitive`, `description`,";
         if ($needsScores) {
-            $query .= " COALESCE ("
+            $query .= " COALESCE("
                 . "(SELECT SUM(s.value)"
                 . " FROM `vote` AS v"
                 . " INNER JOIN `vote_subresults` AS s"
@@ -402,7 +402,7 @@ class Voting_Entry_Table extends Entry_Table {
     function writeEnd(){
         ECHO '
                 <input type="hidden" name="' . P_VOTE_ACTION . '" />
-                <input type="hidden" name="projectSet" />
+                <input type="hidden" value="' . htmlspecialchars($this->getProjectSetName(), ENT_QUOTES) . '" name="' . htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES) . '"/>
                 <table>
                     <tr>
                         <td><input type="submit" name="submit" value="Submit Votes" /></td>
