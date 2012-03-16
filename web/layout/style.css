@@ -32,7 +32,7 @@ div#projectSetActions form {
 }
 
 div#votingForm {
-    margin-right: auto;
+    margin: auto;
 }
 
 div#project {
@@ -82,7 +82,7 @@ a {
     color: rgb(70, 70, 70);
 }
 
-hr{
-    margin: 5px 0 5px 0;
+hr {
+    margin: 5px 0;
     padding: 0;
 }
