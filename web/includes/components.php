@@ -402,7 +402,7 @@ class Voting_Entry_Table extends Entry_Table {
     function writeEnd(){
         ECHO '
                 <input type="hidden" name="' . P_VOTE_ACTION . '" />
-                <input type="hidden" name="projectSet" />
+                <input type="hidden" value="' . htmlspecialchars($this->getProjectSetName(), ENT_QUOTES) . '" name="' . htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES) . '"/>
                 <table>
                     <tr>
                         <td><input type="submit" name="submit" value="Submit Votes" /></td>
