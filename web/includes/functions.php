@@ -295,4 +295,66 @@ function DB_DeleteEntry($entryID){
 
 /// \}
 
+/** \defgroup cookie Dynamic Cookie Info
+ * \{
+ */
+
+// Cookie Functions
+
+/** \brief Sets cookie array information in a much similar manner to array_push.
+ * \param cookieName The name of the cookie array you wish to set
+ * \param value The value to assign to the cookie
+ * \param time The expiry time to set the cookie to
+ * \param path The path, if any, to store the cookie to.
+ * \pre value may not overlap with other values in the cookie array.
+ */
+function setCookieInfo($cookieName, $value, $time, $path) {
+    if (!$path)
+        $path = '';
+    
+    if (isset($value) && $value) {
+        if (isset($_COOKIE[$cookieName]) && $_COOKIE[$cookieName]) {
+            if (!array_search($value, $_COOKIE[$cookieName])) {
+                $currentLength = count($_COOKIE[$cookieName]);
+                setcookie($cookieName . '[' . ($currentLength + 1) . ']', $value, $time, $path);
+            }
+        } else {
+            setcookie($cookieName . '[1]', $value, $time, $path);
+        }
+    }
+}
+
+/** \brief This function checks to see if a cookie already exists in a cookie array.
+ * \param cookieName The cookie array to search.
+ * \param value The value to search for in the cookie array.
+ * \return Returns true if the cookie exists in the given array, else false.
+ */
+function isCookieSet($cookieName, $value) {
+    if (isset($_COOKIE[$cookieName]) && $_COOKIE[$cookieName]) {
+        if (array_search($value, $_COOKIE[$cookieName])) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+/** \brief Prints a full array, intended for use with cookies.
+ * \param cookies The array to display.
+ */
+function printCookieInfo($cookies) {
+    if (is_array($cookies)) {
+        foreach($cookies as $key => $value) {
+            if (is_array($value)) {
+                echo $key . "<br />";
+                getCookieInfo($value);
+            } else {
+                echo $key . " => " . $value . "<br />";
+            }
+        }
+    } else {
+        echo $key . " => " . $value . "<br />";
+    }
+}
+
 ?>

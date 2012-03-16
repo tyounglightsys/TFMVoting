@@ -1,4 +1,9 @@
-<html>
+<?php
+if (!isset($head_extra) || !$head_extra)
+    $head_extra = '';
+if (!isset($div_header_extra) || !$div_header_extra)
+    $div_header_extra = '';
+?><html>
     <head>
         <title><?php ECHO htmlentities($title, ENT_QUOTES) ?></title>
         <link rel="stylesheet" type="text/css" href="<?php echo LAYOUT_PATH_WWW ?>style.css">
