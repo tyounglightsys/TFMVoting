@@ -30,7 +30,7 @@ abstract class Entry_Table{
         // Construct the MySQL query for pulling the entry's id, name, url, sensitive state, and total votes
         $query = "SELECT `id`, `name`, `url`, `sensitive`, `description`,";
         if ($needsScores) {
-            $query .= " IFNULL ("
+            $query .= " COALESCE ("
                 . "(SELECT SUM(s.value)"
                 . " FROM `vote` AS v"
                 . " INNER JOIN `vote_subresults` AS s"
@@ -131,7 +131,7 @@ abstract class Entry_Table{
                 if($this->needsScores){
                     foreach($this->getCriteria() as $criteria){
                         $res = mysql_query("SELECT
-                                                IFNULL(
+                                                COALESCE(
                                                     SUM(
                                                         (SELECT SUM(s.value)
                                                             FROM `vote_subresults` AS s
@@ -241,7 +241,7 @@ class Archive_Entry_Table extends Entry_Table{
             }
         }
         print("</tr>");
-        print("<tr><td colspan='" . ($resultsVisible ? 4 + count($scores) : 2) . "'><b>Description:</b> " . htmlentities($description) . "<hr /></td></tr>");
+        print("<tr><td /><td colspan='" . ($resultsVisible ? 3 + count($scores) : 1) . "'><i><b>Description:</b> " . htmlentities($description) . "<i /></td></tr>");
     }
     
     function writeEnd(){

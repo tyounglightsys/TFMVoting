@@ -41,21 +41,26 @@ require_once(LAYOUT_PATH_ROOT . 'header_end.php');
                     <td> <input id="nameField" type="text" name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_URL, ENT_QUOTES)) ?>" value="<?php print(htmlspecialchars($url, ENT_QUOTES)) ?>"/> </td>
                 </tr>
             </table>
+            
             <input type="checkbox" name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_SENSITIVE, ENT_QUOTES)) ?>"
                 <?php
                     if($sensitive){
                         echo("checked='true'");
                     }
                 ?>/>Sensitive</input>
-            <br/>
+            
+            <p>
+                Description:
+            </p>
             <textarea name="<?php print(htmlspecialchars(P_ADMIN_ENTRY_DESCRIPTION, ENT_QUOTES)) ?>"><?php echo(htmlentities($description))?></textarea>
-            <hr/>
             
             <?php
                 if(!$new){
                     print("<input type='hidden' value='" . (int)$id . "' name='" . htmlspecialchars(P_ADMIN_ENTRY_ID, ENT_QUOTES) . "'/>");
                 }
             ?>
+            
+            <hr />
             
             <input type="hidden" name="<?php print(htmlspecialchars(P_ADMIN_ACTION, ENT_QUOTES)) ?>" value="<?php print(htmlspecialchars(PV_ADMIN_ACTION_NEW_ENTRY, ENT_QUOTES)) ?>" />
             <input type="hidden" value="<?php print(htmlspecialchars($projectSet, ENT_QUOTES)) ?>" name="<?php print(htmlspecialchars(P_ALL_PROJ_SET, ENT_QUOTES)) ?>" />
