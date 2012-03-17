@@ -86,3 +86,25 @@ hr {
     margin: 5px 0;
     padding: 0;
 }
+
+span.totalScore {
+    font-size: 115%;
+    font-weight: bold;
+}
+
+#sliderBox {
+    width: 100%;
+}
+
+div.sliderBar {
+    font-size: 50%;
+    width: 90%;
+}
+
+span.sliderValue {
+    width: 10%;
+    font-size: 200%;
+    position: absolute;
+    top: -7px;
+    margin-left: 102%;
+}

@@ -33,7 +33,7 @@ if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && (isset($_P
 }
 
 // Set additional head information
-$head_extra = '<script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script>
+$head_extra = '<!-- <script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script> -->
         <script type="text/javascript">
             function displaySliderValue(elementId, value) {
                 var elem = document.getElementById(elementId);
@@ -97,10 +97,10 @@ if ($projectSetState["votingOpen"] && !isCookieSet('projectSetViewed', $projectS
     }
 }
 else if(isCookieSet('projectSetViewed', $projectSet) || (isset($_POST["projectSet"]) && isCookieSet('projectSetViewed', $_POST["projectSet"]))) {
-    echo("Thanks for voting!");
+    echo 'Thanks for voting!';
 }
 else {
-    echo 'This project set isn\'t open for voting. Please go back to the archive.';
+    echo 'This year\'s TFM isn\'t open for voting. Please go back to the <a style="padding: 0;" href="../index.php">archives</a>.';
 }
 
 require_once(LAYOUT_PATH_ROOT . 'footer.php')

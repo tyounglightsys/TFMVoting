@@ -111,11 +111,16 @@ $div_header_extra .= '
 // Header ----------------------------------------------------------------------
 require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 ?>
+        <h4>
+            <a href="../vote/index.php?projectSet=<?php print($projectSet) ?>">Vote on this TFM</a>
+            <a href="../index.php?projectSet=<?php print($projectSet) ?>">Go to this TFM's archive</a>
+            <a href="../index.php">Go to the general archive listing</a>
+        </h4>
         <h2> Status </h2>
         <form action="index.php" method="post">
             <table>
                 <tr>
-                    <td>Open:</td>
+                    <td>Open For Voting:</td>
                     <td><input type="checkbox" name="<?php print(P_ADMIN_STATE_VOTING_OPEN); ?>"
                         
                         <?php

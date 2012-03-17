@@ -234,7 +234,7 @@ class Archive_Entry_Table extends Entry_Table{
         print("<td>" . htmlentities($name) . "</td>
                 <td><a " . ($sensitive ? "" : "href='" . htmlentities($url) . "'") . ">" . htmlentities($url) . "</a></td>");
         if($resultsVisible){
-            print("<td>" . htmlentities($overallScore) . "</td>");
+            print("<td><span class=\"totalScore\">" . htmlentities($overallScore) . "</span></td>");
         
             foreach($scores as $score){
                 print("<td>" . htmlentities($score) . "</td>");
@@ -341,17 +341,12 @@ class Voting_Entry_Table extends Entry_Table {
     // Implemented for Entry_Table ---------------------------------------------
     function writeStart(){
         ECHO '
+        <script src="' . LAYOUT_PATH_WWW . 'jquery.calculation.min.js"></script>
         <div id="votingForm">
             <form action="index.php" method="post">';
     }
     
     function writeEntry($id, $name, $url, $sensitive, $overallScore, $description, $scores){
-        $criteriaSum = "";
-        foreach($this->getCriteria() as $critID => $crit){
-            $criteriaSum .= "parseInt(document.getElementById('sliderBar" . $id . "." . $critID . "').value) + ";
-            $criteriaSum .= "parseInt(document.getElementById('dropDown" . $id . "." . $critID . "').value) + ";
-        }
-        
         ECHO '
                 <div id="project">
                     <h2>
@@ -365,18 +360,35 @@ class Voting_Entry_Table extends Entry_Table {
                     </p>
                     <hr />
                     <script>
-                        function recalcScores' . (int)$id . '(){
-                            elem = document.getElementById("totalScore' . (int)$id . '");
-                            elem.innerHTML = ' . $criteriaSum . '0;
-                        }
+                        function updateTotalScore' . $id . '() {
+                            var totalScore = $( "div[id^=\'sliderBar' . $id . '\']" ).sum();
+                            
+                            $( "#totalScore' . $id . '" ).text(totalScore);
+                        };
                     </script>
                     <table>
-                        <div id="sliderBox">';
+                        <div class="sliderBox' . $id . '" id="sliderBox">';
                             foreach($this->getCriteria() as $j => $crit) {
                                 echo '
                             <tr>
                                 <td>' . htmlspecialchars($crit["name"]) . '</td>
-                                <td>
+                                <td id="sliderBox">
+                                    <script>
+                                        $(document).ready(function() {
+                                            $( "#sliderBar' . $id . '-' . $j . '" ).slider({
+                                                max: 10,
+                                                min: -10,
+                                                slide: function(event, ui) {
+                                                    $( "#sliderValue' . $id . '-' . $j . '" ).text(ui.value);
+                                                    $( "#sliderInput' . $id . '-' . $j . '" ).val(ui.value);
+                                                    updateTotalScore' . $id . '();
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                    <div class="sliderBar" id="sliderBar' . $id . '-' . $j . '">' /* onchange="recalcScores' . $id . '()">*/ . '<span class="sliderValue" id="sliderValue' . $id . '-' . $j . '">0</span></div>
+                                    <input type="hidden" id="sliderInput' . $id . '-' . $j . '" name="' . $id . '.' . $crit["id"] .'" value="0" />
+                                    <!--' . /*
                                     <!--[if IE]>
                                     <select id="dropDown' . $id . '.' . $j . '" name="' . $id . '.' . $crit["name"] . '" onchange="recalcScores' . $id . '()">';
                                     for($k = -10; $k <= 10; $k++) {
@@ -391,6 +403,7 @@ class Voting_Entry_Table extends Entry_Table {
                                         . '" value="0" min="-10" max="10" onchange="displaySliderValue(\'sliderValue' . $id . '.' . $j . '\', this.value); recalcScores' . (int)$id . '()" />
                                     <span id="sliderValue' . $id . '.' . $j . '"><script>document.write(document.getElementById(\'sliderBar' . $id . '.' . $j . '\').value)</script></span>
                                     <!--<![endif]-->
+                                            */ ' -->
                                 </td>
                             </tr>';
                             }
