@@ -5,12 +5,15 @@ Overview
 	web folder to your PHP enabled web server.  
 
 Initializing the Database
+	To set up the database, create a blank schema and user to access the new schema.
+	These can be named however you want, just modify the contents of web/config.php
+	DB_DATABASE, DB_USERNAME, DB_PASSWORD, and DB_HOST to match the database name, 
+	user name, user password, and MySQL server address that you have configured. 
+	Finally, run the TFM_Structure.sql script in your database to set up the initial 
+	layout of tables.
 
 Installing the Web Interface
-	To install the web interface, simply edit the values of the config.php file in the
-	web folder in this repository and then put the entire web folder on your server. 
-	After this, you should password protect (using the web server's functionality) the
-	admin folder to restrict administrator privileges. The vote folder may also be 
+	To install the web interface, put the contents of the web folder on your server. 	After this, you should password protect (using basic HTTP authentication) the 	admin folder to restrict administrator privileges. The vote folder may also be 
 	protected in a similar manner to provide restricted voting and viewing of
 	restricted projects. 
 
@@ -18,4 +21,4 @@ Notes
 	When you wish to change the voting criteria for a project set, you must edit the 
 	config.php file before creating the project set.  The project set will then 
 	inherit the changed criteria while all after will still maintain their previous
-	criteria. 
+	criteria. This method will hopefully be changed in future versions of the system.
