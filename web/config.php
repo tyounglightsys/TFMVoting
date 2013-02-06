@@ -20,57 +20,35 @@ $CRITERIA_DEFAULT = array(
     array('Cooperation', "How well does it utilize and/or encourage cooperation in the Body?"),
     array('Re-usability', "To what extent can other ministries replicate/make use of this idea?")
 );
-/// \}
 
 define('CRITERIA_NAME', 0);
 define('CRITERIA_DESCRIPTION', 1);
 
+/// \brief A user-configured value that tells the username to access the MySQL database.
 define('DB_USERNAME', "tfm");
+/// \brief A user-configured value that tells the password for DB_USERNAME for MySQL.
 define('DB_PASSWORD', "tfm");
+/// \brief A user-configured value that tells the address of the MySQL server.
 define('DB_HOST', "127.0.0.1");
+/// \brief A user-configured value stating the MySQL schema used for this web application.
 define('DB_DATABASE', "tfm");
 
-define('ROOT', str_replace('\\', '/', dirname(__FILE__)), true);
-if (substr(ROOT, -1) != '/') {
-    define('ROOT', ROOT . '/');
-}
-function get_www_path()
-{
-    $http_root = $_SERVER['DOCUMENT_ROOT'];
-    $script_root = ROOT;
-    
-    $uri = explode($http_root, $script_root);
-    $http_host = $_SERVER['HTTP_HOST'];
-    $www_dir = 'http://' . $http_host . ((isset($uri[1]) && $uri[1]) ? $uri[1] : '');
-    if (substr($www_dir, -1) != '/') {
-        $www_dir .= '/';
-    }
-    return $www_dir;
-}
-define('WWW', get_www_path(), true);
-
-// If necessary, set $web_dir to this project's directory.
-// (Fix for poorly configured webservers)
-$web_dir = "TFM/";
-
-// Get rid of dumb module
-if(get_magic_quotes_gpc()){
-    foreach($_REQUEST as $key => $getulet){
-        $_REQUEST[$key] = stripslashes($getulet);
-    }
-    foreach($_GET as $key => $getulet){
-        $_GET[$key] = stripslashes($getulet);
-    }
-    foreach($_POST as $key => $getulet){
-        $_POST[$key] = stripslashes($getulet);
-    }
-}
+/** \brief A user-configured value that tells the web address of the folder containing
+ * the voting system including the trailing slash. 
+ */
+define('WWW', 'http://localhost/web/');
+/** \brief A user-configured value that tells the path to the folder containing the system
+ * on the local machine including the trailing slash. 
+ */
+define('ROOT', '/Library/WebServer/Documents/web/');
 
 define('LAYOUT_PATH_ROOT', ROOT . 'layout/');
-define('LAYOUT_PATH_WWW', WWW . $web_dir . 'layout/');
+define('LAYOUT_PATH_WWW', WWW . 'layout/');
 define('INCLUDE_PATH_ROOT', ROOT . 'includes/');
-define('INCLUDE_PATH_WWW', WWW . $web_dir . 'includes/');
-define('BADGES_PATH_WWW', WWW . $web_dir . 'badges/');
-define('COOKIE_PATH', ((isset($uri[1]) && $uri[1]) ? $uri[1] : '') . $web_dir);
+define('INCLUDE_PATH_WWW', WWW . 'includes/');
+define('BADGES_PATH_WWW', WWW . 'badges/');
+define('COOKIE_PATH', WWW);
+
+/// \}
 
 ?>

@@ -13,9 +13,12 @@ Initializing the Database
 	layout of tables.
 
 Installing the Web Interface
-	To install the web interface, put the contents of the web folder on your server. 	After this, you should password protect (using basic HTTP authentication) the 	admin folder to restrict administrator privileges. The vote folder may also be 
-	protected in a similar manner to provide restricted voting and viewing of
-	restricted projects. 
+	To install the web interface, put the contents of the web folder on your server.	The WWW and ROOT paths in web/config.php must be set to the web URL to the folder
+	containing the voting system and to the path to the folder containing the voting 
+	system on the web server. After this, you should password protect (using basic 
+	HTTP authentication) the admin folder to restrict administrator privileges. The 
+	vote folder may also be protected in a similar manner to provide restricted voting 
+	and viewing of restricted projects.
 
 Notes
 	When you wish to change the voting criteria for a project set, you must edit the 
