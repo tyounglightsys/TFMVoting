@@ -1,0 +1,14 @@
+#Copy/rename this to the .htaccess file
+##Make sure that, in your httpd config file for this directory
+#You have at least, AllowOverride AuthConfig 
+AuthType Basic
+AuthName "ICCM-TFM"
+AuthBasicProvider file
+#Apache has a default directory for the file below.
+#in Centos, it is /etc/httpd
+#Either use that directory for the htpasswd file, 
+#or add a full path to the location of the password file
+#Use: htpasswd -c [the file below] admin
+#to set the password.
+AuthUserFile tfmadmin.htaccess
+Require user admin 

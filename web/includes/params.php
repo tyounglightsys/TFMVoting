@@ -41,6 +41,13 @@ define('PV_ADMIN_ACTION_MOVE_ENTRY', "moveEntry");
 
 define('PV_ADMIN_ACTION_DELETE_ENTRY', "deleteEntry");
 
+/** \brief We delete an entire project set.
+ *
+ * This should be sent via POST
+ */
+define('PV_ADMIN_ACTION_QUERY_DELETE_PROJECT_SET', "queryDeleteProjectSet");
+define('PV_ADMIN_ACTION_DELETE_PROJECT_SET', "deleteProjectSet");
+
 /** \brief This parameter is passed in POST when you want to create a new
  * entry to the project set.
  */

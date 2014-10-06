@@ -23,16 +23,27 @@ require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
 if ($projectSet) {
     $states = DB_GetProjectSetStates($projectSet);
+    echo '    <br><a href="index.php">Back</a><br>';
     
     if ($states["archived"]) {
         echo '
             <h2>' . htmlentities($projectSet) . ' > Projects</h2>';
+
+	if ($states["votingOpen"]) {
+	    echo "\n";
+	    echo'<a href="vote/index.php?projectSet='
+	    . htmlspecialchars($projectSet, ENT_QUOTES) . '">'
+	    . 'vote on ' . htmlentities($projectSet, ENT_QUOTES) . '</a><br><br>';
+	    echo "\n";
+	}
 
         $archiveTable = new Archive_Entry_Table($projectSet);
         $archiveTable->generate();
     } else {
         $projectSet = null;
     }
+    echo "\n";
+    echo '    <br><a href="index.php">Back</a><br>';
 }
 
 if (!$projectSet) {

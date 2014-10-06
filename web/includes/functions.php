@@ -156,6 +156,26 @@ function DB_CreateProjectSet($setName, $criterias){
         }
     }
 }
+function DB_DeleteProjectSet($setName){
+    if(DB_GetProjectSetExists($setName)){
+        
+        // Insert the project set
+        mysql_query("delete s.*, v.*, c.* from 
+		vote v inner join vote_subresults AS s 
+		ON s.voteid = v.id inner join criteria AS c 
+		ON c.id = s.criteriaid 
+		where c.setname = '". mysql_real_escape_string($setName) ."'")
+		  or die(mysql_error());
+    
+        mysql_query("delete from entry where entry.setname='"
+	      . mysql_real_escape_string($setName) ."'")
+	      or die(mysql_error());
+
+        mysql_query("delete from `set` where name='"
+	      . mysql_real_escape_string($setName) ."'")
+	      or die(mysql_error());
+    }
+}
 
 /** \brief Create an entry to a project set.
  * \param entryName The name of the entry to create.
