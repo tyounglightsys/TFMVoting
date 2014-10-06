@@ -13,9 +13,9 @@ require_once('../config.php');
 require_once(LAYOUT_PATH_ROOT . 'header_start.php');
 
 // Keep errors from filling the error-log by making these entries if they do not exist
-if(!isset($_POST[P_ADMIN_STATE_VOTING_OPEN])) $_POST[P_ADMIN_STATE_VOTING_OPEN]=1;
-if(!isset($_POST[P_ADMIN_STATE_RESULTS_VISIBLE])) $_POST[P_ADMIN_STATE_RESULTS_VISIBLE]=1;
-if(!isset($_POST[P_ADMIN_STATE_ARCHIVED])) $_POST[P_ADMIN_STATE_ARCHIVED]=1;
+if(!isset($_POST[P_ADMIN_STATE_VOTING_OPEN])) $_POST[P_ADMIN_STATE_VOTING_OPEN]=0;
+if(!isset($_POST[P_ADMIN_STATE_RESULTS_VISIBLE])) $_POST[P_ADMIN_STATE_RESULTS_VISIBLE]=0;
+if(!isset($_POST[P_ADMIN_STATE_ARCHIVED])) $_POST[P_ADMIN_STATE_ARCHIVED]=0;
 if(!isset($_POST[P_ALL_PROJ_SET])) $_POST[P_ALL_PROJ_SET]="";
 if(!isset($_POST[P_ADMIN_ENTRY_NAME])) $_POST[P_ADMIN_ENTRY_NAME]="";
 if(!isset($_POST[P_ADMIN_ENTRY_URL])) $_POST[P_ADMIN_ENTRY_URL]="";
