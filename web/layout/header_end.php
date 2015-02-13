@@ -5,17 +5,22 @@ if (!isset($div_header_extra) || !$div_header_extra)
     $div_header_extra = '';
 ?><html>
     <head>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
         <title><?php ECHO htmlentities($title, ENT_QUOTES) ?></title>
-        <link rel="stylesheet" type="text/css" href="<?php echo LAYOUT_PATH_WWW ?>style.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo LAYOUT_PATH_WWW ?>jquery-ui.css">
-        <script src="<?php echo LAYOUT_PATH_WWW ?>jquery.js"></script>
-        <script src="<?php echo LAYOUT_PATH_WWW ?>jquery-ui.js"></script>
+        <link rel="stylesheet" type="text/css" href="/TFM/layout/style.css">
+        <link rel="stylesheet" type="text/css" href="/TFM/layout/jquery-ui.css">
+        <script src="/TFM/layout/jquery.js"></script>
+        <script src="/TFM/layout/jquery-ui.js"></script>
         <?php echo $head_extra ?>
 
     </head>
     <body>
-        <div id="header">
-            <h1><?php ECHO htmlentities($title, ENT_QUOTES) ?></h1>
-            <?php echo $div_header_extra ?>
+        <div id="container">
+            <div id="header">
+                <h1><?php ECHO htmlentities($title, ENT_QUOTES) ?></h1>
 
-        </div>
+                <?php echo $div_header_extra ?>
+
+            </div>

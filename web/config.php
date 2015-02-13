@@ -25,22 +25,22 @@ define('CRITERIA_NAME', 0);
 define('CRITERIA_DESCRIPTION', 1);
 
 /// \brief A user-configured value that tells the username to access the MySQL database.
-define('DB_USERNAME', "tfm");
+define('DB_USERNAME', "iccmaf_tfm");
 /// \brief A user-configured value that tells the password for DB_USERNAME for MySQL.
-define('DB_PASSWORD', "tfm");
+define('DB_PASSWORD', "p52dG32wQ");
 /// \brief A user-configured value that tells the address of the MySQL server.
-define('DB_HOST', "127.0.0.1");
+define('DB_HOST', "localhost");
 /// \brief A user-configured value stating the MySQL schema used for this web application.
-define('DB_DATABASE', "tfm");
+define('DB_DATABASE', "iccmaf_tfm");
 
 /** \brief A user-configured value that tells the web address of the folder containing
  * the voting system including the trailing slash. 
  */
-define('WWW', 'http://localhost/web/');
+define('WWW', 'http://nas.iccm/TFM/');
 /** \brief A user-configured value that tells the path to the folder containing the system
  * on the local machine including the trailing slash. 
  */
-define('ROOT', '/Library/WebServer/Documents/web/');
+define('ROOT', '/srv/www/htdocs/TFM/');
 
 define('LAYOUT_PATH_ROOT', ROOT . 'layout/');
 define('LAYOUT_PATH_WWW', WWW . 'layout/');

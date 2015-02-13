@@ -12,7 +12,7 @@ require_once(LAYOUT_PATH_ROOT . 'header_start.php');
 define('PROJECT_NUMBER', 0);
 define('CRITERIA_NUMBER', 1);
 define('MAX', 10);
-define('MIN', -10);
+define('MIN', 0);
 
 // Header Overrides ------------------------------------------------------------
 if (!$projectSet) {
@@ -27,10 +27,7 @@ $projectSetState = DB_GetProjectSetStates($projectSet);
 $title = $projectSet . ' Project Voting';
 $head_extra = null;
 
-// Cookie
-if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && (isset($_POST["projectSet"]) && !isset($_COOKIE[$_POST["projectSet"]]))) {
-    setCookieInfo('projectSetViewed', $_POST['projectSet'], time()+(60*60*24*30), COOKIE_PATH);
-}
+
 
 // Set additional head information
 $head_extra = '<!-- <script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script> -->
@@ -44,7 +41,11 @@ $head_extra = '<!-- <script src="' . LAYOUT_PATH_WWW . 'html5slider.js"></script
 // Header ----------------------------------------------------------------------
 require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
-if ($projectSetState["votingOpen"] && !isCookieSet('projectSetViewed', $projectSet)) {
+$allreadyvoted = ($_COOKIE['projectSetViewed']!='' ? true : false); 
+
+echo '<div id="content">';
+
+if ($projectSetState["votingOpen"] && !$allreadyvoted) {
     if (isset($_POST[P_VOTE_ACTION])) {
         // Variables
         $projectSet = $_POST["projectSet"];
@@ -90,18 +91,28 @@ if ($projectSetState["votingOpen"] && !isCookieSet('projectSetViewed', $projectS
         
         DB_VoteForProjectSet($projectSet, $votes);
         
-        echo 'Thanks for voting!';
+        // Cookie
+        //if ($projectSetState["votingOpen"] && isset($_POST[P_VOTE_ACTION]) && (isset($_POST["projectSet"]) && !isset($_COOKIE[$_POST["projectSet"]]))) {
+        //setCookieInfo('projectSetViewed', $_POST['projectSet'], time()+(60*60*24*30), COOKIE_PATH);
+        //}        
+        
+        setcookie('projectSetViewed', $_POST['projectSet'], time()+(60*60*24*30));  
+        
+        echo '<span class="result">Thanks for voting!</span>';
+        
     } else {
         $votingTable = new Voting_Entry_Table($projectSet);
         $votingTable->generate();
     }
 }
-else if(isCookieSet('projectSetViewed', $projectSet) || (isset($_POST["projectSet"]) && isCookieSet('projectSetViewed', $_POST["projectSet"]))) {
-    echo 'Thanks for voting!';
+else if($allreadyvoted) {
+    echo '<span class="result">Thanks for voting!</span>';
 }
 else {
     echo 'This year\'s TFM isn\'t open for voting. Please go back to the <a style="padding: 0;" href="../index.php">archives</a>.';
 }
+
+echo '</div>';
 
 require_once(LAYOUT_PATH_ROOT . 'footer.php')
 ?>

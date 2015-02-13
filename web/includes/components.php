@@ -231,8 +231,16 @@ class Archive_Entry_Table extends Entry_Table{
         if($resultsVisible){
             print("<td><img src='" . htmlspecialchars($this->getBadgePath($overallScore), ENT_QUOTES) . "'/></td>");
         }
-        print("<td>" . htmlentities($name) . "</td>
-                <td><a " . ($sensitive ? "" : "href='" . htmlentities($url) . "'") . ">" . htmlentities($url) . "</a></td>");
+        
+        print("<td>" . htmlentities($name) . "</td>");
+        
+        if(!$resultsVisible){
+            print("<td><a " . ($sensitive ? "" : "href='" . htmlentities($url) . "'") . ">" . htmlentities($url) . "</a></td>");
+        }
+        else {
+            print("<td></td>");
+        }
+        
         if($resultsVisible){
             print("<td><span class=\"totalScore\">" . htmlentities($overallScore) . "</span></td>");
         
@@ -241,7 +249,10 @@ class Archive_Entry_Table extends Entry_Table{
             }
         }
         print("</tr>");
-        print("<tr><td /><td colspan='" . ($resultsVisible ? 3 + count($scores) : 1) . "'><i><b>Description:</b> " . htmlentities($description) . "<i /></td></tr>");
+        
+        if(!$resultsVisible){
+            print("<tr><td /><td colspan='" . ($resultsVisible ? 3 + count($scores) : 1) . "'><i><b>Description:</b> " . htmlentities($description) . "<i /></td></tr>");
+        }
     }
     
     function writeEnd(){
@@ -377,7 +388,7 @@ class Voting_Entry_Table extends Entry_Table {
                                         $(document).ready(function() {
                                             $( "#sliderBar' . $id . '-' . $j . '" ).slider({
                                                 max: 10,
-                                                min: -10,
+                                                min: 0,
                                                 slide: function(event, ui) {
                                                     $( "#sliderValue' . $id . '-' . $j . '" ).text(ui.value);
                                                     $( "#sliderInput' . $id . '-' . $j . '" ).val(ui.value);
@@ -391,7 +402,7 @@ class Voting_Entry_Table extends Entry_Table {
                                     <!--' . /*
                                     <!--[if IE]>
                                     <select id="dropDown' . $id . '.' . $j . '" name="' . $id . '.' . $crit["name"] . '" onchange="recalcScores' . $id . '()">';
-                                    for($k = -10; $k <= 10; $k++) {
+                                    for($k = 0; $k <= 10; $k++) {
                                         echo '
                                         <option value="' . $k . '"' . (($k == 0) ? ' SELECTED' : '') . '>' . $k . '</option>';
                                     }
@@ -400,7 +411,7 @@ class Voting_Entry_Table extends Entry_Table {
                                     <![endif-->
                                     <!--[if !IE]><!-->
                                     <input type="range" class="sliderBar" id="sliderBar' . $id . '.' . $j . '" name="' . $id . '.' . $crit["id"]
-                                        . '" value="0" min="-10" max="10" onchange="displaySliderValue(\'sliderValue' . $id . '.' . $j . '\', this.value); recalcScores' . (int)$id . '()" />
+                                        . '" value="0" min="0" max="10" onchange="displaySliderValue(\'sliderValue' . $id . '.' . $j . '\', this.value); recalcScores' . (int)$id . '()" />
                                     <span id="sliderValue' . $id . '.' . $j . '"><script>document.write(document.getElementById(\'sliderBar' . $id . '.' . $j . '\').value)</script></span>
                                     <!--<![endif]-->
                                             */ ' -->

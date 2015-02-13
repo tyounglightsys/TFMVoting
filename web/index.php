@@ -17,11 +17,35 @@ $title = '';
 $head_extra = null;
 $div_header_extra = null;
 
-$title = 'Archives';
+$title = 'ICCM Europe\'s Technology for Mission Contest';
 
 require_once(LAYOUT_PATH_ROOT . 'header_end.php');
 
-if ($projectSet) {
+$allreadyvoted = ($_COOKIE['projectSetViewed']!='' ? true : false); 
+
+if (!isset($projectSet) || $projectSet === null) {
+    $projectSet = DB_GetCurrentProjectSetName();
+    $states = DB_GetProjectSetStates($projectSet);
+    
+    echo '
+            <h2>' . htmlentities($projectSet) . ' > Projects</h2>';
+    
+	if ($states["votingOpen"] && !$allreadyvoted) {
+	    echo "\n";
+	    echo'<div class="round-button rotate"><div class="round-button-circle"><a href="vote/index.php?projectSet='
+	    . htmlspecialchars($projectSet, ENT_QUOTES) . '">'
+	    . 'Click here to vote' . '</a></div></div>';
+	    echo "\n";
+	}
+
+    echo '<div id="content">';
+    $archiveTable = new Archive_Entry_Table($projectSet);
+    $archiveTable->generate();
+    echo '</div>';
+    
+    
+}
+else if ($projectSet) {
     $states = DB_GetProjectSetStates($projectSet);
     echo '    <br><a href="index.php">Back</a><br>';
     
@@ -53,6 +77,7 @@ if (!$projectSet) {
     
     $names_states = DB_GetAllProjectSetStates();
     foreach($names_states as $i => $name) {
+        
         if ($name["archived"]) {
             echo '
                 <h3><a href="index.php?projectSet='
@@ -61,30 +86,11 @@ if (!$projectSet) {
         }
     }
     
+
+    
     echo '
             </div>';
 }
-?>
-            <!--<table>
-                <tr>
-                    <th> Project Name </th>
-                    <th> Link </th>
-                </tr>
-                <tr>
-                    <td> Reallynotaproject </td>
-                    <td> <a href="">View</a> </td>
-                </tr>
-            </table>-->
-<?php
-/*        }
-        else{
-            ?>
-            <h2> Specific Project Set </h2>
-            <p>
-                asdfasdfg
-            </p>
-            <?php
-        }
-        ?>*/
+
 
 include(LAYOUT_PATH_ROOT . 'footer.php');
